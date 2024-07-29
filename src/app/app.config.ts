@@ -6,6 +6,7 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { IxModule } from '@siemens/ix-angular';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { AgGridModule } from 'ag-grid-angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,10 +14,13 @@ export const appConfig: ApplicationConfig = {
      provideRouter(routes),
      provideClientHydration(),
      provideHttpClient(withFetch()),
+    { provide: "baseUrl", useValue: "https://localhost:7299/api", multi: true},
      importProvidersFrom(
       IxModule.forRoot(),
       BrowserModule,
       BrowserAnimationsModule,
+      AgGridModule
       ),
+      AgGridModule,
       provideAnimations(),]
 };

@@ -24,6 +24,7 @@
     "@siemens/ix": "^2.4.1",
     "@siemens/ix-angular": "^2.4.1",
     "@siemens/ix-icons": "^2.2.0",
+    "ag-grid-angular": "^32.0.2",
     "express": "^4.18.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

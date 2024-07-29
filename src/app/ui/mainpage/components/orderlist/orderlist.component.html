@@ -1,1 +1,8 @@
-<p>orderlist works!</p>
+
+<ag-grid-angular *ngIf="isBrowser"
+  style="height: 500px;"
+  class="ag-theme-quartz-dark"
+  [rowData]="rowData"
+  [columnDefs]="colDefs"
+  [defaultColDef]="defaultColDef"
+></ag-grid-angular>
