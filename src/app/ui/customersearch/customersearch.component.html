@@ -1,7 +1,12 @@
 <div class="row" id="container">
-
-    <div class="col-md-3"> <app-customerlist></app-customerlist> </div>
-    <div class="col-md-1" id="line"></div>
-    <div class="col-md-8" id="table"> <app-customerinfo></app-customerinfo>   </div>
+  <div class="col-md-3">
+    <div class="button-container">
+      <app-basicbutton [label]="labelAdd" [icon]="iconAdd"></app-basicbutton>
+      <app-basicbutton [label]="labelEdit" [icon]="iconEdit"></app-basicbutton>
+      <app-basicbutton [label]="labelRemove" [icon]="iconRemove" (click)="deleteSelectedCustomer()"></app-basicbutton>
+    </div>
+    <app-customerlist></app-customerlist>
+  </div>
+  <div class="col-md-1" id="line"></div>
+  <div class="col-md-8" id="table"><app-customerinfo></app-customerinfo></div>
 </div>
-

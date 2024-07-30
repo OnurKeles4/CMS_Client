@@ -126,7 +126,7 @@ this.subscription = this.dataService.dataObs.subscribe(data => {
           order_id: order.id,
           status: order.status,
         });
-        console.log("rowdata", this.rowData);
+        //console.log("rowdata", this.rowData);
         this.rowData = rowdatatemp;
           this.isDataReady = true;
         

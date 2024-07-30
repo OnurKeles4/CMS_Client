@@ -21,6 +21,8 @@
     "@angular/platform-server": "^18.0.0",
     "@angular/router": "^18.0.0",
     "@angular/ssr": "^18.0.7",
+    "@fortawesome/angular-fontawesome": "^0.15.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@siemens/ix": "^2.4.1",
     "@siemens/ix-angular": "^2.4.1",
     "@siemens/ix-icons": "^2.2.0",

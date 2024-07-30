@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ListCustomer } from '../../contracts/customer/list_customer';
+import { ListOrder } from '../../contracts/order/list_order';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ export class DataService {
 
   private customer = new BehaviorSubject<ListCustomer>(null);
   customerObs = this.customer.asObservable();
+  private order = new BehaviorSubject<ListOrder>(null);
+  orderObs = this.order.asObservable();
 
 
   setData(data: boolean) {
@@ -31,10 +34,17 @@ export class DataService {
  }
 
  setCustomer(data: ListCustomer) {
-  //console.log("data has been set");
+  console.log("data has been set");
   //console.log(data);
   //console.log(this.dataObs);
  
  this.customer.next(data);
+}
+setOrder(data: ListOrder) {
+  //console.log("data has been set");
+  //console.log(data);
+  //console.log(this.dataObs);
+ 
+ this.order.next(data);
 }
 }

@@ -66,7 +66,7 @@ export class CustomerService {
   }
 
   async delete(id: string) {
-    //console.log("Delete Selected in Service, id:", id);
+    console.log("Delete Selected in Service, id:", id);
     
     const deleteObservable: Observable<any> = this.httpClientService.delete<any>({
       controller: "customers"

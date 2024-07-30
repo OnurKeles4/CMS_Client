@@ -28,7 +28,14 @@ export class CustomerlistComponent {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.subscription = this.dataService.dataObs.subscribe((data) => {
      // console.log('Data has been set', data);
+     this.updateList();
     });
+    this.subscription = this.dataService.refreshObs.subscribe((refresh) => {
+      // console.log('Data has been set', data);
+      //console.log("a");
+      
+      
+     });
     this.updateList();
   }
 
@@ -38,7 +45,7 @@ export class CustomerlistComponent {
     filter: true,
   };
   colDefs: ColDef[] = [
-    { field: 'name', minWidth:295}, //customer name
+    { field: 'name', minWidth:295, width:295}, //customer name
   ];
 
   async updateList() {
@@ -62,10 +69,18 @@ export class CustomerlistComponent {
     this.selectedCustomer = event.data;     //can it be just data or should we pass the id?
     console.log(this.selectedCustomer);
     this.sendCustomer();
+    //console.log(this.selectedCustomer);
+    
+    
   }
 
   sendCustomer() {
-  this.dataService.setRefresh(true);
   this.dataService.setCustomer(this.selectedCustomer);
+  this.sendRefreshRequest(true);
+  }
+
+  sendRefreshRequest(flag: boolean) {
+    console.log('Send Refresh Request in Delete being sent');
+    this.dataService.setRefresh(flag);
   }
 }
