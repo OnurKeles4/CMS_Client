@@ -1,8 +1,9 @@
 
-<ag-grid-angular *ngIf="isBrowser"
+<ag-grid-angular *ngIf="isBrowser && isDataReady"
   style="height: 500px;"
   class="ag-theme-quartz-dark"
   [rowData]="rowData"
   [columnDefs]="colDefs"
   [defaultColDef]="defaultColDef"
 ></ag-grid-angular>
+<ix-button (click)="adaptFilter()">Filter Date</ix-button>

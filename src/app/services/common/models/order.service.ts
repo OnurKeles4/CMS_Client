@@ -12,10 +12,10 @@ export class OrderService {
   dataloaded: boolean = false;
   constructor(private httpClientService: HttpClientService) { }
 
-  //When you create an order, at the moment you need to have customer name and customer id. Make it so that you should send a body rather than normal parameters
-  //create(order: CreateOrder, customer_id: string,customer_name: string,successCallBack?: any, errorCallBack?: (errorMessage: string) => void) {
+  
+  create(order: CreateOrder, successCallBack?: any, errorCallBack?: (errorMessage: string) => void) {
 
-  this.httpClientService.post({controller: "orders"}, order, customer_id, customer_name)
+  this.httpClientService.post({controller: "orders"}, order)
   .subscribe(result => {successCallBack();
 
   },(errorResponse: HttpErrorResponse) => {
@@ -39,9 +39,20 @@ export class OrderService {
     */
    read(): Observable<ListOrder[]> {
     
-    var a = this.httpClientService.get<ListOrder[]>({
-      controller: "orders"
-    });
+    var a = this.httpClientService.get<ListOrder[]>(
+      {controller: "orders"});
+    return a;
+
+
+    // console.log("read");
+    // console.log(a);
+    // return a;
+
+  }
+  async readLastMonth(ifLastMonth: boolean): Promise<Observable<ListOrder[]>> {
+    
+    var a = this.httpClientService.get<ListOrder[]>(
+      {controller: "orders"}, ifLastMonth);
     return a;
 
 
@@ -56,7 +67,7 @@ export class OrderService {
     
     const readIdObs: Observable<any> = this.httpClientService.get<ListOrder[]>({
       controller: "orders"
-    }, id);
+    }, false, id);
     //console.log("obs read with Id");
      //console.log(a);
     

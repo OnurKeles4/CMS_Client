@@ -6,67 +6,99 @@ import { CustomerService } from '../../../../services/common/models/customer.ser
 import { OrderService } from '../../../../services/common/models/order.service';
 import { ListCustomer } from '../../../../contracts/customer/list_customer';
 import { ListOrder } from '../../../../contracts/order/list_order';
+import { IxModule } from '@siemens/ix-angular';
 
 @Component({
   selector: 'app-orderlist',
   standalone: true,
-  imports: [CommonModule, AgGridModule],
+  imports: [CommonModule, AgGridModule, IxModule],
   templateUrl: './orderlist.component.html',
   styleUrls: ['./orderlist.component.scss'],
 })
 export class OrderlistComponent {
   isBrowser: boolean;
   isDataReady: boolean = false;
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private customerService: CustomerService,
-  private orderService: OrderService) {
+  ifLastMonth: boolean = true;
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private customerService: CustomerService,
+    private orderService: OrderService
+  ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    
-    
+
     this.updateList();
   }
 
   rowData: any[] = [];
-  rowDatatemp:any[] = [];
+  temp: any;
+  rowDatatemp: ListCustomer[] = [];
   tempArr: ListOrder[];
   colDefs: ColDef[] = [
-    { field: "customerName" },          //customer name,
-    { field: "name" },         //order date
-    { field: "id" },         //order number
-    { field: "status" },         //
+    { field: 'customer_name' }, //customer name,
+    { field: 'order_name' }, //order date
+    { field: 'order_id' }, //order number
+    { field: 'status' }, //
   ];
   defaultColDef: ColDef = {
     sortable: true,
-    filter: true
+    filter: true,
   };
- 
+
+  adaptFilter() {
+    console.log('filter', this.ifLastMonth);
+    
+    this.ifLastMonth = !this.ifLastMonth;
+    this.updateList();
+  }
+
+  // async updateList() {
+  //   let rowdatatemp = [];
+  //   this.orderService.read().subscribe((orders) => {
+  //     console.log(orders);
+
+  //     this.tempArr = orders;
+
+  //     this.customerService.read().subscribe((customers) => {
+  //       this.tempArr.forEach(async (order) => {
+  //         customers.find((customer) => {
+  //           if (customer.id == order.customerId) {
+  //             this.rowData.push({
+  //               customer_name: customer.name,
+  //               order_name: order.name,
+  //               order_id: order.id,
+  //               status: order.status,
+  //             });
+  //           }
+  //         });
+  //       });
+  //       console.log('row data', this.rowData);
+
+  //       this.isDataReady = true;
+  //     });
+  //   });
+  // }
   async updateList() {
     let rowdatatemp = [];
-    this.orderService.read().subscribe((orders) => 
-      {
-        console.log(orders);
+    (await this.orderService.readLastMonth(this.ifLastMonth)).subscribe((orders) => {
+      console.log(orders);
+
+      this.tempArr = orders;
+      orders.forEach(async (order) => {
+      this.temp = await this.customerService.readWithId(order.customerId);
+      console.log("a", this.temp.name);
         
-        this.rowData = orders;
-        // this.tempArr = orders;
-        // //console.log(this.tempArr[0].customerId);
-        // let rowdatatemp = [];
-        // this.tempArr.forEach(async (order) => { 
-        //  console.log("order", order.customerId);
-         
-          
-          
-        //   console.log("order", temp.name);
-        //   this.rowData.push({
-        //     customer_name: temp.name,
-        //     order_name: order.name,
-        //     order_id: order.id,
-        //     status: order.status
-        //   });
-        //   console.log("end of for", this.rowData);
-          
+      this.rowData.push({
+          customer_name: this.temp.name,
+          order_name: order.name,
+          order_id: order.id,
+          status: order.status,
         });
-        
-    
-     
+    this.isDataReady = true;
+      });
+
+      if(this.ifLastMonth)
+        this.isDataReady = true;
+    });
   }
 
   assignData() {
@@ -74,8 +106,6 @@ export class OrderlistComponent {
     this.updateList();
   }
 }
-
-
 
 class CustomerOrderList {
   customer_name: string;

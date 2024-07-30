@@ -53,7 +53,7 @@ export class CustomerService {
     
     const readIdObs: Observable<any> = this.httpClientService.get<ListCustomer[]>({
       controller: "customers"
-    }, id);
+    },false, id);
 
     
     var a = await firstValueFrom(readIdObs);
