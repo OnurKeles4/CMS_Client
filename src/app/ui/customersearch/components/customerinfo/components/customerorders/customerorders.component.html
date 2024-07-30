@@ -1,1 +1,18 @@
-<p>customerorders works!</p>
+<!-- <ag-grid-angular *ngIf="isBrowser && isDataReady"
+  style="height: 120%; width: inherit;"
+  class="ag-theme-quartz-dark"
+  [rowData]="rowData"
+  [columnDefs]="colDefs"
+  [defaultColDef]="defaultColDef"
+  (rowClicked)="selectCustomer($event)"
+></ag-grid-angular> -->
+<ng-container *ngIf="isDataReady">
+<ix-event-list class="infobox6" *ngFor="let order of rowData" id="orders">
+    <ix-blind label={{order.name}} class="child" collapsed="true">
+      <p>{{order.description}}</p>
+      <p>{{order.address}}</p>
+      <p>{{order.status}} </p>
+    </ix-blind>
+
+  </ix-event-list>
+</ng-container>

@@ -44,7 +44,7 @@ this.subscription = this.dataService.dataObs.subscribe(data => {
   rowDatatemp: ListCustomer[] = [];
   tempArr: ListOrder[];
   colDefs: ColDef[] = [
-    { field: 'customer_name' }, //customer name,
+    { field: 'customer_name', }, //customer name,
     { field: 'order_name' }, //order date
     { field: 'order_id' }, //order number
     { field: 'status' }, //

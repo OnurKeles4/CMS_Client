@@ -1,7 +1,8 @@
 <ag-grid-angular *ngIf="isBrowser && isDataReady"
-  style="height: 800px;"
+  style="height: 800px; width: 300px;"
   class="ag-theme-quartz-dark"
   [rowData]="rowData"
   [columnDefs]="colDefs"
   [defaultColDef]="defaultColDef"
+  (rowClicked)="selectCustomer($event)"
 ></ag-grid-angular>

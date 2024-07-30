@@ -1,1 +1,20 @@
-<p>customerdetail works!</p>
+<ng-container *ngIf="isRefresh">
+<div class="row" id="container">
+    <div class="col-md-6" id="name">
+<ix-typography  format="h2">{{customer.name}}</ix-typography >
+    <div id="label">
+        <ix-typography format="h3"> Email: </ix-typography >
+    <ix-typography  format="label"> {{customer.email}}</ix-typography >
+        
+    </div>
+</div>
+<div class="col-md-6">
+        
+    <div id="label">
+        <ix-typography format="h3"> Phone Number: </ix-typography >
+        <ix-typography  format="label"> {{customer.phone_number}}</ix-typography >
+    </div>
+</div>
+</div>
+
+</ng-container>
