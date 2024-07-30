@@ -31,8 +31,7 @@ export class CustomerlistComponent {
      this.updateList();
     });
     this.subscription = this.dataService.refreshObs.subscribe((refresh) => {
-      // console.log('Data has been set', data);
-      //console.log("a");
+
       
       
      });
@@ -69,7 +68,7 @@ export class CustomerlistComponent {
   selectCustomer(event: any) {
     this.selectedCustomer = event.data;     //can it be just data or should we pass the id?
     console.log(this.selectedCustomer);
-    //this.sendCustomer();
+    this.sendCustomer();
     this.sendisDisabled(false);
     //console.log(this.selectedCustomer);
     
