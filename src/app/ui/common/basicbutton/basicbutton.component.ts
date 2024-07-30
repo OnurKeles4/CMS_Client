@@ -19,9 +19,9 @@ export class BasicbuttonComponent implements OnDestroy {
   attempt: boolean = true;
   subscription: any;
   constructor(private dataService: DataService) {
-    this.subscription = this.dataService.dataObs.subscribe(data => {
+    this.subscription = this.dataService.isDisabledObs.subscribe(data => {
       this.isDisabled = data;
-      //console.log("Data has been set", this.isDisabled);
+      console.log("Isdisabled has been set", this.isDisabled);
       
     });
 

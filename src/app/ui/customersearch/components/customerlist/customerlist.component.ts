@@ -38,6 +38,7 @@ export class CustomerlistComponent {
      });
     this.updateList();
   }
+  
 
   rowData: any[] = [];
   defaultColDef: ColDef = {
@@ -68,17 +69,22 @@ export class CustomerlistComponent {
   selectCustomer(event: any) {
     this.selectedCustomer = event.data;     //can it be just data or should we pass the id?
     console.log(this.selectedCustomer);
-    this.sendCustomer();
+    //this.sendCustomer();
+    this.sendisDisabled(false);
     //console.log(this.selectedCustomer);
     
     
+  }
+
+  sendisDisabled(flag: boolean) {
+    this.dataService.setisDisabled(flag);
   }
 
   sendCustomer() {
   this.dataService.setCustomer(this.selectedCustomer);
   this.sendRefreshRequest(true);
   }
-
+  //this is causing the isdisabled turn into true                 //THIS SETREFRESH SHOULDN'T BE COMMENTED OUT
   sendRefreshRequest(flag: boolean) {
     console.log('Send Refresh Request in Delete being sent');
     this.dataService.setRefresh(flag);

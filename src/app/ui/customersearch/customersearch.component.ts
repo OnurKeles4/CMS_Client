@@ -31,7 +31,7 @@ export class CustomerSearchComponent {
   iconRemove = faRemove;
   iconEdit = faEdit;
   subscription: any;
-  isDisabled: boolean;
+  isDisabled: boolean = true;
 
   selectedCustomer: ListCustomer;
   selectedOrder: ListOrder;
@@ -52,6 +52,7 @@ export class CustomerSearchComponent {
     this.selectedCustomer = data;
   });
 }
+
       //Don't forget the fact that when a customer has a order, the orders should be also deleted (before probably)!
   async deleteSelectedCustomer() {
 
@@ -65,6 +66,8 @@ export class CustomerSearchComponent {
         console.log('Deleted a customer');
         this.sendData(false);
         this.sendRefreshRequest(true);
+        this.sendisDisabled(true);
+        
       }
       
     );
@@ -73,6 +76,9 @@ export class CustomerSearchComponent {
       //Doesn't work at the moment
       console.log('the button is disabled');
     }
+  }
+  sendisDisabled(flag: boolean) {
+    this.dataService.setisDisabled(flag);
   }
   sendData(flag: boolean) {
     //console.log("SendData in Delete being sent");

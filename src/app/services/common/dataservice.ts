@@ -11,6 +11,8 @@ export class DataService {
   dataObs = this.data.asObservable();
   private refresh = new BehaviorSubject(false);
   refreshObs = this.refresh.asObservable();
+  private isDisabled = new BehaviorSubject(true);
+  isDisabledObs = this.isDisabled.asObservable();
 
   private customer = new BehaviorSubject<ListCustomer>(null);
   customerObs = this.customer.asObservable();
@@ -26,6 +28,11 @@ export class DataService {
     this.data.next(data);
   }
 
+  setisDisabled(data: boolean) {
+    console.log("AAAAAAAAAAAAAAAAAAAA");
+    
+    this.isDisabled.next(data);
+  }
   
   setRefresh(data: boolean) {
     //console.log("refresh has been set");
