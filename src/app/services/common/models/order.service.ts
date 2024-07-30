@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClientService } from '../http-client.service';
 import { CreateOrder } from '../../../contracts/order/create_order';
 import { HttpErrorResponse } from '@angular/common/http';
-import { firstValueFrom, lastValueFrom, Observable } from 'rxjs';
+import { filter, firstValueFrom, lastValueFrom, Observable } from 'rxjs';
 import { ListOrder } from '../../../contracts/order/list_order';
 import { LastValueFromConfig } from 'rxjs/internal/lastValueFrom';
 @Injectable({
@@ -49,10 +49,10 @@ export class OrderService {
     // return a;
 
   }
-  async readLastMonth(ifLastMonth: boolean): Promise<Observable<ListOrder[]>> {
+  async readLastMonth(FilterDays: number, ifLastMonth: boolean): Promise<Observable<ListOrder[]>> {
     
-    var a = this.httpClientService.get<ListOrder[]>(
-      {controller: "orders"}, ifLastMonth);
+    var a = this.httpClientService.getDays<ListOrder[]>(
+      {controller: "orders"}, FilterDays, ifLastMonth);
     return a;
 
 
@@ -67,7 +67,7 @@ export class OrderService {
     
     const readIdObs: Observable<any> = this.httpClientService.get<ListOrder[]>({
       controller: "orders"
-    }, false, id);
+    }, id);
     //console.log("obs read with Id");
      //console.log(a);
     

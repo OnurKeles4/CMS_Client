@@ -22,6 +22,9 @@ export class OrderlistComponent {
   ifLastMonth: boolean = true;
   subscription: any;
 
+  whichFilter: number = 0;
+  FilterDays: number = 0;
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private customerService: CustomerService,
@@ -55,11 +58,31 @@ this.subscription = this.dataService.dataObs.subscribe(data => {
     //console.log('filter', this.ifLastMonth);
     
       this.rowData = [];
-
-    this.ifLastMonth = !this.ifLastMonth;
-    
+    this.ifLastMonth = true;
+    this.filterSwitch();
     this.updateList();
   }
+
+  filterSwitch() {
+      switch (this.FilterDays) {
+        case 0:
+          this.FilterDays = 30;
+          break;
+        case 30:
+          this.FilterDays = 60;
+          break;
+        case 60:
+          this.FilterDays = 90;
+          break;
+        case 90:
+          this.ifLastMonth = false;
+          this.FilterDays = 0;
+          break;
+          
+  }
+  
+  console.log('filterdays', this.FilterDays);
+}
 
   // async updateList() {
   //   let rowdatatemp = [];
@@ -89,7 +112,7 @@ this.subscription = this.dataService.dataObs.subscribe(data => {
   // }
   async updateList() {
     let rowdatatemp = [];
-    (await this.orderService.readLastMonth(this.ifLastMonth)).subscribe((orders) => {
+    (await this.orderService.readLastMonth(this.FilterDays, this.ifLastMonth)).subscribe((orders) => {
       console.log("orders", orders);
 
       this.tempArr = orders;
