@@ -7,6 +7,7 @@ import { OrderService } from '../../../../services/common/models/order.service';
 import { ListCustomer } from '../../../../contracts/customer/list_customer';
 import { ListOrder } from '../../../../contracts/order/list_order';
 import { IxModule } from '@siemens/ix-angular';
+import { DataService } from '../../../../services/common/dataservice';
 
 @Component({
   selector: 'app-orderlist',
@@ -19,13 +20,19 @@ export class OrderlistComponent {
   isBrowser: boolean;
   isDataReady: boolean = false;
   ifLastMonth: boolean = true;
+  subscription: any;
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private customerService: CustomerService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private dataService: DataService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-
+this.subscription = this.dataService.dataObs.subscribe(data => {
+    console.log('Data has been set', data);
+    this.ifLastMonth = data;
+      });
     this.updateList();
   }
 
@@ -45,9 +52,12 @@ export class OrderlistComponent {
   };
 
   adaptFilter() {
-    console.log('filter', this.ifLastMonth);
+    //console.log('filter', this.ifLastMonth);
     
+      this.rowData = [];
+
     this.ifLastMonth = !this.ifLastMonth;
+    
     this.updateList();
   }
 
@@ -80,25 +90,33 @@ export class OrderlistComponent {
   async updateList() {
     let rowdatatemp = [];
     (await this.orderService.readLastMonth(this.ifLastMonth)).subscribe((orders) => {
-      console.log(orders);
+      console.log("orders", orders);
 
       this.tempArr = orders;
       orders.forEach(async (order) => {
       this.temp = await this.customerService.readWithId(order.customerId);
       console.log("a", this.temp.name);
         
-      this.rowData.push({
+      rowdatatemp.push({
           customer_name: this.temp.name,
           order_name: order.name,
           order_id: order.id,
           status: order.status,
         });
-    this.isDataReady = true;
+        console.log("rowdata", this.rowData);
+        this.rowData = rowdatatemp;
+          this.isDataReady = true;
+        
       });
 
-      if(this.ifLastMonth)
+      if(this.ifLastMonth) {
         this.isDataReady = true;
+      }
     });
+  }
+
+  sendData() {
+    this.dataService.setData(!this.ifLastMonth);
   }
 
   assignData() {
