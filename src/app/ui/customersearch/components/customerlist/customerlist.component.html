@@ -1,1 +1,7 @@
-<p>customerlist works!</p>
+<ag-grid-angular *ngIf="isBrowser && isDataReady"
+  style="height: 800px;"
+  class="ag-theme-quartz-dark"
+  [rowData]="rowData"
+  [columnDefs]="colDefs"
+  [defaultColDef]="defaultColDef"
+></ag-grid-angular>
