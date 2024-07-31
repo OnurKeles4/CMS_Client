@@ -31,7 +31,7 @@ export class CustomerlistComponent {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.subscription = this.dataService.dataObs.subscribe((data) => {
      // console.log('Data has been set', data);
-     //this.updateList();
+
     });
     this.subscription = this.dataService.refreshObs.subscribe((refresh) => {
 
@@ -59,7 +59,7 @@ export class CustomerlistComponent {
       this.rowData = rowdatatemp;
       this.isDataReady = true;
       
-        this.selectedCustomer = this.rowData[0];
+        //this.selectedCustomer = this.rowData[0];
         this.sendCustomer();
         //console.log(this.selectedCustomer);
         
@@ -79,7 +79,7 @@ export class CustomerlistComponent {
     
   }
   onGridReady(params: any) {
-    this.gridApi = params.api;;
+    this.gridApi = params.api;
     
   }
   sendData(flag: boolean) {
@@ -91,11 +91,7 @@ export class CustomerlistComponent {
 
   sendCustomer() {
   this.dataService.setCustomer(this.selectedCustomer);
-  this.sendRefreshRequest(true);
   }
-  //this is causing the isdisabled turn into true                 //THIS SETREFRESH SHOULDN'T BE COMMENTED OUT
-  sendRefreshRequest(flag: boolean) {
-    console.log('Send Refresh Request in Delete being sent');
-    //this.dataService.setRefresh(flag);
-  }
+
+
 }

@@ -4,7 +4,6 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { IxModule } from '@siemens/ix-angular';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
-import { CustomerService } from '../../../../../../services/common/models/customer.service';
 import { OrderService } from '../../../../../../services/common/models/order.service';
 import { DataService } from '../../../../../../services/common/dataservice';
 import { ListOrder } from '../../../../../../contracts/order/list_order';
@@ -59,10 +58,7 @@ export class CustomerordersComponent {
       });
 
       this.rowData = rowdatatemp;
-      //this.isDataReady = true;
-
-      //this.selectedCustomer = this.rowData[0];
-      //this.sendOrder();
+      
       //console.log(this.selectedCustomer);
     });
   }
@@ -71,12 +67,8 @@ export class CustomerordersComponent {
   selectCustomer(event: any) {
     this.selectedCustomer = event.data; //can it be just data or should we pass the id?
     console.log(this.selectedCustomer);
-    this.sendOrder();
   }
 
-  sendOrder() {
-    //this.dataService.setCustomer(this.selectedCustomer);
-  }
 
   sendRefresh() {
     this.dataService.setRefresh(!this.isRefreshed);

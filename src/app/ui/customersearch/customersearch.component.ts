@@ -67,16 +67,18 @@ export class CustomerSearchComponent {
 
       
         console.log('Deleted a customer');
-        //this.sendData(false);
+        //Put the button on waiting mode
         this.sendRefreshRequest(false);
-        //this.sendisDisabled(true);
+        //Refresh the data on the customerinfo 
+        this.sendData(false);
+
         
       }
       
     );
   }
     else {
-      //Doesn't work at the moment
+      
       console.log('the button is disabled');
     }
   }
