@@ -29,7 +29,7 @@ export class DataService {
   }
 
   setisDisabled(data: boolean) {
-    console.log("AAAAAAAAAAAAAAAAAAAA");
+    //console.log("AAAAAAAAAAAAAAAAAAAA");
     
     this.isDisabled.next(data);
   }

@@ -19,27 +19,33 @@ import { DataService } from '../../../../services/common/dataservice';
 export class OrderlistComponent {
   isBrowser: boolean;
   isDataReady: boolean = false;
-  ifLastMonth: boolean = true;
+  ifLastMonth: boolean = false;
   subscription: any;
 
   whichFilter: number = 0;
   FilterDays: number = 0;
+  isConcat: boolean;
+  gridApi: any;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private customerService: CustomerService,
     private orderService: OrderService,
     private dataService: DataService
-  ) {
+  )
+   {
     this.isBrowser = isPlatformBrowser(this.platformId);
 this.subscription = this.dataService.dataObs.subscribe(data => {
     console.log('Data has been set', data);
-    this.ifLastMonth = data;
+    //this.ifLastMonth = data;
+    //this.updateList();
+    //this.concatData();
       });
     this.updateList();
   }
 
-  rowData: any[] = [];
+
+  rowData: CustomerOrderList[] = [];
   temp: any;
   rowDatatemp: ListCustomer[] = [];
   tempArr: ListOrder[];
@@ -58,9 +64,9 @@ this.subscription = this.dataService.dataObs.subscribe(data => {
     //console.log('filter', this.ifLastMonth);
     
       this.rowData = [];
-    this.ifLastMonth = true;
+    this.ifLastMonth = false;
     this.filterSwitch();
-    this.updateList();
+    this.updateList();//
   }
 
   filterSwitch() {
@@ -111,41 +117,57 @@ this.subscription = this.dataService.dataObs.subscribe(data => {
   //   });
   // }
   async updateList() {
-    let rowdatatemp = [];
+    let rowdatatemp: CustomerOrderList[] = [];
     (await this.orderService.readLastMonth(this.FilterDays, this.ifLastMonth)).subscribe((orders) => {
-      console.log("orders", orders);
+      //console.log("orders", orders);
 
       this.tempArr = orders;
       orders.forEach(async (order) => {
       this.temp = await this.customerService.readWithId(order.customerId);
       console.log("a", this.temp.name);
         
-      rowdatatemp.push({
+      this.rowData.push({
           customer_name: this.temp.name,
           order_name: order.name,
           order_id: order.id,
           status: order.status,
         });
-        //console.log("rowdata", this.rowData);
-        this.rowData = rowdatatemp;
-          this.isDataReady = true;
+        this.gridApi.setGridOption("rowData", this.rowData);
         
       });
-
-      if(this.ifLastMonth) {
-        this.isDataReady = true;
-      }
+      //this.concatData(rowdatatemp);
+          
+    // if(this.ifLastMonth) {
+    this.isDataReady = true;
+    // }
     });
+  
+
+  }
+  concatData(arr: any) {
+    
+    console.log("rowData", this.rowData);
+    this.isDataReady = true;
+    //this.rowData = arr;
+    
+    this.gridApi.setRowData(this.rowData);
+    console.log("rowData after", this.rowData);
+    
+
+  }
+
+  onGridReady(params) {
+    this.gridApi = params.api; // To access the grids API
+  }
+
+  gridOptions = {
   }
 
   sendData() {
-    this.dataService.setData(!this.ifLastMonth);
+    //this.dataService.setData(!this.ifLastMonth);
   }
 
-  assignData() {
-    this.rowData;
-    this.updateList();
-  }
+
 }
 
 class CustomerOrderList {

@@ -45,7 +45,7 @@ export class CustomerlistComponent {
     filter: true,
   };
   colDefs: ColDef[] = [
-    { field: 'name', minWidth:295, width:295}, //customer name
+    { field: 'name', minWidth:378, width:378}, //customer name
   ];
 
   async updateList() {
@@ -86,6 +86,6 @@ export class CustomerlistComponent {
   //this is causing the isdisabled turn into true                 //THIS SETREFRESH SHOULDN'T BE COMMENTED OUT
   sendRefreshRequest(flag: boolean) {
     console.log('Send Refresh Request in Delete being sent');
-    this.dataService.setRefresh(flag);
+    //this.dataService.setRefresh(flag);
   }
 }

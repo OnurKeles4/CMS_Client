@@ -5,5 +5,7 @@
   [rowData]="rowData"
   [columnDefs]="colDefs"
   [defaultColDef]="defaultColDef"
+  [gridOptions]="gridOptions"
+  (gridReady)="onGridReady($event)">
 ></ag-grid-angular>
 <ix-button (click)="adaptFilter()">Filter Date</ix-button>

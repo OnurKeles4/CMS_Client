@@ -12,11 +12,12 @@ import { OrderService } from '../../services/common/models/order.service';
 import { CustomerService } from '../../services/common/models/customer.service';
 import { ListCustomer } from '../../contracts/customer/list_customer';
 import { ListOrder } from '../../contracts/order/list_order';
+import { MessageComponent } from "../common/message/message.component";
 
 @Component({
   selector: 'app-customersearch',
   standalone: true,
-  imports: [CustomerinfoComponent, CustomerlistComponent, BasicbuttonComponent],
+  imports: [CustomerinfoComponent, CustomerlistComponent, BasicbuttonComponent, MessageComponent],
   templateUrl: './customersearch.component.html',
   styleUrl: './customersearch.component.scss'
 })
@@ -42,7 +43,7 @@ export class CustomerSearchComponent {
     protected customerService: CustomerService,
     private renderer: Renderer2,
     private dataService: DataService) {
- this.subscription = this.dataService.dataObs.subscribe(data => {
+ this.subscription = this.dataService.isDisabledObs.subscribe(data => {
   //console.log('Data has been set', data);
   
       this.isDisabled = data;
@@ -57,6 +58,7 @@ export class CustomerSearchComponent {
   async deleteSelectedCustomer() {
 
     if(this.isDisabled != true) {
+      this.sendisDisabled(true);
       console.log('Delete Selected in Delete, id:', this.selectedCustomer.id);
 
     await this.customerService.delete(this.selectedCustomer.id).then(
@@ -65,8 +67,8 @@ export class CustomerSearchComponent {
       
         console.log('Deleted a customer');
         this.sendData(false);
-        this.sendRefreshRequest(true);
-        this.sendisDisabled(true);
+        this.sendRefreshRequest(false);
+        //this.sendisDisabled(true);
         
       }
       
