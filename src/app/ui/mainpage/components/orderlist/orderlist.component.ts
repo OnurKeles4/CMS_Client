@@ -31,6 +31,7 @@ export class OrderlistComponent {
     @Inject(PLATFORM_ID) private platformId: Object,
     private customerService: CustomerService,
     private orderService: OrderService,
+    private dataService: DataService
   )
    {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -61,20 +62,22 @@ export class OrderlistComponent {
     this.ifLastMonth = false;
     this.filterSwitch();
     this.updateList();//
+    this.sendFilter();
+    
   }
 
   filterSwitch() {
       switch (this.FilterDays) {
         case 0:
-          this.FilterDays = 30;
-          break;
-        case 30:
-          this.FilterDays = 60;
-          break;
-        case 60:
           this.FilterDays = 90;
           break;
         case 90:
+          this.FilterDays = 180;
+          break;
+        case 180:
+          this.FilterDays = 360;
+          break;
+        case 360:
           this.ifLastMonth = false;
           this.FilterDays = 0;
           break;
@@ -113,12 +116,12 @@ export class OrderlistComponent {
   async updateList() {
     let rowdatatemp: CustomerOrderList[] = [];
     (await this.orderService.readLastMonth(this.FilterDays, this.ifLastMonth)).subscribe((orders) => {
-      //console.log("orders", orders);
+      console.log("orders", orders);
 
       this.tempArr = orders;
       orders.forEach(async (order) => {
-      this.temp = await this.customerService.readWithId(order.customerId);
-      console.log("a", this.temp.name);
+      this.temp = await this.customerService.readWithId(order.customerId);      //Instead of reading all customers 100 times, read it once, save it in an array, check id values from there. 
+      //console.log("a", this.temp.name);
         
       this.rowData.push({
           customer_name: this.temp.name,
@@ -144,7 +147,12 @@ export class OrderlistComponent {
   gridOptions = { }
 
   sendData() {
+    this.dataService.setData();
     //this.dataService.setData(!this.ifLastMonth);
+  }
+
+  sendFilter() {
+    this.dataService.setFilterData(this.FilterDays);
   }
 }
 

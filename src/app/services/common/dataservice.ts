@@ -14,20 +14,27 @@ export class DataService {
   private isDisabled = new BehaviorSubject(true);
   isDisabledObs = this.isDisabled.asObservable();
 
+  private filterData = new BehaviorSubject<number>(0);
+  filterDataObs = this.filterData.asObservable();
+
   private customer = new BehaviorSubject<ListCustomer>(null);
   customerObs = this.customer.asObservable();
   private order = new BehaviorSubject<ListOrder>(null);
   orderObs = this.order.asObservable();
 
 
-  setData(data: boolean) {
+  setData(data?: boolean) {
      //console.log("data has been set");
      //console.log(data);
      //console.log(this.dataObs);
     
     this.data.next(data);
   }
-
+  setFilterData(data: number) {
+    //console.log("AAAAAAAAAAAAAAAAAAAA");
+    
+    this.filterData.next(data);
+  }
   setisDisabled(data: boolean) {
     //console.log("AAAAAAAAAAAAAAAAAAAA");
     

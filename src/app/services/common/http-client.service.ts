@@ -30,6 +30,15 @@ export class HttpClientService {
     return this.httpClient.get<T>(url, { headers: requestParameter.headers });
   }
 
+  getDaysCount<T>(requestParameter: Partial<RequestParameters>, FilterDays?: number, id?: string): Observable<T> {
+    let url: string = "";
+    if (requestParameter.fullEndPoint)
+      url = requestParameter.fullEndPoint;
+    else
+      url = `${this.url(requestParameter)}${`/count-orders?value=${FilterDays}`}${id ? `/${id}` : ""}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
+    return this.httpClient.get<T>(url, { headers: requestParameter.headers });
+  }
+
   
   post<T>(requestParameter: Partial<RequestParameters>, body: Partial<T>, id?: string, customer_name?: string): Observable<T> {
     let url: string = "";

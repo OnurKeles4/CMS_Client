@@ -61,6 +61,19 @@ export class OrderService {
     // return a;
 
   }
+  
+  async readDaysCount(FilterDays: number): Promise<Observable<ListOrder[]>> {
+    
+    var a = this.httpClientService.getDaysCount<ListOrder[]>(
+      {controller: "orders"}, FilterDays);
+    return a;
+
+
+    // console.log("read");
+    // console.log(a);
+    // return a;
+
+  }
     //Consider making it async
   async readWithId(id: string): Promise<Observable<ListOrder[]>> {
     //console.log("start read with Id");
