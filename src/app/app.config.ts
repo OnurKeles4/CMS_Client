@@ -7,6 +7,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { IxModule } from '@siemens/ix-angular';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { AgGridModule } from 'ag-grid-angular';
+import { DatePipe } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,5 +23,6 @@ export const appConfig: ApplicationConfig = {
       AgGridModule
       ),
       AgGridModule,
+      DatePipe,
       provideAnimations(),]
 };
