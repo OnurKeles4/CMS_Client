@@ -31,16 +31,10 @@ export class OrderlistComponent {
     @Inject(PLATFORM_ID) private platformId: Object,
     private customerService: CustomerService,
     private orderService: OrderService,
-    private dataService: DataService
   )
    {
     this.isBrowser = isPlatformBrowser(this.platformId);
-this.subscription = this.dataService.dataObs.subscribe(data => {
-    console.log('Data has been set', data);
-    //this.ifLastMonth = data;
-    //this.updateList();
-    //this.concatData();
-      });
+
     this.updateList();
   }
 
@@ -144,30 +138,14 @@ this.subscription = this.dataService.dataObs.subscribe(data => {
   
 
   }
-  concatData(arr: any) {
-    
-    console.log("rowData", this.rowData);
-    this.isDataReady = true;
-    //this.rowData = arr;
-    
-    this.gridApi.setRowData(this.rowData);
-    console.log("rowData after", this.rowData);
-    
 
-  }
+  onGridReady(params) { this.gridApi = params.api; }
 
-  onGridReady(params) {
-    this.gridApi = params.api; // To access the grids API
-  }
-
-  gridOptions = {
-  }
+  gridOptions = { }
 
   sendData() {
     //this.dataService.setData(!this.ifLastMonth);
   }
-
-
 }
 
 class CustomerOrderList {

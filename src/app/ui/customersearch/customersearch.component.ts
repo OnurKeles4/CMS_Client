@@ -59,6 +59,7 @@ export class CustomerSearchComponent {
 
     if(this.isDisabled != true) {
       this.sendisDisabled(true);
+      this.sendRefreshRequest(true);
       console.log('Delete Selected in Delete, id:', this.selectedCustomer.id);
 
     await this.customerService.delete(this.selectedCustomer.id).then(
@@ -66,7 +67,7 @@ export class CustomerSearchComponent {
 
       
         console.log('Deleted a customer');
-        this.sendData(false);
+        //this.sendData(false);
         this.sendRefreshRequest(false);
         //this.sendisDisabled(true);
         

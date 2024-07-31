@@ -2,7 +2,7 @@ import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { IxModule } from '@siemens/ix-angular';
 import { AgGridAngular } from 'ag-grid-angular';
 
-import { ColDef } from 'ag-grid-community';
+import { ColDef, GridReadyEvent } from 'ag-grid-community';
 import { CustomerService } from '../../../../services/common/models/customer.service';
 import { DataService } from '../../../../services/common/dataservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -15,10 +15,13 @@ import { ListCustomer } from '../../../../contracts/customer/list_customer';
   styleUrl: './customerlist.component.scss',
 })
 export class CustomerlistComponent {
+
   isBrowser: boolean;
   subscription: any;
   isDataReady: boolean;
   selectedCustomer: ListCustomer;
+  
+  gridApi: any;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -28,12 +31,12 @@ export class CustomerlistComponent {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.subscription = this.dataService.dataObs.subscribe((data) => {
      // console.log('Data has been set', data);
-     this.updateList();
+     //this.updateList();
     });
     this.subscription = this.dataService.refreshObs.subscribe((refresh) => {
 
-      
-      
+      this.updateList();
+      //this.gridApi.setGridOption("rowData", this.rowData);
      });
     this.updateList();
   }
@@ -70,11 +73,18 @@ export class CustomerlistComponent {
     console.log(this.selectedCustomer);
     this.sendCustomer();
     this.sendisDisabled(false);
+    this.sendData(true);
     //console.log(this.selectedCustomer);
     
     
   }
-
+  onGridReady(params: any) {
+    this.gridApi = params.api;;
+    
+  }
+  sendData(flag: boolean) {
+    this.dataService.setData(flag);
+  }
   sendisDisabled(flag: boolean) {
     this.dataService.setisDisabled(flag);
   }

@@ -6,7 +6,7 @@
   [defaultColDef]="defaultColDef"
   (rowClicked)="selectCustomer($event)"
 ></ag-grid-angular> -->
-<ng-container *ngIf="isDataReady">
+<ng-container *ngIf="isRefreshed">
 <ix-event-list class="infobox6" *ngFor="let order of rowData" id="orders">
     <ix-blind label={{order.name}} class="child" collapsed="true">
       <p>{{order.description}}</p>

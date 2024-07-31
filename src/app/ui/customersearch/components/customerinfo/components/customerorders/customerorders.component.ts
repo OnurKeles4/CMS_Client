@@ -14,13 +14,13 @@ import { ListOrder } from '../../../../../../contracts/order/list_order';
   standalone: true,
   imports: [AgGridAngular, IxModule, CommonModule],
   templateUrl: './customerorders.component.html',
-  styleUrl: './customerorders.component.scss'
+  styleUrl: './customerorders.component.scss',
 })
 export class CustomerordersComponent {
- @Input() customer: ListCustomer;
+  @Input() customer: ListCustomer;
 
- isBrowser: boolean;
- isRefreshed: boolean;
+  isBrowser: boolean;
+  isRefreshed: boolean;
   subscription: any;
   isDataReady: boolean;
   selectedCustomer: ListCustomer;
@@ -31,7 +31,7 @@ export class CustomerordersComponent {
     private dataService: DataService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    this.subscription = this.dataService.refreshObs.subscribe((refresh) => {
+    this.subscription = this.dataService.dataObs.subscribe((refresh) => {
       //console.log('Refresh has been set', refresh);
       this.isRefreshed = refresh;
       this.updateList();
@@ -45,14 +45,13 @@ export class CustomerordersComponent {
     filter: true,
   };
   colDefs: ColDef[] = [
-    { field: 'name', minWidth:295}, //customer name
-    { field: 'description', minWidth:295}, //customer name
+    { field: 'name', minWidth: 295 }, //customer name
+    { field: 'description', minWidth: 295 }, //customer name
   ];
 
   async updateList() {
     let rowdatatemp = [];
     this.orderService.read().subscribe((data) => {
-      
       data.find((element) => {
         if (element.customerId === this.customer.id) {
           rowdatatemp.push(element);
@@ -60,28 +59,26 @@ export class CustomerordersComponent {
       });
 
       this.rowData = rowdatatemp;
-      this.isDataReady = true;
-      
-        this.selectedCustomer = this.rowData[0];
-        //this.sendOrder();
-        //console.log(this.selectedCustomer);
-        
-      
+      //this.isDataReady = true;
+
+      //this.selectedCustomer = this.rowData[0];
+      //this.sendOrder();
+      //console.log(this.selectedCustomer);
     });
   }
 
-  //Send this data to Customerimfo or it's child components. 
+  //Send this data to Customerimfo or it's child components.
   selectCustomer(event: any) {
-    this.selectedCustomer = event.data;     //can it be just data or should we pass the id?
+    this.selectedCustomer = event.data; //can it be just data or should we pass the id?
     console.log(this.selectedCustomer);
     this.sendOrder();
   }
 
   sendOrder() {
-  //this.dataService.setCustomer(this.selectedCustomer);
+    //this.dataService.setCustomer(this.selectedCustomer);
   }
 
   sendRefresh() {
-  this.dataService.setRefresh(!this.isRefreshed);
+    this.dataService.setRefresh(!this.isRefreshed);
   }
 }
