@@ -24,7 +24,7 @@ export class DoneordersComponent implements OnInit {
   isBrowser: boolean;
   Months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   value: number = 30;
-  filterData: number;
+  filterData: number = 30;
   myArray: ListOrderDate[] = [];
   //chartOptions: AgChartOptions;
 
@@ -68,6 +68,10 @@ export class DoneordersComponent implements OnInit {
     
     this.dataService.filterDataObs.subscribe((data) => {
       this.filterData = data;
+      if(this.filterData < 30) {
+        this.filterData = 30;           //this prohibits the code from going down 30 (1 month) days to be safe
+      }
+      
       this.myArray = [];
       this.updateChart();
         
@@ -107,13 +111,13 @@ export class DoneordersComponent implements OnInit {
     this.myArray = [];
     let idx = 0;
 
-    (await this.orderService.readDaysCount(this.value)).subscribe((result) => {
+    (await this.orderService.readDaysCount(this.filterData)).subscribe((result) => {
       tempArr = result;
       tempArr.map((month: number) => {
         this.myArray.push({ month: this.Months[idx], orderCount: month });
         idx++;
         
-        console.log(this.value);
+        //console.log(this.value);
         
       });
 
@@ -123,8 +127,8 @@ export class DoneordersComponent implements OnInit {
         data: this.myArray
       };
 
-      console.log(this.myArray);
-      console.log(this.chartOptions);
+      //console.log(this.myArray);
+      //console.log(this.chartOptions);
     });
   //console.log(this.chartOptions);
   

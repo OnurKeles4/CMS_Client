@@ -49,10 +49,10 @@ export class OrderService {
     // return a;
 
   }
-  async readLastMonth(FilterDays: number, ifLastMonth: boolean): Promise<Observable<ListOrder[]>> {
+  async readLastMonth(FilterDays: number): Promise<Observable<ListOrder[]>> {
     
     var a = this.httpClientService.getDays<ListOrder[]>(
-      {controller: "orders"}, FilterDays, ifLastMonth);
+      {controller: "orders"}, FilterDays);
     return a;
 
 

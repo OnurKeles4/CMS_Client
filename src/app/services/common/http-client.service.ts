@@ -21,13 +21,15 @@ export class HttpClientService {
     return this.httpClient.get<T>(url, { headers: requestParameter.headers });
   }
 
-  getDays<T>(requestParameter: Partial<RequestParameters>, FilterDays?: number, ifLastMonth?: boolean, id?: string): Observable<T> {
+  getDays<T>(requestParameter: Partial<RequestParameters>, FilterDays?: number, id?: string): Observable<T> {
     let url: string = "";
     if (requestParameter.fullEndPoint)
       url = requestParameter.fullEndPoint;
     else
-      url = `${this.url(requestParameter)}${ifLastMonth ? `/last-month?value=${FilterDays}` : ""}${id ? `/${id}` : ""}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
-    return this.httpClient.get<T>(url, { headers: requestParameter.headers });
+      url = `${this.url(requestParameter)}${`/last-month?value=${FilterDays}`}${id ? `/${id}` : ""}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
+    //console.log(url);
+    
+      return this.httpClient.get<T>(url, { headers: requestParameter.headers });
   }
 
   getDaysCount<T>(requestParameter: Partial<RequestParameters>, FilterDays?: number, id?: string): Observable<T> {

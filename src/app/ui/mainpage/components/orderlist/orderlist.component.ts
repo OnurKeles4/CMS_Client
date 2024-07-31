@@ -23,7 +23,7 @@ export class OrderlistComponent {
   subscription: any;
 
   whichFilter: number = 0;
-  FilterDays: number = 0;
+  FilterDays: number = 30;
   isConcat: boolean;
   gridApi: any;
 
@@ -68,18 +68,18 @@ export class OrderlistComponent {
 
   filterSwitch() {
       switch (this.FilterDays) {
-        case 0:
-          this.FilterDays = 90;
+        case 30:                    //if initial value
+          this.FilterDays = 90;     //set to 90 (3 months)
           break;
         case 90:
-          this.FilterDays = 180;
+          this.FilterDays = 180;    //set to 180 (6 months)
           break;
         case 180:
-          this.FilterDays = 360;
+          this.FilterDays = 36000;  //set to 36000 (10 years)
           break;
-        case 360:
+        case 36000:
           this.ifLastMonth = false;
-          this.FilterDays = 0;
+          this.FilterDays = 30;
           break;
           
   }
@@ -115,7 +115,7 @@ export class OrderlistComponent {
   // }
   async updateList() {
     let rowdatatemp: CustomerOrderList[] = [];
-    (await this.orderService.readLastMonth(this.FilterDays, this.ifLastMonth)).subscribe((orders) => {
+    (await this.orderService.readLastMonth(this.FilterDays)).subscribe((orders) => {
       console.log("orders", orders);
 
       this.tempArr = orders;
