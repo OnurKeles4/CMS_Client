@@ -1,4 +1,4 @@
-import { Component, Inject, Input, PLATFORM_ID } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output, PLATFORM_ID } from '@angular/core';
 import { ListCustomer } from '../../../../../../contracts/customer/list_customer';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { IxModule } from '@siemens/ix-angular';
@@ -23,7 +23,9 @@ export class CustomerordersComponent {
   subscription: any;
   isDataReady: boolean;
   selectedCustomer: ListCustomer;
+  selectedOrder: ListOrder;
 
+  @Output() rowClicked = new EventEmitter<any>();
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private orderService: OrderService,
@@ -66,9 +68,16 @@ export class CustomerordersComponent {
   //Send this data to Customerimfo or it's child components.
   selectCustomer(event: any) {
     this.selectedCustomer = event.data; //can it be just data or should we pass the id?
-    console.log(this.selectedCustomer);
+    //console.log(this.selectedCustomer);
   }
 
+  selectOrder(event: any) {
+    
+    this.selectedOrder = event;
+    console.log( this.selectedOrder);
+    //console.log(this.rowClicked.name);
+    console.log('Order has been selected');
+  }
 
   sendRefresh() {
     this.dataService.setRefresh(!this.isRefreshed);

@@ -37,7 +37,7 @@ export class UpdatecustomerComponent {
       this.isDisabled = data;
     });
     this.subscription = this.dataService.customerObs.subscribe((data) => {
-      console.log('Data has been set', data);
+      //console.log('Data has been set', data);
 
       this.selectedCustomer = data;
     });

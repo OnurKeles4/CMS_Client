@@ -22,13 +22,13 @@ export class BasicbuttonComponent implements OnDestroy {
     this.subscription = this.dataService.isDisabledObs.subscribe(data => {
       this.isDisabled = data;
       //this.showSpinner = data;
-      console.log("Isdisabled has been set", this.isDisabled);
+      //console.log("Isdisabled has been set", this.isDisabled);
       
     });
     this.subscription = this.dataService.refreshObs.subscribe(data => {
       this.showSpinner = data;
       //this.showSpinner = data;
-      console.log("showSpinner has been set", this.showSpinner);
+      //console.log("showSpinner has been set", this.showSpinner);
       
     });
     

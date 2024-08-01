@@ -8,11 +8,12 @@
 ></ag-grid-angular> -->
 <ng-container *ngIf="isRefreshed">
 <ix-event-list class="infobox6" *ngFor="let order of rowData" id="orders">
-    <ix-blind label={{order.name}} class="child" collapsed="true">
+  <div (click)="selectOrder(order)">
+    <ix-blind label={{order.name}} class="child" collapsed="true" >
       <p>{{order.description}}</p>
       <p>{{order.address}}</p>
       <p>{{order.status}} </p>
     </ix-blind>
-
+  </div>
   </ix-event-list>
 </ng-container>
