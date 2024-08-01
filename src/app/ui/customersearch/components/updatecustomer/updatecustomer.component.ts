@@ -70,10 +70,10 @@ export class UpdatecustomerComponent {
       dialogRef.afterClosed().subscribe(async (result) => {
         if (result) {
           //console.log('Dialog result:', result);
-          console.log("result", result);
-          console.log("selected Customer", this.selectedCustomer);
+          //console.log("result", result);
+          //console.log("selected Customer", this.selectedCustomer);
 
-          const edit_customer: any = this.customerService.readWithId(
+          const edit_customer: any = await this.customerService.readWithId(
             this.selectedCustomer.id
           );
 
@@ -88,6 +88,8 @@ export class UpdatecustomerComponent {
             ? result.input3
             : this.selectedCustomer.phone_number;
 
+          //console.log('Edit Product:', edit_customer);
+          
           await this.customerService.update(edit_customer).then(() => {
             console.log('Updated a product');
           });
