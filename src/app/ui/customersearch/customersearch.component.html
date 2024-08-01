@@ -1,7 +1,8 @@
 <div class="row" id="container">
   <div class="col-md-3">
     <div class="button-container">
-      <app-basicbutton [label]="labelAdd" [icon]="iconAdd" ></app-basicbutton>
+      
+      <app-addcustomer></app-addcustomer>
       <app-updatecustomer></app-updatecustomer>
       <app-basicbutton [label]="labelRemove" [icon]="iconRemove" (click)="deleteSelectedCustomer()"></app-basicbutton>
       

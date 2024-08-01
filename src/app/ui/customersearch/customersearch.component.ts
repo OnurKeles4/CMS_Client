@@ -15,10 +15,11 @@ import { ListOrder } from '../../contracts/order/list_order';
 import { MessageComponent } from "../common/message/message.component";
 import { PopupInputComponent } from './dialogs/popupinput/popupinput.component';
 import { UpdatecustomerComponent } from "./components/updatecustomer/updatecustomer.component";
+import { AddcustomerComponent } from "./components/addcustomer/addcustomer.component";
 @Component({
   selector: 'app-customersearch',
   standalone: true,
-  imports: [CustomerinfoComponent, CustomerlistComponent, BasicbuttonComponent, MessageComponent, PopupInputComponent, UpdatecustomerComponent],
+  imports: [CustomerinfoComponent, CustomerlistComponent, BasicbuttonComponent, MessageComponent, PopupInputComponent, UpdatecustomerComponent, AddcustomerComponent],
   templateUrl: './customersearch.component.html',
   styleUrl: './customersearch.component.scss'
 })

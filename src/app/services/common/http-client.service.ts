@@ -42,12 +42,14 @@ export class HttpClientService {
   }
 
   
-  post<T>(requestParameter: Partial<RequestParameters>, body: Partial<T>, id?: string, customer_name?: string): Observable<T> {
+  post<T>(requestParameter: Partial<RequestParameters>, body: Partial<T>, id?: string): Observable<T> {
     let url: string = "";
     if (requestParameter.fullEndPoint)
       url = requestParameter.fullEndPoint;
     else
-      url = `${this.url(requestParameter)}${id ? `/${id}` : ""}${customer_name ? `/${customer_name}` : ""}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`
+      url = `${this.url(requestParameter)}${id ? `/${id}` : ""}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`
+      //console.log("url", url);
+      console.log("🚀 ~ HttpClientService ~ url:", url)
       
     return this.httpClient.post<T>(url, body, { headers: requestParameter.headers });
   }

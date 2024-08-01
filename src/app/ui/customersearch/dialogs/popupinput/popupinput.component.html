@@ -1,24 +1,28 @@
 <div class="edit-box">
-    <h2 class="header" mat-dialog-title>Edit Product</h2>
-    <div mat-dialog-content id="dialog">
-      <p>{{data.description}}</p>
-      <form [formGroup]="form">
-        <mat-form-field>
-          <mat-label>Input 1</mat-label>
-          <input placeholder="Edit Name" matInput formControlName="input1">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Input 2</mat-label>
-          <input placeholder="Edit Email" matInput formControlName="input2">
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Input 3</mat-label>
-          <input placeholder="Edit Phone Number" matInput formControlName="input3">
-        </mat-form-field>
-      </form>
-    </div>
-    <div class="button-container" mat-dialog-actions>
-      <ix-button mat-button (click)="onCancel()">Cancel</ix-button>
-      <ix-button mat-button (click)="onSubmit()">Submit</ix-button>
-    </div>
-    </div>
+  <h2 class="header" mat-dialog-title>{{ data.title }}</h2>
+  <div mat-dialog-content id="dialog">
+    <p>{{ data.description }}</p>
+    <form [formGroup]="form">
+      <mat-form-field>
+        <mat-label>Input 1</mat-label>
+        <input placeholder="Edit Name" matInput formControlName="input1" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Input 2</mat-label>
+        <input placeholder="Edit Email" matInput formControlName="input2" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Input 3</mat-label>
+        <input
+          placeholder="Edit Phone Number"
+          matInput
+          formControlName="input3"
+        />
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="button-container" mat-dialog-actions>
+    <ix-button mat-button (click)="onCancel()">Cancel</ix-button>
+    <ix-button mat-button (click)="onSubmit()">Submit</ix-button>
+  </div>
+</div>

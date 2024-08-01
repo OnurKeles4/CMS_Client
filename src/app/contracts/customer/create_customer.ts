@@ -1,5 +1,5 @@
 export class CreateCustomer {
-    name?: string;
+    Name?: string;
     phone_number?: string;
-    email?: string;
+    Email?: string;
 }

@@ -61,7 +61,7 @@ export class UpdatecustomerComponent {
       const dialogRef = this.dialog.open(PopupInputComponent, {
         width: '300px',
         data: {
-          title: 'Dialog Title',
+          title: 'Update Customer',
           description: 'Edit your data',
         },
       });
@@ -89,9 +89,9 @@ export class UpdatecustomerComponent {
             : this.selectedCustomer.phone_number;
 
           //console.log('Edit Product:', edit_customer);
-          
+
           await this.customerService.update(edit_customer).then(() => {
-            console.log('Updated a product');
+            console.log('Updated a customer');
           });
           //console.log("Edit Selected in Update, senddata and refresh", this.sendData);
 

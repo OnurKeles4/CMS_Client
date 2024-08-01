@@ -12,7 +12,7 @@ export class CustomerService {
   dataloaded: boolean = false;
   constructor(private httpClientService: HttpClientService) { }
 
-  create(customer: CreateCustomer, successCallBack?: any, errorCallBack?: (errorMessage: string) => void) {
+  async create(customer: CreateCustomer, successCallBack?: any, errorCallBack?: (errorMessage: string) => void) {
 
   this.httpClientService.post({controller: "customers"}, customer)
   .subscribe(result => {successCallBack();
