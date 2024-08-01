@@ -3,11 +3,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { IxModule } from '@siemens/ix-angular';
 import { MatDialog } from '@angular/material/dialog';
-import { DataService } from '../../../../services/common/dataservice';
-import { PopupInputComponent } from '../../dialogs/customerinput/customerinput.component';
-import { CustomerService } from '../../../../services/common/models/customer.service';
-import { BasicbuttonComponent } from '../../../common/basicbutton/basicbutton.component';
-import { ListCustomer } from '../../../../contracts/customer/list_customer';
+import { DataService } from '../../../../../services/common/dataservice';
+import { PopupInputComponent } from '../../../dialogs/customerinput/customerinput.component';
+import { CustomerService } from '../../../../../services/common/models/customer.service';
+import { BasicbuttonComponent } from '../../../../common/basicbutton/basicbutton.component';
+import { ListCustomer } from '../../../../../contracts/customer/list_customer';
 
 @Component({
   selector: 'app-updatecustomer',
@@ -88,7 +88,7 @@ export class UpdatecustomerComponent {
             ? result.input3
             : this.selectedCustomer.phone_number;
 
-          //console.log('Edit Product:', edit_customer);
+          console.log('Edit Product:', edit_customer);
 
           await this.customerService.update(edit_customer).then(() => {
             console.log('Updated a customer');

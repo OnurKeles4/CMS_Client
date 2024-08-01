@@ -10,11 +10,15 @@
 <ix-event-list class="infobox6" *ngFor="let order of rowData" id="orders">
   <div (click)="selectOrder(order)">
     <ix-blind label={{order.name}} class="child" collapsed="true" >
-      <p>{{order.description}}</p>
-      <p>{{order.address}}</p>
-      <p>{{order.status}} </p>
+      <p>Description: {{order.description}}</p>
+      <p>Address: {{order.address}}</p>
+      <p>Status: {{order.status}} </p>
     </ix-blind>
   </div>
   </ix-event-list>
 </ng-container>
+<div class="button-container">
 <app-addorder></app-addorder>
+<app-updateorder></app-updateorder>
+<app-deleteorder></app-deleteorder>
+</div>

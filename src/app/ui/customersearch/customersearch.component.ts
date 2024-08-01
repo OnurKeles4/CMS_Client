@@ -13,8 +13,9 @@ import { ListCustomer } from '../../contracts/customer/list_customer';
 import { ListOrder } from '../../contracts/order/list_order';
 import { MessageComponent } from '../common/message/message.component';
 import { PopupInputComponent } from './dialogs/customerinput/customerinput.component';
-import { UpdatecustomerComponent } from './components/updatecustomer/updatecustomer.component';
-import { AddcustomerComponent } from './components/addcustomer/addcustomer.component';
+import { UpdatecustomerComponent } from './components/crud_customer/updatecustomer/updatecustomer.component';
+import { AddcustomerComponent } from './components/crud_customer/addcustomer/addcustomer.component';
+import { DeletecustomerComponent } from "./components/crud_customer/deletecustomer/deletecustomer.component";
 @Component({
   selector: 'app-customersearch',
   standalone: true,
@@ -26,7 +27,8 @@ import { AddcustomerComponent } from './components/addcustomer/addcustomer.compo
     PopupInputComponent,
     UpdatecustomerComponent,
     AddcustomerComponent,
-  ],
+    DeletecustomerComponent
+],
   templateUrl: './customersearch.component.html',
   styleUrl: './customersearch.component.scss',
 })

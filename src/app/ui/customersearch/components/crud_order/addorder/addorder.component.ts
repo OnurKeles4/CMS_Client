@@ -3,51 +3,52 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { IxModule } from '@siemens/ix-angular';
 import { MatDialog } from '@angular/material/dialog';
-import { DataService } from '../../../../services/common/dataservice';
-import { PopupInputComponent } from '../../dialogs/customerinput/customerinput.component';
-import { CustomerService } from '../../../../services/common/models/customer.service';
-import { BasicbuttonComponent } from '../../../common/basicbutton/basicbutton.component';
-import { ListCustomer } from '../../../../contracts/customer/list_customer';
-import { CreateCustomer } from '../../../../contracts/customer/create_customer';
+import { DataService } from '../../../../../services/common/dataservice';
+import { PopupInputComponent } from '../../../dialogs/customerinput/customerinput.component';
+import { OrderService } from '../../../../../services/common/models/order.service';
+import { BasicbuttonComponent } from '../../../../common/basicbutton/basicbutton.component';
+import { ListOrder } from '../../../../../contracts/order/list_order';
+import { CreateOrder } from '../../../../../contracts/order/create_order';
+import { OrderinputComponent } from '../../../dialogs/orderinput/orderinput.component';
 
 @Component({
-  selector: 'app-addcustomer',
+  selector: 'app-addorder',
   standalone: true,
   imports: [BasicbuttonComponent],
-  templateUrl: './addcustomer.component.html',
-  styleUrl: './addcustomer.component.scss',
+  templateUrl: './addorder.component.html',
+  styleUrl: './addorder.component.scss',
 })
-export class AddcustomerComponent {
+export class AddorderComponent {
   icon = faAdd;
   onOk = new EventEmitter();
   label: string = 'Add';
   @Output() messageEvent = new EventEmitter<boolean>();
 
   @Input() isDisabled: boolean;
-  @Input() selectedCustomer: ListCustomer;
+  selectedOrderId: string;
   subscription: any;
 
   constructor(
     public dialog: MatDialog,
     private dataService: DataService,
-    private customerService: CustomerService
+    private orderService: OrderService
   ) {
     this.subscription = this.dataService.refreshObs.subscribe((data) => {
       //console.log('Data has been set', data);
 
       this.isDisabled = !data;
     });
-    this.subscription = this.dataService.customerObs.subscribe((data) => {
-      //console.log('Data has been set', data);
+    this.subscription = this.dataService.customerIdObs.subscribe((data) => {
+      console.log('SelectedOrder has been set', data);
 
-      this.selectedCustomer = data;
+      this.selectedOrderId = data;
     });
   }
 
   recieveMessage($event: boolean) {
     //console.log("Recieved Message");
     this.isDisabled = $event;
-    //this.selectedCustomer = null;
+    //this.selectedOrder = null;
   }
 
   public editSelected() {
@@ -66,10 +67,10 @@ export class AddcustomerComponent {
     if (this.isDisabled == true) {
       console.log('dialog is opening');
 
-      const dialogRef = this.dialog.open(PopupInputComponent, {
+      const dialogRef = this.dialog.open(OrderinputComponent, {
         width: '300px',
         data: {
-          title: 'Add Customer',
+          title: 'Add Order',
           description: 'Edit your data',
         },
       });
@@ -79,19 +80,20 @@ export class AddcustomerComponent {
         if (result) {
           //console.log('Dialog result:', result);
           //console.log("result", result);
-          //console.log("selected Customer", this.selectedCustomer);
+          //console.log("selected Order", this.selectedOrder);
 
-          const new_customer: any = new CreateCustomer();
+          const new_order: CreateOrder = new CreateOrder();
 
-          //console.log('Edit Product:', new_customer);
-          new_customer.Name = result.input1;
-          new_customer.Email = result.input2;
-          new_customer.phone_number = result.input3;
+          //console.log('Edit Product:', new_order);
+          new_order.Name = result.input1;
+          new_order.Description = result.input2;
+          new_order.Address = result.input3;
+          new_order.Status = result.input4;
+          new_order.CustomerId = this.selectedOrderId;
+          console.log('Create Order:', new_order);
 
-          console.log('Create Customer:', new_customer);
-
-          await this.customerService.create(new_customer).then(() => {
-            console.log('Created a customer');
+          await this.orderService.create(new_order).then(() => {
+            console.log('Created a order');
           });
           //console.log("Edit Selected in Update, senddata and refresh", this.sendData);
 

@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Inject, Input, Output, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  Output,
+  PLATFORM_ID,
+} from '@angular/core';
 import { ListCustomer } from '../../../../../../contracts/customer/list_customer';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { IxModule } from '@siemens/ix-angular';
@@ -7,12 +14,14 @@ import { ColDef } from 'ag-grid-community';
 import { OrderService } from '../../../../../../services/common/models/order.service';
 import { DataService } from '../../../../../../services/common/dataservice';
 import { ListOrder } from '../../../../../../contracts/order/list_order';
-import { AddorderComponent } from "../../../addorder/addorder.component";
+import { UpdateorderComponent } from '../../../crud_order/updateorder/updateorder.component';
+import { AddorderComponent } from '../../../crud_order/addorder/addorder.component';
+import { DeleteorderComponent } from "../../../crud_order/deleteorder/deleteorder.component";
 
 @Component({
   selector: 'app-customerorders',
   standalone: true,
-  imports: [AgGridAngular, IxModule, CommonModule, AddorderComponent],
+  imports: [AgGridAngular, IxModule, CommonModule, AddorderComponent, UpdateorderComponent, DeleteorderComponent],
   templateUrl: './customerorders.component.html',
   styleUrl: './customerorders.component.scss',
 })
@@ -38,6 +47,10 @@ export class CustomerordersComponent {
       this.isRefreshed = refresh;
       this.updateList();
     });
+    this.subscription = this.dataService.refreshObs.subscribe((refresh) => {
+      //console.log('Refresh has been set', refresh);
+      this.updateList();
+    });
     this.updateList();
   }
 
@@ -61,7 +74,7 @@ export class CustomerordersComponent {
       });
 
       this.rowData = rowdatatemp;
-      
+
       //console.log(this.selectedCustomer);
     });
   }
@@ -73,9 +86,9 @@ export class CustomerordersComponent {
   }
 
   selectOrder(event: any) {
-    
     this.selectedOrder = event;
-    console.log( this.selectedOrder);
+    //console.log( this.selectedOrder);
+    this.dataService.setOrder(this.selectedOrder);
     //console.log(this.rowClicked.name);
     console.log('Order has been selected');
   }
