@@ -10,6 +10,7 @@ import { BasicbuttonComponent } from '../../../../common/basicbutton/basicbutton
 import { ListOrder } from '../../../../../contracts/order/list_order';
 import { CreateOrder } from '../../../../../contracts/order/create_order';
 import { OrderinputComponent } from '../../../dialogs/orderinput/orderinput.component';
+// import { AlertifyService, MessageType, Position } from '../../../../common/message/alerfity.service';
 
 @Component({
   selector: 'app-addorder',
@@ -28,10 +29,12 @@ export class AddorderComponent {
   selectedOrderId: string;
   subscription: any;
 
+
   constructor(
     public dialog: MatDialog,
     private dataService: DataService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    // private alertify: AlertifyService
   ) {
     this.subscription = this.dataService.refreshObs.subscribe((data) => {
       //console.log('Data has been set', data);
@@ -94,6 +97,12 @@ export class AddorderComponent {
 
           await this.orderService.create(new_order).then(() => {
             console.log('Created a order');
+            //  this.alertify.message("Customer deleted successfully!", {
+            //    messageType: MessageType.Message,
+            //    position: Position.BottomRight,
+            //    delay: 3,
+            //    dismissOthers: true
+            //  });
           });
           //console.log("Edit Selected in Update, senddata and refresh", this.sendData);
 

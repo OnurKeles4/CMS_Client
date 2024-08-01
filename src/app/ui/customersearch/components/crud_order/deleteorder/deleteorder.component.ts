@@ -5,6 +5,7 @@ import { ListOrder } from '../../../../../contracts/order/list_order';
 import { faRemove } from '@fortawesome/free-solid-svg-icons';
 import { BasicbuttonComponent } from "../../../../common/basicbutton/basicbutton.component";
 import { CustomerService } from '../../../../../services/common/models/customer.service';
+// import { AlertifyService, MessageType, Position } from '../../../../common/message/alerfity.service';
 
 @Component({
   selector: 'app-deleteorder',
@@ -27,7 +28,7 @@ export class DeleteorderComponent {
   constructor(
     protected orderService: OrderService,
     protected customerService: CustomerService,
-    private renderer: Renderer2,
+    // private alertify: AlertifyService,
     private dataService: DataService
   ) {
     this.subscription = this.dataService.isDisabledObs.subscribe((data) => {
@@ -48,14 +49,27 @@ export class DeleteorderComponent {
       this.sendRefreshRequest(true);
       console.log('Delete Selected in Delete, id:', this.selectedOrder.id);
 
-      await this.orderService.delete(this.selectedOrder.id).then(() => {
+      await this.orderService.delete(this.selectedOrder.id).then(
+        () => {
         console.log('Deleted a order');
+        // this.alertify.message("Customer deleted successfully!", {
+        //   messageType: MessageType.Message,
+        //   position: Position.BottomRight,
+        //   delay: 3,
+        //   dismissOthers: true});
         //Put the button on waiting mode
         this.sendRefreshRequest(false);
         //Refresh the data on the orderinfo
         this.sendData(false);
       });
     } else {
+
+      // this.alertify.message("Error, Customer delete was failed", {
+      //   messageType: MessageType.Error,
+      //   position: Position.BottomRight,
+      //   delay: 3,
+      //   dismissOthers: true
+      // ,});
       console.log('the button is disabled');
     }
   }
