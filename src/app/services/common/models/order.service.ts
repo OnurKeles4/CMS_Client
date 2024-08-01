@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { filter, firstValueFrom, lastValueFrom, Observable } from 'rxjs';
 import { ListOrder } from '../../../contracts/order/list_order';
 import { LastValueFromConfig } from 'rxjs/internal/lastValueFrom';
+import { DatetableOrder } from '../../../contracts/order/datetable_order';
 @Injectable({
   providedIn: 'root'
 })
@@ -62,9 +63,9 @@ export class OrderService {
 
   }
   
-  async readDaysCount(FilterDays: number): Promise<Observable<ListOrder[]>> {
+  async readDaysCount(FilterDays: number): Promise<Observable<DatetableOrder[]>> {
     
-    var a = this.httpClientService.getDaysCount<ListOrder[]>(
+    var a = this.httpClientService.getDaysCount<DatetableOrder[]>(
       {controller: "orders"}, FilterDays);
     return a;
 

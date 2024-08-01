@@ -8,6 +8,7 @@ import { IxModule } from '@siemens/ix-angular';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { AgGridModule } from 'ag-grid-angular';
 import { DatePipe } from '@angular/common';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,5 +25,5 @@ export const appConfig: ApplicationConfig = {
       ),
       AgGridModule,
       DatePipe,
-      provideAnimations(),]
+      provideAnimations(), provideAnimationsAsync(),]
 };

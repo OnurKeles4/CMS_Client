@@ -18,6 +18,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { OrderService } from '../../../../services/common/models/order.service';
 import { DataService } from '../../../../services/common/dataservice';
+import e from 'express';
 
 @Component({
   selector: 'app-doneorders',
@@ -123,47 +124,32 @@ export class DoneordersComponent implements OnInit {
   //       this.cdr.detectChanges(); // Force change detection
   //     }, 0);
   //   }
-  getDateComponents() {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1; // Months are zero-based, so we add 1
-    const day = currentDate.getDate();
-    return { year, month, day };
-  }
                                                 //the dates might not be correct, check it later
   async updateChart() {
     let tempArr: any;
-    let myDate = this.getDateComponents();
 
     this.myArray = [];
-    let idx = myDate.month - 1;
 
     (await this.orderService.readDaysCount(this.filterData)).subscribe(
       (result) => {
         tempArr = result;
         console.log("temparr", tempArr);
-        //tempArr.reverse();                                                            
-        tempArr.map((count: number, month: number) => {
-          this.myArray.push({ month: this.Months[month], orderCount: count });        
-          idx++;  
-
-          console.log(myDate);
-        });
-
-
-        // Update the chart data after the data is fetched
+        result.sort((a, b) => a.month - b.month);     
+        result.forEach((element) => {
+        
+        this.myArray.push({ month: this.Months[element.month - 1], orderCount: element.countDays});
+        
+        });                                                       
+      
         this.chartOptions = {
           ...this.chartOptions,
           data: this.myArray,
         };
 
-        //console.log(this.myArray);
-        //console.log(this.chartOptions);
+        console.log(this.myArray);
       }
     );
-    //console.log(this.chartOptions);
 
-    //this.chartOptions.data = this.myArray;
   }
 }
 

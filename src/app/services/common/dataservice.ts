@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ListCustomer } from '../../contracts/customer/list_customer';
 import { ListOrder } from '../../contracts/order/list_order';
+import { ModalConfig, ModalInstance } from '@siemens/ix';
 
 @Injectable({
   providedIn: 'root'
@@ -61,4 +62,6 @@ setOrder(data: ListOrder) {
  
  this.order.next(data);
 }
+
+
 }

@@ -9,3 +9,18 @@ ix-application-header {
 .sidebar {
     height: 100vh;
 }
+
+.siemens {
+    width: 100%;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+#logo {
+    width: 200px;
+    position: relative;
+    
+}

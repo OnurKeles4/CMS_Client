@@ -13,11 +13,12 @@ import { CustomerService } from '../../services/common/models/customer.service';
 import { ListCustomer } from '../../contracts/customer/list_customer';
 import { ListOrder } from '../../contracts/order/list_order';
 import { MessageComponent } from "../common/message/message.component";
-
+import { PopupInputComponent } from './dialogs/popupinput/popupinput.component';
+import { UpdatecustomerComponent } from "./components/updatecustomer/updatecustomer.component";
 @Component({
   selector: 'app-customersearch',
   standalone: true,
-  imports: [CustomerinfoComponent, CustomerlistComponent, BasicbuttonComponent, MessageComponent],
+  imports: [CustomerinfoComponent, CustomerlistComponent, BasicbuttonComponent, MessageComponent, PopupInputComponent, UpdatecustomerComponent],
   templateUrl: './customersearch.component.html',
   styleUrl: './customersearch.component.scss'
 })
