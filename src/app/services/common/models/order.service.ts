@@ -14,12 +14,10 @@ export class OrderService {
   constructor(private httpClientService: HttpClientService) { }
 
   
-  create(order: CreateOrder, successCallBack?: any, errorCallBack?: (errorMessage: string) => void) {
+  async create(order: CreateOrder, successCallBack?: any, errorCallBack?: (errorMessage: string) => void) {
 
   this.httpClientService.post({controller: "orders"}, order)
-  .subscribe(result => {successCallBack();
-
-  },(errorResponse: HttpErrorResponse) => {
+  .subscribe(result => {},(errorResponse: HttpErrorResponse) => {
   const _error: Array<{ key: string, value: Array<string> }> = errorResponse.error;
 
   let message = "";

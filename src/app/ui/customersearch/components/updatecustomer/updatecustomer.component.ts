@@ -4,7 +4,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { IxModule } from '@siemens/ix-angular';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../../../../services/common/dataservice';
-import { PopupInputComponent } from '../../dialogs/popupinput/popupinput.component';
+import { PopupInputComponent } from '../../dialogs/customerinput/customerinput.component';
 import { CustomerService } from '../../../../services/common/models/customer.service';
 import { BasicbuttonComponent } from '../../../common/basicbutton/basicbutton.component';
 import { ListCustomer } from '../../../../contracts/customer/list_customer';

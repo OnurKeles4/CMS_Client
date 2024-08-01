@@ -17,6 +17,8 @@ export class DataService {
 
   private filterData = new BehaviorSubject<number>(0);
   filterDataObs = this.filterData.asObservable();
+  private customerId = new BehaviorSubject<string>("");
+  customerIdObs = this.customerId.asObservable();
 
   private customer = new BehaviorSubject<ListCustomer>(null);
   customerObs = this.customer.asObservable();
@@ -35,6 +37,11 @@ export class DataService {
     //console.log("AAAAAAAAAAAAAAAAAAAA");
     
     this.filterData.next(data);
+  }
+  setCustomerId(data: string) {
+    //console.log("AAAAAAAAAAAAAAAAAAAA");
+    
+    this.customerId.next(data);
   }
   setisDisabled(data: boolean) {
     //console.log("AAAAAAAAAAAAAAAAAAAA");

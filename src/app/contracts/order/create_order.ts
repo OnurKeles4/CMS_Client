@@ -1,8 +1,8 @@
 export class CreateOrder {
-  name?: string;
-  description?: string;
-  address?: string;
-  status?: string;
+  Name?: string;
+  Description?: string;
+  Address?: string;
+  Status?: string;
 
   //Foreign Key
   CustomerId: string;

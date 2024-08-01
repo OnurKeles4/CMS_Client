@@ -71,6 +71,7 @@ export class CustomerlistComponent {
   selectCustomer(event: any) {
     this.selectedCustomer = event.data;     //can it be just data or should we pass the id?
     console.log(this.selectedCustomer);
+    this.sendCustomerId(event.data.id);
     this.sendCustomer();
     this.sendisDisabled(false);
     this.sendData(true);
@@ -91,6 +92,10 @@ export class CustomerlistComponent {
 
   sendCustomer() {
   this.dataService.setCustomer(this.selectedCustomer);
+  }
+
+  sendCustomerId(id: string) {
+  this.dataService.setCustomerId(id);
   }
 
 

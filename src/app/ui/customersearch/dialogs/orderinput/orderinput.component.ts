@@ -7,25 +7,26 @@ import { BaseDialog } from '../base/base-dialog';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-popupinput',
+  selector: 'app-orderinput',
   standalone: true,
   imports: [MatFormFieldModule, ReactiveFormsModule, IxModule, MatInputModule],
-  templateUrl: './popupinput.component.html',
-  styleUrl: './popupinput.component.scss'
+  templateUrl: './orderinput.component.html',
+  styleUrl: './orderinput.component.scss'
 })
-export class PopupInputComponent {
+export class OrderinputComponent{
   form: FormGroup;
 
   @Input() selectedProduct: any;
   constructor(
-    public dialogRef: MatDialogRef<PopupInputComponent>,
+    public dialogRef: MatDialogRef<OrderinputComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
   ) {
     this.form = this.fb.group({
       input1: [''],
       input2: [''],
-      input3: ['']
+      input3: [''],
+      input4: [''],
     });
   }
 

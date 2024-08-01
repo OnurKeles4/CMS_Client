@@ -7,11 +7,12 @@ import { ColDef } from 'ag-grid-community';
 import { OrderService } from '../../../../../../services/common/models/order.service';
 import { DataService } from '../../../../../../services/common/dataservice';
 import { ListOrder } from '../../../../../../contracts/order/list_order';
+import { AddorderComponent } from "../../../addorder/addorder.component";
 
 @Component({
   selector: 'app-customerorders',
   standalone: true,
-  imports: [AgGridAngular, IxModule, CommonModule],
+  imports: [AgGridAngular, IxModule, CommonModule, AddorderComponent],
   templateUrl: './customerorders.component.html',
   styleUrl: './customerorders.component.scss',
 })
