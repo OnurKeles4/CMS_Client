@@ -38,6 +38,8 @@ export class CustomerlistComponent {
       await this.updateList().then( ()  => {this.gridApi.setGridOption("rowData", this.rowData);}
         );
       });
+
+      
     this.updateList();
   }
   

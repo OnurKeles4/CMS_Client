@@ -45,17 +45,6 @@ export class AddcustomerComponent {
     });
   }
 
-  recieveMessage($event: boolean) {
-    //console.log("Recieved Message");
-    this.isDisabled = $event;
-    //this.selectedCustomer = null;
-  }
-
-  public editSelected() {
-    //console.log("Edit Selected");
-    this.isDisabled = true;
-  }
-
   /**
    *
    *

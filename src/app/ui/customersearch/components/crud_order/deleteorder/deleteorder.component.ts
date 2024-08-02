@@ -54,27 +54,21 @@ export class DeleteorderComponent {
       await this.orderService.delete(this.selectedOrder.id).then(
         () => {
         console.log('Deleted a order');
-        // this.alertify.message("Customer deleted successfully!", {
-        //   messageType: MessageType.Message,
-        //   position: Position.BottomRight,
-        //   delay: 3,
-        //   dismissOthers: true});
-        //Put the button on waiting mode
+        this.sendMessage({message: 'Order removed successfully!', type: 'info', duration: 3000});
         this.sendRefreshRequest(false);
         //Refresh the data on the orderinfo
         this.sendisDisabled(true);
       });
     } else {
-
-      // this.alertify.message("Error, Customer delete was failed", {
-      //   messageType: MessageType.Error,
-      //   position: Position.BottomRight,
-      //   delay: 3,
-      //   dismissOthers: true
-      // ,});
-      console.log('the button is disabled');
+          
+      this.sendMessage({message: 'Button is disabled!', type: 'warning', duration: 3000});
+      //console.log('the button is disabled');
     }
   }
+  sendMessage(body: any) {
+    this.dataService.setMessageBar(body);
+  }
+  
   sendisDisabled(flag: boolean) {
     this.dataService.setorderIsDisabled(flag);
   }

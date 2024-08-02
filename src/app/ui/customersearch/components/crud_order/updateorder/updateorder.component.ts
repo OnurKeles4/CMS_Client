@@ -104,6 +104,7 @@ export class UpdateorderComponent {
           console.log('Edit order:', edit_order);
 
           await this.orderService.update(edit_order).then(() => {
+            this.sendMessage({message: 'Order updated successfully!', type: 'info', duration: 3000});
             console.log('Updated a order');
           });
           //console.log("Edit Selected in Update, senddata and refresh", this.sendData);
@@ -111,12 +112,20 @@ export class UpdateorderComponent {
           this.sendData();
           //this.sendRefreshRequest(false);
         }
+        else {
+          
+          this.sendMessage({message: 'Order update cancelled!', type: 'danger', duration: 3000});
+            }
 
         this.sendRefreshRequest(false);
       });
     } else {
+      this.sendMessage({message: 'Button is disabled!', type: 'warning', duration: 3000});
       console.log('the button is disabledAA');
     }
+  }
+  sendMessage(body: any) {
+    this.dataService.setMessageBar(body);
   }
 
   sendData() {

@@ -31,7 +31,7 @@ export class UpdatecustomerComponent {
     private dataService: DataService,
     private customerService: CustomerService
   ) {
-    this.subscription = this.dataService.dataObs.subscribe((data) => {
+    this.subscription = this.dataService.isDisabledObs.subscribe((data) => {
       //console.log('Data has been set', data);
 
       this.isDisabled = data;
@@ -43,19 +43,8 @@ export class UpdatecustomerComponent {
     });
   }
 
-  recieveMessage($event: boolean) {
-    //console.log("Recieved Message");
-    this.isDisabled = $event;
-    //this.selectedCustomer = null;
-  }
-
-  public editSelected() {
-    //console.log("Edit Selected");
-    this.isDisabled = true;
-  }
-
   async openDialog() {
-    if (this.isDisabled == true) {
+    if (this.isDisabled == false) {
       console.log('dialog is opening');
 
       const dialogRef = this.dialog.open(PopupInputComponent, {

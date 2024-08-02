@@ -98,24 +98,29 @@ export class AddorderComponent {
           await this.orderService.create(new_order).then(() => {
             console.log('Created a order');
             this.sendRefreshRequest(false);
-            //  this.alertify.message("Customer deleted successfully!", {
-            //    messageType: MessageType.Message,
-            //    position: Position.BottomRight,
-            //    delay: 3,
-            //    dismissOthers: true
-            //  });
+
+            this.sendMessage({message: 'Order added successfully!', type: 'info', duration: 3000});
           });
           //console.log("Edit Selected in Update, senddata and refresh", this.sendData);
 
           this.sendData();
           //this.sendRefreshRequest(false);
-        }
+        } else {
+          
+          this.sendMessage({message: 'Order add cancelled!', type: 'danger', duration: 3000});
+            }
+        
         this.sendRefreshRequest(false);
         this.isDisabled = true;
       });
     } else {
+      this.sendMessage({message: 'Button is disabled!', type: 'warning', duration: 3000});
       console.log('the button is disabledAA');
     }
+  }
+
+  sendMessage(body: any) {
+    this.dataService.setMessageBar(body);
   }
 
   sendData() {

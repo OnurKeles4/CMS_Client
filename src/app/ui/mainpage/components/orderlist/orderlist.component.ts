@@ -45,10 +45,10 @@ export class OrderlistComponent {
   rowDatatemp: ListCustomer[] = [];
   tempArr: ListOrder[];
   colDefs: ColDef[] = [
-    { field: 'customer_name', headerName: "Customer Name" }, //customer name,
-    { field: 'order_name', headerName: "Order Name"}, //order date
+    { field: 'customer_name', headerName: "Customer" }, //customer name,
+    { field: 'order_name', headerName: "Order"}, //order date
     { field: 'order_id', headerName: "Order Id" }, //order number
-    { field: 'status', headerName: "Order Status" }, //
+    { field: 'status', headerName: "Status" }, //
   ];
   defaultColDef: ColDef = {
     sortable: true,
