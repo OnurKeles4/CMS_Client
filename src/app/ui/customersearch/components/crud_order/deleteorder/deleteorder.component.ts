@@ -38,6 +38,8 @@ export class DeleteorderComponent {
     });
 
     this.subscription = this.dataService.orderObs.subscribe((data) => {
+      console.log("aaaaa", data);
+      
       this.selectedOrder = data;
     });
     

@@ -26,7 +26,7 @@ export class AddorderComponent {
   @Output() messageEvent = new EventEmitter<boolean>();
 
   @Input() isDisabled: boolean;
-  selectedOrderId: string;
+  selectedCustomerId: string;
   subscription: any;
 
 
@@ -42,9 +42,9 @@ export class AddorderComponent {
       this.isDisabled = !data;
     });
     this.subscription = this.dataService.customerIdObs.subscribe((data) => {
-      console.log('SelectedOrder has been set', data);
+      console.log('SelectedCustomerId has been set', data);
 
-      this.selectedOrderId = data;
+      this.selectedCustomerId = data;
     });
   }
 
@@ -92,7 +92,7 @@ export class AddorderComponent {
           new_order.Description = result.input2;
           new_order.Address = result.input3;
           new_order.Status = result.input4;
-          new_order.CustomerId = this.selectedOrderId;
+          new_order.CustomerId = this.selectedCustomerId;
           console.log('Create Order:', new_order);
 
           await this.orderService.create(new_order).then(() => {

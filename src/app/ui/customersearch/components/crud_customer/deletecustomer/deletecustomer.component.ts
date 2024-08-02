@@ -53,11 +53,16 @@ export class DeletecustomerComponent {
         //Put the button on waiting mode
         this.sendRefreshRequest(false);
         //Refresh the data on the customerinfo
+        this.sendMessage({message: 'Customer deleted successfully!', type: 'info', duration: 3000});
         this.sendData(false);
       });
     } else {
       console.log('the button is disabled');
     }
+  }
+
+  sendMessage(body: any) {
+    this.dataService.setMessageBar(body);
   }
   sendisDisabled(flag: boolean) {
     this.dataService.setisDisabled(flag);

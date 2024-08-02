@@ -13,18 +13,18 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 })
 export class BasicbuttonComponent implements OnDestroy {  
   showSpinner: boolean = false;
-  isDisabled: boolean = true;
+  @Input() isDisabled: boolean = true;
   @Input() label: string;
   @Input() icon: any;
   attempt: boolean = true;
   subscription: any;
   constructor(private dataService: DataService) {
-    this.subscription = this.dataService.isDisabledObs.subscribe(data => {
-      this.isDisabled = data;
-      //this.showSpinner = data;
-      //console.log("Isdisabled has been set", this.isDisabled);
+    // this.subscription = this.dataService.isDisabledObs.subscribe(data => {
+    //   this.isDisabled = data;
+    //   //this.showSpinner = data;
+    //   //console.log("Isdisabled has been set", this.isDisabled);
       
-    });
+    // });
     this.subscription = this.dataService.refreshObs.subscribe(data => {
       this.showSpinner = data;
       //this.showSpinner = data;

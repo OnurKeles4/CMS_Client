@@ -3,6 +3,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { ListCustomer } from '../../contracts/customer/list_customer';
 import { ListOrder } from '../../contracts/order/list_order';
 import { ModalConfig, ModalInstance } from '@siemens/ix';
+import { MessageOptions } from '../../ui/common/message/message.component';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,8 @@ export class DataService {
   filterDataObs = this.filterData.asObservable();
   private customerId = new BehaviorSubject<string>("");
   customerIdObs = this.customerId.asObservable();
+  private messageBar = new BehaviorSubject<MessageOptions>(null);
+  messageBarObs = this.messageBar.asObservable();
 
   private customer = new BehaviorSubject<ListCustomer>(null);
   customerObs = this.customer.asObservable();
@@ -42,6 +45,10 @@ export class DataService {
     //console.log("AAAAAAAAAAAAAAAAAAAA");
     
     this.customerId.next(data);
+  }
+  setMessageBar(data: MessageOptions) {
+    
+    this.messageBar.next(data);
   }
   setisDisabled(data: boolean) {
     //console.log("AAAAAAAAAAAAAAAAAAAA");

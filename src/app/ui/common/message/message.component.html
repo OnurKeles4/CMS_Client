@@ -1,1 +1,3 @@
-<ix-message-bar style="margin-bottom: 0.5rem; display: block">Message text</ix-message-bar>
+<ng-container *ngIf="!isDisabled">  
+<ix-message-bar  type={{messageOptions.type}} [dismissible]="true" > {{messageOptions.message}}</ix-message-bar>
+</ng-container>

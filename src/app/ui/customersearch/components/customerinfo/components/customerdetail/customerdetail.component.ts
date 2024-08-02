@@ -13,10 +13,10 @@ import { DataService } from '../../../../../../services/common/dataservice';
 })
 export class CustomerdetailComponent {
  @Input() customer: ListCustomer;
- isData: boolean;
+ isData: boolean = false;
  constructor(private dataService: DataService) {
-  this.dataService.dataObs.subscribe((data) => {
-     this.isData = data;
+  this.dataService.isDisabledObs.subscribe((data) => {
+     this.isData = !data;
     //console.log(this.customer);
   });
 

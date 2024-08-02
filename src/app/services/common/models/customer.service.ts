@@ -15,9 +15,7 @@ export class CustomerService {
   async create(customer: CreateCustomer, successCallBack?: any, errorCallBack?: (errorMessage: string) => void) {
 
   this.httpClientService.post({controller: "customers"}, customer)
-  .subscribe(result => {successCallBack();
-
-  },(errorResponse: HttpErrorResponse) => {
+  .subscribe(result => { },(errorResponse: HttpErrorResponse) => {
   const _error: Array<{ key: string, value: Array<string> }> = errorResponse.error;
 
   let message = "";

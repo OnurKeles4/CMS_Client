@@ -23,7 +23,7 @@ export class AddcustomerComponent {
   label: string = 'Add';
   @Output() messageEvent = new EventEmitter<boolean>();
 
-  @Input() isDisabled: boolean;
+  isDisabled: boolean = false;
   @Input() selectedCustomer: ListCustomer;
   subscription: any;
 
@@ -32,11 +32,11 @@ export class AddcustomerComponent {
     private dataService: DataService,
     private customerService: CustomerService
   ) {
-    this.subscription = this.dataService.refreshObs.subscribe((data) => {
-      //console.log('Data has been set', data);
+     this.subscription = this.dataService.refreshObs.subscribe((data) => {
+       //console.log('Data has been set', data);
 
-      this.isDisabled = !data;
-    });
+    
+     });
     this.subscription = this.dataService.customerObs.subscribe((data) => {
       //console.log('Data has been set', data);
 
@@ -63,7 +63,7 @@ export class AddcustomerComponent {
    *
    */
   async openDialog() {
-    if (this.isDisabled == true) {
+    if (this.isDisabled == false) {
       console.log('dialog is opening');
 
       const dialogRef = this.dialog.open(PopupInputComponent, {
@@ -99,7 +99,7 @@ export class AddcustomerComponent {
           //this.sendRefreshRequest(false);
         }
         this.sendRefreshRequest(false);
-        this.isDisabled = true;
+        
       });
     } else {
       console.log('the button is disabledAA');
@@ -107,7 +107,7 @@ export class AddcustomerComponent {
   }
 
   sendData() {
-    this.dataService.setData(true);
+    this.dataService.setData();
   }
 
   sendRefreshRequest(flag: boolean) {

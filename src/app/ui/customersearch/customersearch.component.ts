@@ -5,6 +5,9 @@ import { BasicbuttonComponent } from '../common/basicbutton/basicbutton.componen
 import { AddcustomerComponent } from "./components/crud_customer/addcustomer/addcustomer.component";
 import { UpdatecustomerComponent } from "./components/crud_customer/updatecustomer/updatecustomer.component";
 import { DeletecustomerComponent } from "./components/crud_customer/deletecustomer/deletecustomer.component";
+import { DeleteorderComponent } from "./components/crud_order/deleteorder/deleteorder.component";
+import { UpdateorderComponent } from "./components/crud_order/updateorder/updateorder.component";
+import { AddorderComponent } from "./components/crud_order/addorder/addorder.component";
 
 @Component({
   selector: 'app-customersearch',
@@ -15,7 +18,10 @@ import { DeletecustomerComponent } from "./components/crud_customer/deletecustom
     BasicbuttonComponent,
     AddcustomerComponent,
     UpdatecustomerComponent,
-    DeletecustomerComponent
+    DeletecustomerComponent,
+    DeleteorderComponent,
+    UpdateorderComponent,
+    AddorderComponent
 ],
   templateUrl: './customersearch.component.html',
   styleUrl: './customersearch.component.scss',
