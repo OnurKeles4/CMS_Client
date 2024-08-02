@@ -32,7 +32,7 @@ export class UpdateorderComponent {
     private dataService: DataService,
     private orderService: OrderService
   ) {
-    this.subscription = this.dataService.dataObs.subscribe((data) => {
+    this.subscription = this.dataService.orderIsDisabledObs.subscribe((data) => {
       //console.log('Data has been set', data);
 
       this.isDisabled = data;
@@ -42,11 +42,7 @@ export class UpdateorderComponent {
 
       this.selectedOrder = data;
     });
-    // this.subscription = this.dataService.customerIdObs.subscribe((data) => {
-    //   console.log('SelectedOrder has been set', data);
 
-    //   this.selectedCustomerId = data;
-    // });
   }
 
   recieveMessage($event: boolean) {
@@ -61,7 +57,7 @@ export class UpdateorderComponent {
   }
 
   async openDialog() {
-    if (this.isDisabled == true) {
+    if (this.isDisabled == false) {
       console.log('dialog is opening');
 
       const dialogRef = this.dialog.open(OrderinputComponent, {
@@ -105,7 +101,7 @@ export class UpdateorderComponent {
             ? result.input4
             : this.selectedOrder.status;
           edit_order.customerId = this.selectedOrder.customerId;
-          console.log('Edit Product:', edit_order);
+          console.log('Edit order:', edit_order);
 
           await this.orderService.update(edit_order).then(() => {
             console.log('Updated a order');

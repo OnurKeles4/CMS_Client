@@ -88,6 +88,8 @@ export class CustomerlistComponent {
   }
   sendisDisabled(flag: boolean) {
     this.dataService.setisDisabled(flag);
+
+    this.dataService.setorderIsDisabled(!flag);
   }
 
   sendCustomer() {

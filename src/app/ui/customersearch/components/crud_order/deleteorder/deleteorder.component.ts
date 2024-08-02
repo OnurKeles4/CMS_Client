@@ -31,7 +31,7 @@ export class DeleteorderComponent {
     // private alertify: AlertifyService,
     private dataService: DataService
   ) {
-    this.subscription = this.dataService.isDisabledObs.subscribe((data) => {
+    this.subscription = this.dataService.orderIsDisabledObs.subscribe((data) => {
       //console.log('Data has been set', data);
 
       this.isDisabled = data;
@@ -62,7 +62,7 @@ export class DeleteorderComponent {
         //Put the button on waiting mode
         this.sendRefreshRequest(false);
         //Refresh the data on the orderinfo
-        this.sendData(false);
+        this.sendisDisabled(true);
       });
     } else {
 
@@ -76,7 +76,7 @@ export class DeleteorderComponent {
     }
   }
   sendisDisabled(flag: boolean) {
-    this.dataService.setisDisabled(flag);
+    this.dataService.setorderIsDisabled(flag);
   }
   sendData(flag: boolean) {
     //console.log("SendData in Delete being sent");
@@ -86,5 +86,6 @@ export class DeleteorderComponent {
   sendRefreshRequest(flag: boolean) {
     console.log('Send Refresh Request in Delete being sent');
     this.dataService.setRefresh(flag);
+    this.dataService.setorderRefresh(flag);
   }
 }

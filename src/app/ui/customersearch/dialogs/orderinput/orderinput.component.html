@@ -1,22 +1,18 @@
 <div class="edit-box">
-  <h2 class="header" mat-dialog-title>{{ data.title }}</h2>
+  <h3 class="header" mat-dialog-title>{{ data.title }}</h3>
   <div mat-dialog-content id="dialog">
     <p>{{ data.description }}</p>
     <form [formGroup]="form">
       <mat-form-field>
-        <mat-label>Input 1</mat-label>
         <input placeholder="Edit Name" matInput formControlName="input1" />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Input 2</mat-label>
         <input placeholder="Edit Description" matInput formControlName="input2" />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Input 3</mat-label>
         <input placeholder="Edit Address" matInput formControlName="input3"/>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Input 4</mat-label>
         <input placeholder="Edit Status" matInput formControlName="input4" />
       </mat-form-field>
     </form>

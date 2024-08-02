@@ -42,14 +42,15 @@ export class CustomerordersComponent {
     private dataService: DataService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    this.subscription = this.dataService.dataObs.subscribe((refresh) => {
+    this.subscription = this.dataService.dataObs.subscribe((data) => {
       //console.log('Refresh has been set', refresh);
-      this.isRefreshed = refresh;
-      //this.updateList();
+      this.updateList();
+      this.isRefreshed = data;
+      
     });
-    this.subscription = this.dataService.refreshObs.subscribe((refresh) => {
+    this.subscription = this.dataService.orderRefreshObs.subscribe((refresh) => {
       //console.log('Refresh has been set', refresh);
-      //this.updateList();
+      this.updateList();
     });
     this.updateList();
   }
@@ -89,6 +90,7 @@ export class CustomerordersComponent {
     this.selectedOrder = event;
     //console.log( this.selectedOrder);
     this.dataService.setOrder(this.selectedOrder);
+    this.dataService.setorderIsDisabled(false);
     //console.log(this.rowClicked.name);
     console.log('Order has been selected');
   }

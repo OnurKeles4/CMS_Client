@@ -104,7 +104,7 @@ export class OrderService {
   }
 
   async update(order: ListOrder): Promise<void> {
-    //console.log("Update Selected in Service, order:", order);
+    console.log("Update Selected in Service, order:", order);
     
     const updateObs: Observable<any> = this.httpClientService.put({
       controller: "orders"

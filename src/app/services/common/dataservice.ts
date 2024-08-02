@@ -16,6 +16,12 @@ export class DataService {
   private isDisabled = new BehaviorSubject(true);
   isDisabledObs = this.isDisabled.asObservable();
 
+  
+  private orderRefresh = new BehaviorSubject(false);
+  orderRefreshObs = this.orderRefresh.asObservable();
+  private orderIsDisabled = new BehaviorSubject(true);
+  orderIsDisabledObs = this.orderIsDisabled.asObservable();
+
   private filterData = new BehaviorSubject<number>(0);
   filterDataObs = this.filterData.asObservable();
   private customerId = new BehaviorSubject<string>("");
@@ -61,6 +67,18 @@ export class DataService {
     
    this.refresh.next(data);
  }
+
+ setorderIsDisabled(data: boolean) {
+  //console.log("AAAAAAAAAAAAAAAAAAAA");
+  
+  this.orderIsDisabled.next(data);
+}
+
+setorderRefresh(data: boolean) {
+  //console.log("refresh has been set");
+  
+ this.orderRefresh.next(data);
+}
 
  setCustomer(data: ListCustomer) {
   console.log("data has been set");

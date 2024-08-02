@@ -36,13 +36,13 @@ export class AddorderComponent {
     private orderService: OrderService,
     // private alertify: AlertifyService
   ) {
-    this.subscription = this.dataService.refreshObs.subscribe((data) => {
+    this.subscription = this.dataService.dataObs.subscribe((data) => {
       //console.log('Data has been set', data);
 
-      this.isDisabled = !data;
+      this.isDisabled = data;
     });
     this.subscription = this.dataService.customerIdObs.subscribe((data) => {
-      console.log('SelectedCustomerId has been set', data);
+      //console.log('SelectedCustomerId has been set', data);
 
       this.selectedCustomerId = data;
     });
@@ -97,6 +97,7 @@ export class AddorderComponent {
 
           await this.orderService.create(new_order).then(() => {
             console.log('Created a order');
+            this.sendRefreshRequest(false);
             //  this.alertify.message("Customer deleted successfully!", {
             //    messageType: MessageType.Message,
             //    position: Position.BottomRight,
@@ -122,6 +123,6 @@ export class AddorderComponent {
   }
 
   sendRefreshRequest(flag: boolean) {
-    this.dataService.setRefresh(flag);
+    this.dataService.setorderRefresh(flag);
   }
 }
