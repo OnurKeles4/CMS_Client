@@ -57,6 +57,9 @@ export class DeletecustomerComponent {
         this.sendData(false);
       });
     } else {
+      
+        this.sendMessage({message: 'Button is disabled!', type: 'warning', duration: 3000});
+ 
       console.log('the button is disabled');
     }
   }

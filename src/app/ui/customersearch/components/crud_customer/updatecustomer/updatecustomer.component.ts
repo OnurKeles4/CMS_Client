@@ -91,6 +91,8 @@ export class UpdatecustomerComponent {
           console.log('Edit Product:', edit_customer);
 
           await this.customerService.update(edit_customer).then(() => {
+            
+            this.sendMessage({message: 'Customer updated successfully!', type: 'info', duration: 3000});
             console.log('Updated a customer');
           });
           //console.log("Edit Selected in Update, senddata and refresh", this.sendData);
@@ -98,14 +100,22 @@ export class UpdatecustomerComponent {
           this.sendData();
           //this.sendRefreshRequest(false);
         }
-
+        else {
+          
+      this.sendMessage({message: 'Customer update cancelled!', type: 'danger', duration: 3000});
+        }
         this.sendRefreshRequest(false);
       });
     } else {
+      
+      this.sendMessage({message: 'Button is disabled!', type: 'warning', duration: 3000});
       console.log('the button is disabledAA');
     }
   }
 
+  sendMessage(body: any) {
+    this.dataService.setMessageBar(body);
+  }
   sendData() {
     this.dataService.setData(true);
   }

@@ -33,11 +33,11 @@ export class CustomerlistComponent {
      // console.log('Data has been set', data);
 
     });
-    this.subscription = this.dataService.refreshObs.subscribe((refresh) => {
+    this.subscription = this.dataService.refreshObs.subscribe(async (refresh) => {
 
-      this.updateList();
-      //this.gridApi.setGridOption("rowData", this.rowData);
-     });
+      await this.updateList().then( ()  => {this.gridApi.setGridOption("rowData", this.rowData);}
+        );
+      });
     this.updateList();
   }
   

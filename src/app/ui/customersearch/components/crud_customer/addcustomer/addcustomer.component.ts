@@ -9,6 +9,7 @@ import { CustomerService } from '../../../../../services/common/models/customer.
 import { BasicbuttonComponent } from '../../../../common/basicbutton/basicbutton.component';
 import { ListCustomer } from '../../../../../contracts/customer/list_customer';
 import { CreateCustomer } from '../../../../../contracts/customer/create_customer';
+import { MessageComponent } from '../../../../common/message/message.component';
 
 @Component({
   selector: 'app-addcustomer',
@@ -30,7 +31,7 @@ export class AddcustomerComponent {
   constructor(
     public dialog: MatDialog,
     private dataService: DataService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
   ) {
      this.subscription = this.dataService.refreshObs.subscribe((data) => {
        //console.log('Data has been set', data);
@@ -92,20 +93,28 @@ export class AddcustomerComponent {
 
           await this.customerService.create(new_customer).then(() => {
             console.log('Created a customer');
+            this.sendRefreshRequest(false);
+            this.sendMessage({message: 'Customer added successfully!', type: 'info', duration: 3000});
           });
           //console.log("Edit Selected in Update, senddata and refresh", this.sendData);
 
           this.sendData();
           //this.sendRefreshRequest(false);
         }
+        else {
+          this.sendMessage({message: 'Customer add cancelled!', type: 'danger', duration: 3000});
+        }
         this.sendRefreshRequest(false);
-        
       });
-    } else {
+    } else { 
+      this.sendMessage({message: 'Button is disabled!', type: 'warning', duration: 3000});
       console.log('the button is disabledAA');
     }
   }
 
+  sendMessage(body: any) {
+    this.dataService.setMessageBar(body);
+  }
   sendData() {
     this.dataService.setData();
   }

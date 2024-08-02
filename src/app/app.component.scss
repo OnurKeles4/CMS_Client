@@ -1,12 +1,25 @@
 ix-application-header {
     font-size: 30px;
+    position: fixed;
 }
 
 .header {
     font-size: 50px;
 }
 
+// .side {
+//     background-color: red;
+//     position: absolute;
+//     height: 100vh;
+    
+//     top: 0;
+//     left: 0;
+//     z-index: 1; // Ensure it is behind the .sidebar
+//   }
+
 .sidebar {
+    top: 40px;
+    position: fixed;
     height: 100vh;
 }
 
@@ -25,8 +38,3 @@ ix-application-header {
     
 }
 
-.message {
-    z-index: 100;
-    position: fixed;
-    
-}

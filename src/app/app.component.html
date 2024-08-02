@@ -7,6 +7,8 @@
             <a href="https://www.siemens.com"><img src="assets/siemensW.png" class="siemens"></a>
           </div>
         </ix-application-header>
+        <!-- <div class="side">  
+        </div> -->
         <ix-menu class="sidebar">
           <ix-menu-item tab-icon="home" routerLink="">Main Page</ix-menu-item>
           <ix-menu-item tab-icon="search" routerLink="customersearch">Customer</ix-menu-item>
@@ -15,11 +17,12 @@
         <ix-content>
          <router-outlet></router-outlet>
          
-         <app-messagebar class="message"></app-messagebar>
 <!--          
         <div class="attempt" *ngIf="isDisabled"> MERHABA </div>
         <button (click)="Disable()">DISABLE DIV</button> -->
         </ix-content>
       </ix-application>
+      
+      <app-messagebar class="message"></app-messagebar>
   </div>
 </div>

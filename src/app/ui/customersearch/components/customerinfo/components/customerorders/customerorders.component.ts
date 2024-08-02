@@ -45,11 +45,11 @@ export class CustomerordersComponent {
     this.subscription = this.dataService.dataObs.subscribe((refresh) => {
       //console.log('Refresh has been set', refresh);
       this.isRefreshed = refresh;
-      this.updateList();
+      //this.updateList();
     });
     this.subscription = this.dataService.refreshObs.subscribe((refresh) => {
       //console.log('Refresh has been set', refresh);
-      this.updateList();
+      //this.updateList();
     });
     this.updateList();
   }
