@@ -4,8 +4,28 @@ display: flex;
 justify-content: space-between;
 }
 
-#table {
+#table1, #table2 {
     background-color: #9d9d9633;
+    width: 49%;
+    
     
 }
 
+#title {
+    font-weight: 500;
+    font-style: normal;
+    text-align: center;
+    align-content: center;
+    border-bottom: 5px solid #9d9d9633;
+    margin-bottom: 10px;
+    height: 15%;
+}
+
+#header {
+    
+    font-family: "Ubuntu", sans-serif;
+    margin-bottom: 0px;
+} 
+#subheader {
+    text-align: left;
+}

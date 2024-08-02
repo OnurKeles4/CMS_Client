@@ -1,6 +1,17 @@
+<ng-container *ngIf="isInit">
 <div class="row" id="container">
-
-    <div class="col-md-5" id="table"> <app-orderlist></app-orderlist> </div>
-    <div class="col-md-5" id="table"> <app-doneorders></app-doneorders>   </div>
+  <div class="col-md-5" id="table1">
+    <div id="title">
+    <h2 id="header"> List of Orders </h2>
 </div>
-
+    <app-orderlist></app-orderlist>
+    
+</div>
+  <div class="col-md-5" id="table2">
+    <div id="title">
+    <h2 id="header"> Amount of Orders </h2>
+</div>
+    <app-orderamount></app-orderamount>
+  </div>
+</div>
+</ng-container>

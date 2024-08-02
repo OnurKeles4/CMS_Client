@@ -22,9 +22,15 @@ export class MessageComponent {
             private dataService: DataService
   ) {
     this.subscription = this.dataService.messageBarObs.subscribe((body) => {
+      if(this.messageOptions != null)  {
+        this.closeMessage();
+      }
         console.log('Body set', body);
         this.messageOptions = body;
         this.openMessage();
+      
+      
+      
       });
   }
 
@@ -35,8 +41,16 @@ export class MessageComponent {
     this.isDisabled = false;
 
     setTimeout(() => {
+      
             this.isDisabled = true;
+            this.messageOptions = null;
     }, this.messageOptions.duration);
+  }
+
+  closeMessage() {
+    
+    this.isDisabled = true;
+    this.messageOptions == null;
   }
 }
 
