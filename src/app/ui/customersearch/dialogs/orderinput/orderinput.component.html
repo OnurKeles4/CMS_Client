@@ -13,7 +13,11 @@
         <input placeholder="Edit Address" matInput formControlName="input3"/>
       </mat-form-field>
       <mat-form-field>
-        <input placeholder="Edit Status" matInput formControlName="input4" />
+        <mat-label>Select a status</mat-label>
+        <select matNativeControl required formControlName="input4" >
+          <option *ngFor="let enum of orderStatus | keyvalue" [value]="enum.value"> {{enum.value}} </option>
+        </select>
+        <!-- <input placeholder="Edit Status" matInput formControlName="input4"  /> -->
       </mat-form-field>
     </form>
   </div>
@@ -22,3 +26,8 @@
     <ix-button mat-button (click)="onSubmit()">Submit</ix-button>
   </div>
 </div>
+<datalist id="mylist">
+  <option value="Option 1">
+  <option value="Option 2">
+  <option value="Option 3">
+</datalist>

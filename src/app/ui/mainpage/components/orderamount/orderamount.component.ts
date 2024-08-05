@@ -54,6 +54,7 @@ export class OrderamountComponent implements AfterViewInit{
   filterData: number = 30;
   //fullMonthDay: number = 30;
   myArray: ListOrderDate[] = [];
+  myCompletedArray: ListOrderDate[] = [];
   //chartOptions: AgChartOptions;
   chartOptions: AgChartOptions
 
@@ -99,10 +100,23 @@ export class OrderamountComponent implements AfterViewInit{
         {
           type: 'bar',
           xKey: 'month',
-          yKey: 'orderCount',
-          fill: '#0cc',
+          yKey: 'completedCount',
+          yName: 'Completed Orders',
+          
+          fill: '#00ffb9',
+          stackGroup: "NOL",
           cornerRadius: 10,
         },
+        {
+          type: 'bar',
+          xKey: 'month',
+          yKey: 'orderCount',
+          yName: 'Orders',
+          fill: '#0cc',
+          stackGroup: "NOL",
+          cornerRadius: 10,
+        },
+        
       ],
     };
   }
@@ -137,23 +151,49 @@ export class OrderamountComponent implements AfterViewInit{
     this.myArray = [];
 
     (await this.orderService.readDaysCount(this.filterData)).subscribe(
-      (result) => {
+      async (result) => {
+        
         tempArr = result;
         console.log('temparr', tempArr);
         result.sort((a, b) => a.month - b.month);
-        result.forEach((element) => {
-          this.myArray.push({
-            month: this.Months[element.month - 1],
-            orderCount: element.countDays,
-          });
-        });
+        // result.forEach((element) => {
+        //   this.myArray.push({
+        //     month: this.Months[element.month - 1],
+        //     orderCount: element.countDays,
+        //   });
+        // });
+        (await this.orderService.readCompletedDaysCount(this.filterData)).subscribe(
+          (resultComplete) => {
+            var idx = 0;
+            tempArr = resultComplete;
+            console.log('temparr', tempArr);
+            resultComplete.sort((a, b) => a.month - b.month);
+            resultComplete.forEach((element) => {
+              this.myArray.push({
+                month: this.Months[element.month - 1],
+                orderCount: result[idx].countDays,
+                completedCount: element.countDays,
+              });
+              idx++;
+            });
+    
+        //  this.chartOptions = {
+        //    ...this.chartOptions,
+        //    data: this.myArray,
+        //  };
 
+        //console.log(this.myArray);
         this.chartOptions = {
           ...this.chartOptions,
           data: this.myArray,
         };
+      }
+      
+    );
 
-        console.log(this.myArray);
+       
+
+        console.log("my array", this.myArray);
       }
     );
   }
@@ -162,4 +202,5 @@ export class OrderamountComponent implements AfterViewInit{
 export class ListOrderDate {
   month: string;
   orderCount: number;
+  completedCount: number;
 }

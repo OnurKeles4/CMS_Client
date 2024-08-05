@@ -41,6 +41,16 @@ export class HttpClientService {
     return this.httpClient.get<T>(url, { headers: requestParameter.headers });
   }
 
+    getCompletedDaysCount<T>(requestParameter: Partial<RequestParameters>, FilterDays?: number, id?: string): Observable<T> {
+    let url: string = "";
+    if (requestParameter.fullEndPoint)
+      url = requestParameter.fullEndPoint;
+    else
+      url = `${this.url(requestParameter)}${`/count-completed-orders?value=${FilterDays}`}${id ? `/${id}` : ""}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
+    return this.httpClient.get<T>(url, { headers: requestParameter.headers });
+  }
+
+
   
   post<T>(requestParameter: Partial<RequestParameters>, body: Partial<T>, id?: string): Observable<T> {
     let url: string = "";

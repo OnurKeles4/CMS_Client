@@ -51,7 +51,7 @@ export class UpdatecustomerComponent {
         width: '300px',
         data: {
           title: 'Update Customer',
-          description: 'Edit your data',
+          description: 'Update the customer details',
         },
       });
 

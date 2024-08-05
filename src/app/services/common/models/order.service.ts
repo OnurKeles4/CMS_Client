@@ -60,11 +60,26 @@ export class OrderService {
     // return a;
 
   }
+
+  async readCompletedDaysCount(FilterDays: number): Promise<Observable<DatetableOrder[]>> {
+    
+    var a = this.httpClientService.getCompletedDaysCount<DatetableOrder[]>(
+      {controller: "orders"}, FilterDays);
+    return a;
+
+
+    // console.log("read");
+    // console.log(a);
+    // return a;
+
+  }
   
   async readDaysCount(FilterDays: number): Promise<Observable<DatetableOrder[]>> {
     
     var a = this.httpClientService.getDaysCount<DatetableOrder[]>(
       {controller: "orders"}, FilterDays);
+
+    
     return a;
 
 

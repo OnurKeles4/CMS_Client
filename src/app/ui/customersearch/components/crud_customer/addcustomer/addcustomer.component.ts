@@ -60,7 +60,7 @@ export class AddcustomerComponent {
         width: '300px',
         data: {
           title: 'Add Customer',
-          description: 'Edit your data',
+          description: 'Please enter the customer details',
         },
       });
 

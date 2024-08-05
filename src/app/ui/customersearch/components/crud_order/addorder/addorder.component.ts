@@ -74,7 +74,7 @@ export class AddorderComponent {
         width: '300px',
         data: {
           title: 'Add Order',
-          description: 'Edit your data',
+          description: 'Add a new order',
         },
       });
 
@@ -130,4 +130,12 @@ export class AddorderComponent {
   sendRefreshRequest(flag: boolean) {
     this.dataService.setorderRefresh(flag);
   }
+}
+
+export enum OrderStatus {
+  Pending = "Pending",
+  Processing = "Processing",
+  Completed = "Completed",
+  Cancelled = "Cancelled",
+  
 }

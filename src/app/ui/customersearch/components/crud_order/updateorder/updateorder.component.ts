@@ -64,7 +64,7 @@ export class UpdateorderComponent {
         width: '300px',
         data: {
           title: 'Update Order',
-          description: 'Edit your data',
+          description: 'Update an order',
         },
       });
 

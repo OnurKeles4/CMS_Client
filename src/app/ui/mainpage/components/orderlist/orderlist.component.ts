@@ -116,7 +116,7 @@ export class OrderlistComponent {
   async updateList() {
     let rowdatatemp: CustomerOrderList[] = [];
     (await this.orderService.readLastMonth(this.FilterDays)).subscribe((orders) => {
-      console.log("orders", orders);
+     // console.log("orders", orders);
 
       this.tempArr = orders;
       orders.forEach(async (order) => {
