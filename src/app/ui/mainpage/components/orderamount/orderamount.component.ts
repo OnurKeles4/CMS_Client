@@ -1,5 +1,6 @@
 import { CommonModule, DatePipe, isPlatformBrowser } from '@angular/common';
 import {
+  AfterContentInit,
   AfterViewInit,
   ChangeDetectorRef,
   Component,
@@ -34,7 +35,7 @@ import { OrderStatus } from '../../../customersearch/components/crud_order/addor
   styleUrls: ['./orderamount.component.scss'],
   //encapsulation: ViewEncapsulation.None  // Add this line
 })
-export class OrderamountComponent implements OnInit{
+export class OrderamountComponent implements AfterContentInit{
   @ViewChild('myChart', { static: true }) chartContainer: ElementRef;
   //chartOptions: AgChartOptions
   isBrowser: boolean;
@@ -64,7 +65,7 @@ export class OrderamountComponent implements OnInit{
   //chartOptions: AgChartOptions;
   chartOptions: AgChartOptions
 
-  ngOnInit(): void {
+  ngAfterContentInit(): void {
     this.initializeChart();
   }
 
