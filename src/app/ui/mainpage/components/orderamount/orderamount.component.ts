@@ -23,11 +23,13 @@ import { OrderService } from '../../../../services/common/models/order.service';
 import { DataService } from '../../../../services/common/dataservice';
 import e from 'express';
 import { initialize } from '@siemens/ix/dist/types/components/utils/menu-tabs/menu-tabs-utils';
+import { IxModule } from '@siemens/ix-angular';
+import { OrderStatus } from '../../../customersearch/components/crud_order/addorder/addorder.component';
 
 @Component({
   selector: 'app-orderamount',
   standalone: true,
-  imports: [CommonModule, AgGridModule, AgCharts],
+  imports: [CommonModule, AgGridModule, AgCharts, IxModule],
   templateUrl: './orderamount.component.html',
   styleUrls: ['./orderamount.component.scss'],
   //encapsulation: ViewEncapsulation.None  // Add this line
@@ -36,6 +38,10 @@ export class OrderamountComponent implements AfterViewInit{
   @ViewChild('myChart', { static: true }) chartContainer: ElementRef;
   //chartOptions: AgChartOptions
   isBrowser: boolean;
+
+  
+  orderStatus = OrderStatus;
+  selectedStatus: string = '';
   Months = [
     'Jan',
     'Feb',
@@ -100,8 +106,8 @@ export class OrderamountComponent implements AfterViewInit{
         {
           type: 'bar',
           xKey: 'month',
-          yKey: 'completedCount',
-          yName: 'Completed Orders',
+          yKey: 'statusCount',
+          yName: 'Status Orders',
           
           fill: '#00ffb9',
           stackGroup: "NOL",
@@ -150,19 +156,14 @@ export class OrderamountComponent implements AfterViewInit{
     
     this.myArray = [];
 
-    (await this.orderService.readDaysCount(this.filterData)).subscribe(
+    (await this.orderService.readStatusDaysCount(this.filterData, this.selectedStatus)).subscribe(
       async (result) => {
         
         tempArr = result;
         console.log('temparr', tempArr);
         result.sort((a, b) => a.month - b.month);
-        // result.forEach((element) => {
-        //   this.myArray.push({
-        //     month: this.Months[element.month - 1],
-        //     orderCount: element.countDays,
-        //   });
-        // });
-        (await this.orderService.readCompletedDaysCount(this.filterData)).subscribe(
+
+        (await this.orderService.readDaysCount(this.filterData)).subscribe(
           (resultComplete) => {
             var idx = 0;
             tempArr = resultComplete;
@@ -171,8 +172,8 @@ export class OrderamountComponent implements AfterViewInit{
             resultComplete.forEach((element) => {
               this.myArray.push({
                 month: this.Months[element.month - 1],
-                orderCount: result[idx].countDays,
-                completedCount: element.countDays,
+                orderCount: element.countDays - result[idx].countDays,
+                statusCount: result[idx].countDays,
               });
               idx++;
             });
@@ -183,6 +184,9 @@ export class OrderamountComponent implements AfterViewInit{
         //  };
 
         //console.log(this.myArray);
+        
+
+
         this.chartOptions = {
           ...this.chartOptions,
           data: this.myArray,
@@ -197,10 +201,15 @@ export class OrderamountComponent implements AfterViewInit{
       }
     );
   }
+
+  onStatusChange(status: string) {
+    this.selectedStatus = status;
+    this.updateChart();
+  }
 }
 
 export class ListOrderDate {
   month: string;
   orderCount: number;
-  completedCount: number;
+  statusCount: number;
 }

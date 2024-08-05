@@ -1,5 +1,13 @@
 <div id="chartContainer" class="chart-container">
     <ag-charts id="myChart" #myChart [options]="chartOptions"></ag-charts>
   </div>
+
+  
+  <ix-select class="select"  [value]="selectedStatus">
+    <ix-select-item *ngFor="let enum of orderStatus | keyvalue" label="{{enum.value}}" [value]="selectedStatus" (click)="onStatusChange(enum.value)">
+      {{selectedStatus}}
+      
+    </ix-select-item>
+  </ix-select>
 <!-- <button (click)="clickOn()"> weqweqwqe</button> -->
 <!-- <button (click)="clicktoInc()"> weqweqwqe</button> -->

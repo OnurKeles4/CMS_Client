@@ -1,5 +1,5 @@
-<ng-container *ngIf="!isDisabled">  
-<ix-message-bar class="message"  type={{messageOptions.type}} [dismissible]="true" > {{messageOptions.message}}</ix-message-bar>
+<ng-container #myContainer *ngIf="!isDisabled">  
+<ix-message-bar #myMessage class="message"  type={{messageOptions.type}} [dismissible]="true" > {{messageOptions.message}}</ix-message-bar>
 </ng-container>
 
 

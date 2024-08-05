@@ -61,10 +61,10 @@ export class OrderService {
 
   }
 
-  async readCompletedDaysCount(FilterDays: number): Promise<Observable<DatetableOrder[]>> {
+  async readStatusDaysCount(FilterDays: number, StatusType: string): Promise<Observable<DatetableOrder[]>> {
     
-    var a = this.httpClientService.getCompletedDaysCount<DatetableOrder[]>(
-      {controller: "orders"}, FilterDays);
+    var a = this.httpClientService.getStatusDaysCount<DatetableOrder[]>(
+      {controller: "orders"}, FilterDays, StatusType);
     return a;
 
 
