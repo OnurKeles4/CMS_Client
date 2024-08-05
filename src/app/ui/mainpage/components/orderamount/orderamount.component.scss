@@ -1,3 +1,17 @@
 .select {
   margin-top: 10px;
 }
+
+
+.info {
+  border-left: 3.5px solid #0cc;
+  padding-left: 10px;
+  padding-top: 7px;
+  margin-top: 3px;
+  border-radius: 2px;
+}
+
+.info-container {
+  display: flex;
+  gap: 15px;
+}

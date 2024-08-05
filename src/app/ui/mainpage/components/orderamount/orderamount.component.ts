@@ -41,7 +41,7 @@ export class OrderamountComponent implements AfterViewInit{
 
   
   orderStatus = OrderStatus;
-  selectedStatus: string = '';
+  selectedStatus: string = 'Completed';
   Months = [
     'Jan',
     'Feb',
@@ -107,7 +107,7 @@ export class OrderamountComponent implements AfterViewInit{
           type: 'bar',
           xKey: 'month',
           yKey: 'statusCount',
-          yName: 'Status Orders',
+          yName: 'Completed Orders',
           
           fill: '#00ffb9',
           stackGroup: "NOL",

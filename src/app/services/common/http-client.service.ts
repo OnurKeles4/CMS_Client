@@ -46,7 +46,7 @@ export class HttpClientService {
     if (requestParameter.fullEndPoint)
       url = requestParameter.fullEndPoint;
     else
-      url = `${this.url(requestParameter)}${`/count-status-orders?value=${FilterDays}`}${`&status=${StatusType}`}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
+      url = `${this.url(requestParameter)}${`/count-status-orders?value=${FilterDays}`}${`&status=`}${StatusType ? `${StatusType}`: "Completed"}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
     return this.httpClient.get<T>(url, { headers: requestParameter.headers });
   }
 
