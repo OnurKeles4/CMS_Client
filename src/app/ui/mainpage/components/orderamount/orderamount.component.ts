@@ -34,7 +34,7 @@ import { OrderStatus } from '../../../customersearch/components/crud_order/addor
   styleUrls: ['./orderamount.component.scss'],
   //encapsulation: ViewEncapsulation.None  // Add this line
 })
-export class OrderamountComponent implements AfterViewInit{
+export class OrderamountComponent implements OnInit{
   @ViewChild('myChart', { static: true }) chartContainer: ElementRef;
   //chartOptions: AgChartOptions
   isBrowser: boolean;
@@ -64,14 +64,13 @@ export class OrderamountComponent implements AfterViewInit{
   //chartOptions: AgChartOptions;
   chartOptions: AgChartOptions
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.initializeChart();
-    this.cdr.detectChanges(); // Force change detection
   }
 
   initializeChart() {
     this.chartOptions = {
-      // height: 100, // Height of the chart                    //EVEN THIS DOESN'T WORK IN THE FIRST LOAD.
+       height: 1000, // Height of the chart                    //EVEN THIS DOESN'T WORK IN THE FIRST LOAD.
       // Data: Data to be displayed in the chart
       data: [],
       
@@ -134,8 +133,9 @@ export class OrderamountComponent implements AfterViewInit{
     private dataService: DataService,
     private cdr: ChangeDetectorRef
   ) {
-    this.initializeChart();
     this.isBrowser = isPlatformBrowser(this.platformId);
+    //this.initializeChart();
+    
 
     this.dataService.filterDataObs.subscribe((data) => {
       this.filterData = data;
@@ -191,6 +191,7 @@ export class OrderamountComponent implements AfterViewInit{
           ...this.chartOptions,
           data: this.myArray,
         };
+        
       }
       
     );
