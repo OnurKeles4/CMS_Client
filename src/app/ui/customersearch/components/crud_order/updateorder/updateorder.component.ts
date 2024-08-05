@@ -76,7 +76,7 @@ export class UpdateorderComponent {
        *
        * PROBLEM IS PROBABLY RELATED TO LISTORDER, (the attributes of the data we send to database)
        */
-      this.sendRefreshRequest(true);
+      this.dataService.setRefresh(true);
       dialogRef.afterClosed().subscribe(async (result) => {
         if (result) {
           //console.log('Dialog result:', result);
@@ -104,35 +104,25 @@ export class UpdateorderComponent {
           console.log('Edit order:', edit_order);
 
           await this.orderService.update(edit_order).then(() => {
-            this.sendMessage({message: 'Order updated successfully!', type: 'info', duration: 3000});
+            this.dataService.setMessageBar({message: 'Order updated successfully!', type: 'info', duration: 3000});
             console.log('Updated a order');
           });
-          //console.log("Edit Selected in Update, senddata and refresh", this.sendData);
+          //console.log("Edit Selected in Update, dataService.setData and refresh", this.dataService.setData);
 
-          this.sendData();
-          //this.sendRefreshRequest(false);
+          this.dataService.setData();
+          //this.dataService.setRefresh(false);
         }
         else {
           
-          this.sendMessage({message: 'Order update cancelled!', type: 'danger', duration: 3000});
+          this.dataService.setMessageBar({message: 'Order update cancelled!', type: 'danger', duration: 3000});
             }
 
-        this.sendRefreshRequest(false);
+        this.dataService.setRefresh(false);
       });
     } else {
-      this.sendMessage({message: 'Button is disabled!', type: 'warning', duration: 3000});
+      this.dataService.setMessageBar({message: 'Button is disabled!', type: 'warning', duration: 3000});
       console.log('the button is disabledAA');
     }
   }
-  sendMessage(body: any) {
-    this.dataService.setMessageBar(body);
-  }
 
-  sendData() {
-    this.dataService.setData(true);
-  }
-
-  sendRefreshRequest(flag: boolean) {
-    this.dataService.setRefresh(flag);
-  }
 }

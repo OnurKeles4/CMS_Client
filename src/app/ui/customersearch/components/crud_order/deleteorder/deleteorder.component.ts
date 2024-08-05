@@ -47,35 +47,25 @@ export class DeleteorderComponent {
 
   async deleteSelectedOrder() {
     if (this.isDisabled != true) {
-      this.sendisDisabled(true);
+      this.dataService.setorderIsDisabled(true);
       this.sendRefreshRequest(true);
       console.log('Delete Selected in Delete, id:', this.selectedOrder.id);
 
       await this.orderService.delete(this.selectedOrder.id).then(
         () => {
         console.log('Deleted a order');
-        this.sendMessage({message: 'Order removed successfully!', type: 'info', duration: 3000});
+        this.dataService.setMessageBar({message: 'Order removed successfully!', type: 'info', duration: 3000});
         this.sendRefreshRequest(false);
         //Refresh the data on the orderinfo
-        this.sendisDisabled(true);
+        this.dataService.setorderIsDisabled(true);
       });
     } else {
           
-      this.sendMessage({message: 'Button is disabled!', type: 'warning', duration: 3000});
+      this.dataService.setMessageBar({message: 'Button is disabled!', type: 'warning', duration: 3000});
       //console.log('the button is disabled');
     }
   }
-  sendMessage(body: any) {
-    this.dataService.setMessageBar(body);
-  }
   
-  sendisDisabled(flag: boolean) {
-    this.dataService.setorderIsDisabled(flag);
-  }
-  sendData(flag: boolean) {
-    //console.log("SendData in Delete being sent");
-    this.dataService.setData(flag);
-  }
 
   sendRefreshRequest(flag: boolean) {
     console.log('Send Refresh Request in Delete being sent');

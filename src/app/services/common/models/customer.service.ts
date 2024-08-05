@@ -25,8 +25,11 @@ export class CustomerService {
       message += `${_v}<br>`;
     });
   });
-  if(errorCallBack)
-    errorCallBack(message);   
+  if(errorCallBack)  {
+    errorCallBack(message);
+    console.log("ErrorCallBack", message);
+    
+  }   
 });  
 }
 

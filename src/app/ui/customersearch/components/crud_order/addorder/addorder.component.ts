@@ -78,7 +78,7 @@ export class AddorderComponent {
         },
       });
 
-      this.sendRefreshRequest(true);
+      this.dataService.setRefresh(true);
       dialogRef.afterClosed().subscribe(async (result) => {
         if (result) {
           //console.log('Dialog result:', result);
@@ -97,38 +97,26 @@ export class AddorderComponent {
 
           await this.orderService.create(new_order).then(() => {
             console.log('Created a order');
-            this.sendRefreshRequest(false);
+            this.dataService.setRefresh(false);
 
-            this.sendMessage({message: 'Order added successfully!', type: 'info', duration: 3000});
+            this.dataService.setMessageBar({message: 'Order added successfully!', type: 'info', duration: 3000});
           });
-          //console.log("Edit Selected in Update, senddata and refresh", this.sendData);
+          //console.log("Edit Selected in Update, dataService.setData and refresh", this.dataService.setData);
 
-          this.sendData();
-          //this.sendRefreshRequest(false);
+          this.dataService.setData();
+          //this.dataService.setRefresh(false);
         } else {
           
-          this.sendMessage({message: 'Order add cancelled!', type: 'danger', duration: 3000});
+          this.dataService.setMessageBar({message: 'Order add cancelled!', type: 'danger', duration: 3000});
             }
         
-        this.sendRefreshRequest(false);
+        this.dataService.setRefresh(false);
         this.isDisabled = true;
       });
     } else {
-      this.sendMessage({message: 'Button is disabled!', type: 'warning', duration: 3000});
+      this.dataService.setMessageBar({message: 'Button is disabled!', type: 'warning', duration: 3000});
       console.log('the button is disabledAA');
     }
-  }
-
-  sendMessage(body: any) {
-    this.dataService.setMessageBar(body);
-  }
-
-  sendData() {
-    this.dataService.setData(true);
-  }
-
-  sendRefreshRequest(flag: boolean) {
-    this.dataService.setorderRefresh(flag);
   }
 }
 

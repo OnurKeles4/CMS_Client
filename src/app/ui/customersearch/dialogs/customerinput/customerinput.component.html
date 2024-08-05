@@ -11,10 +11,11 @@
         <input placeholder="Edit Email" matInput formControlName="input2" />
       </mat-form-field>
       <mat-form-field>
-        <input
-          placeholder="Edit Phone Number"
+        <input type="tel"
+        placeholder="Phone 123 456 7890" pattern="[0-9]{3} [0-9]{3} [0-9]{4}"
           matInput
           formControlName="input3"
+          oninvalid="log('Hiii')"
         />
       </mat-form-field>
     </form>

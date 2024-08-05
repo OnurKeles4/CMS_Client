@@ -64,9 +64,9 @@ export class AddcustomerComponent {
         },
       });
 
-      this.sendRefreshRequest(true);
+      this.dataService.setRefresh(true);
       dialogRef.afterClosed().subscribe(async (result) => {
-        if (result) {
+        if (result && result.input1 && result.input2 && result.input3) {
           //console.log('Dialog result:', result);
           //console.log("result", result);
           //console.log("selected Customer", this.selectedCustomer);
@@ -79,36 +79,31 @@ export class AddcustomerComponent {
           new_customer.phone_number = result.input3;
 
           console.log('Create Customer:', new_customer);
-
+            
           await this.customerService.create(new_customer).then(() => {
             console.log('Created a customer');
-            this.sendRefreshRequest(false);
-            this.sendMessage({message: 'Customer added successfully!', type: 'info', duration: 3000});
-          });
+            this.dataService.setRefresh(false);
+            this.dataService.setMessageBar({message: 'Customer added successfully!', type: 'info', duration: 3000});
+          })
+
+          // .catch(() => {
+          //   this.dataService.setMessageBar({message: 'Customer ERROR!', type: 'danger', duration: 3000});
+          // });
           //console.log("Edit Selected in Update, senddata and refresh", this.sendData);
 
-          this.sendData();
-          //this.sendRefreshRequest(false);
+          this.dataService.setData();
+          //this.dataService.setRefresh(false);
         }
         else {
-          this.sendMessage({message: 'Customer add cancelled!', type: 'danger', duration: 3000});
+          this.dataService.setMessageBar({message: 'Customer add not valid!', type: 'danger', duration: 3000});
         }
-        this.sendRefreshRequest(false);
+        this.dataService.setRefresh(false);
       });
     } else { 
-      this.sendMessage({message: 'Button is disabled!', type: 'warning', duration: 3000});
+      this.dataService.setMessageBar({message: 'Button is disabled!', type: 'warning', duration: 3000});
       console.log('the button is disabledAA');
     }
   }
 
-  sendMessage(body: any) {
-    this.dataService.setMessageBar(body);
-  }
-  sendData() {
-    this.dataService.setData();
-  }
 
-  sendRefreshRequest(flag: boolean) {
-    this.dataService.setRefresh(flag);
-  }
 }

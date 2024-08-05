@@ -18,7 +18,7 @@ export class OrderService {
 
   this.httpClientService.post({controller: "orders"}, order)
   .subscribe(result => {},(errorResponse: HttpErrorResponse) => {
-  const _error: Array<{ key: string, value: Array<string> }> = errorResponse.error;
+  const _error: Array<{ key: string, value: Array<string>}> = errorResponse.error;
 
   let message = "";
   

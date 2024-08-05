@@ -62,7 +62,7 @@ export class OrderlistComponent {
     this.ifLastMonth = false;
     this.filterSwitch();
     this.updateList();//
-    this.sendFilter();
+    this.dataService.setFilterData(this.FilterDays);
     
   }
 
@@ -87,32 +87,6 @@ export class OrderlistComponent {
   console.log('filterdays', this.FilterDays);
 }
 
-  // async updateList() {
-  //   let rowdatatemp = [];
-  //   this.orderService.read().subscribe((orders) => {
-  //     console.log(orders);
-
-  //     this.tempArr = orders;
-
-  //     this.customerService.read().subscribe((customers) => {
-  //       this.tempArr.forEach(async (order) => {
-  //         customers.find((customer) => {
-  //           if (customer.id == order.customerId) {
-  //             this.rowData.push({
-  //               customer_name: customer.name,
-  //               order_name: order.name,
-  //               order_id: order.id,
-  //               status: order.status,
-  //             });
-  //           }
-  //         });
-  //       });
-  //       console.log('row data', this.rowData);
-
-  //       this.isDataReady = true;
-  //     });
-  //   });
-  // }
   async updateList() {
     let rowdatatemp: CustomerOrderList[] = [];
     (await this.orderService.readLastMonth(this.FilterDays)).subscribe((orders) => {
@@ -146,14 +120,7 @@ export class OrderlistComponent {
 
   gridOptions = { }
 
-  sendData() {
-    this.dataService.setData();
-    //this.dataService.setData(!this.ifLastMonth);
-  }
 
-  sendFilter() {
-    this.dataService.setFilterData(this.FilterDays);
-  }
 }
 
 class CustomerOrderList {

@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { OrderStatus } from '../../components/crud_order/addorder/addorder.component';
 import {MatSelectModule} from '@angular/material/select';
+import { MessageComponent } from '../../../common/message/message.component';
+import { DataService } from '../../../../services/common/dataservice';
 
 @Component({
   selector: 'app-orderinput',
@@ -25,7 +27,7 @@ export class OrderinputComponent{
     public dialogRef: MatDialogRef<OrderinputComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-  ) {
+    private dataService: DataService) {
 
     
 
@@ -50,6 +52,17 @@ export class OrderinputComponent{
       this.dialogRef.close(this.form.value);
 
     }
+  }
+
+  invalidInput(info: string) {
+    this.sendMessage({message: `Order invalid because of ${info}!`, type: 'warning', duration: 2000});
+      console.log('invalid input', info);
+      
+  }
+
+  sendMessage(body: any)  {
+    this.dataService.setMessageBar(body);
+
   }
 
 }
