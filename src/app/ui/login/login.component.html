@@ -1,0 +1,11 @@
+<h1 id="title"> Login </h1>
+<div class="login-container">
+    <div class="form">
+    <form (submit)="login($event)" [formGroup]="form">
+        <input type="text" placeholder="email" formControlName="email" >
+        <input type="password" placeholder="password" formControlName="password">
+        
+<ix-button icon="log-in" id="login" routerLink="">Login</ix-button>
+</form>
+</div>
+</div>

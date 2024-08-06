@@ -12,7 +12,8 @@
       </mat-form-field>
       <mat-form-field>
         <input type="tel"
-        placeholder="Phone 123 456 7890" pattern="[0-9]{3} [0-9]{3} [0-9]{4}"
+        maxlength="12"
+        placeholder="Phone 123 456 7890"
           matInput
           formControlName="input3"
           oninvalid="log('Hiii')"
@@ -23,5 +24,6 @@
   <div class="button-container" mat-dialog-actions>
     <ix-button mat-button (click)="onCancel()">Cancel</ix-button>
     <ix-button mat-button (click)="onSubmit()">Submit</ix-button>
+  
   </div>
 </div>

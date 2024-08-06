@@ -35,7 +35,7 @@ export class OrderlistComponent {
   )
    {
     this.isBrowser = isPlatformBrowser(this.platformId);
-
+    this.dataService.setFilterData(this.FilterDays);
     this.updateList();
   }
 
@@ -67,6 +67,8 @@ export class OrderlistComponent {
   }
 
   filterSwitch() {
+    console.log('filterdays in switch', this.FilterDays);
+    
       switch (this.FilterDays) {
         case 30:                    //if initial value
           this.FilterDays = 90;     //set to 90 (3 months)

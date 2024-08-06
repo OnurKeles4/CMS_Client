@@ -7,6 +7,8 @@ ix-application-header {
     font-size: 50px;
 }
 
+
+
 // .side {
 //     background-color: red;
 //     position: absolute;
@@ -20,7 +22,9 @@ ix-application-header {
 .sidebar {
     top: 40px;
     position: fixed;
-    height: 100vh;
+    height: 100%;
+    display: flex;
+    
 }
 
 .siemens {

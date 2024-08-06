@@ -1,0 +1,27 @@
+.login-container  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+input {
+    margin: 10px;
+}
+
+#login {
+    margin: 10px;
+}
+
+#title {
+    font-weight: 500;
+    font-style: normal;
+    text-align: center;
+    align-content: center;
+    align-self: center;
+    margin-bottom: 10px;
+    height: 15%;
+    position: relative;
+    top:30%;
+    width: 100%;
+}

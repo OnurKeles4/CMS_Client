@@ -4,7 +4,7 @@ import { IxActiveModal, IxModule } from '@siemens/ix-angular';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BaseDialog } from '../base/base-dialog';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { OrderStatus } from '../../components/crud_order/addorder/addorder.component';
 import {MatSelectModule} from '@angular/material/select';
@@ -32,9 +32,9 @@ export class OrderinputComponent{
     
 
     this.form = this.fb.group({
-      input1: [''],
-      input2: [''],
-      input3: [''],
+      input1: ['', [Validators.minLength(2), Validators.maxLength(100)]],
+      input2: ['', [Validators.maxLength(1000)]],                        //rename these fields accurately later
+      input3: ['', [Validators.minLength(2), Validators.maxLength(100)]],
       input4: [''],
     });
 
@@ -51,6 +51,19 @@ export class OrderinputComponent{
 
       this.dialogRef.close(this.form.value);
 
+    }
+    if (this.form.valid) {
+      this.dialogRef.close(this.form.value);
+    }
+    else {
+      var str = "";
+
+
+
+      this.dataService.setMessageBar({message: `Customer invalid because of ...!`, type: 'warning', duration: 2000});
+      console.log('invalid input', this.form.controls['input1'].errors);
+      console.log('invalid input', this.form.controls['input2'].errors);
+      console.log('invalid input', this.form.controls['input3'].errors);
     }
   }
 

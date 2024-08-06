@@ -39,10 +39,10 @@ export class OrderamountComponent implements AfterContentInit{
   @ViewChild('myChart', { static: true }) chartContainer: ElementRef;
   //chartOptions: AgChartOptions
   isBrowser: boolean;
-
+  isReady: boolean = false;
   
   orderStatus = OrderStatus;
-  selectedStatus: string = 'Completed';
+  selectedStatus: string = 'All';
   Months = [
     'Jan',
     'Feb',
@@ -71,7 +71,7 @@ export class OrderamountComponent implements AfterContentInit{
 
   initializeChart() {
     this.chartOptions = {
-       height: 1000, // Height of the chart                    //EVEN THIS DOESN'T WORK IN THE FIRST LOAD.
+       //height: 1000, // Height of the chart                    //EVEN THIS DOESN'T WORK IN THE FIRST LOAD.
       // Data: Data to be displayed in the chart
       data: [],
       
@@ -135,25 +135,32 @@ export class OrderamountComponent implements AfterContentInit{
     private cdr: ChangeDetectorRef
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    //this.initializeChart();
+    //this.updateChart();
     
-
+    
     this.dataService.filterDataObs.subscribe((data) => {
+      
       this.filterData = data;
       if (this.filterData < 30) {
         this.filterData = 30; //this prohibits the code from going down 30 (1 month) days to be safe
       }
 
       this.myArray = [];
-      this.updateChart();
+      console.log('filterData in service', this.filterData);
+      
+    this.updateChart();
     });
 
+    //console.log('filterData before update in constr', this.filterData);
+    this.updateChart();
     //this.updateList();
   }
 
   async updateChart() {
+    console.log('update chart worked!', this.filterData);
+    this.isReady = false;
     let tempArr: any;
-    console.log(this.chartContainer);
+    //console.log(this.chartContainer);
     
     this.myArray = [];
 
@@ -161,14 +168,14 @@ export class OrderamountComponent implements AfterContentInit{
       async (result) => {
         
         tempArr = result;
-        console.log('temparr', tempArr);
+        //console.log('temparr', tempArr);
         result.sort((a, b) => a.month - b.month);
 
         (await this.orderService.readDaysCount(this.filterData)).subscribe(
           (resultComplete) => {
             var idx = 0;
             tempArr = resultComplete;
-            console.log('temparr', tempArr);
+            //console.log('temparr', tempArr);
             resultComplete.sort((a, b) => a.month - b.month);
             resultComplete.forEach((element) => {
               this.myArray.push({
@@ -192,14 +199,14 @@ export class OrderamountComponent implements AfterContentInit{
           ...this.chartOptions,
           data: this.myArray,
         };
-        
+        this.isReady = true;
       }
       
     );
 
        
 
-        console.log("my array", this.myArray);
+        //console.log("my array", this.myArray);
       }
     );
   }

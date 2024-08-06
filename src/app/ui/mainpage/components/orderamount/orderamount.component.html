@@ -1,3 +1,4 @@
+<ng-container *ngIf="isReady">
 <div id="chartContainer" class="chart-container">
     <ag-charts id="myChart" #myChart [options]="chartOptions"></ag-charts>
   </div>
@@ -10,5 +11,6 @@
   </ix-select>
   <p class="info">{{selectedStatus}}</p>
 </div>
+</ng-container>
 <!-- <button (click)="clickOn()"> weqweqwqe</button> -->
 <!-- <button (click)="clicktoInc()"> weqweqwqe</button> -->
