@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClientService } from '../../../services/common/http-client.service';
 import { LoginService } from '../../../services/common/models/login.service';
+import { RegisterUser } from '../../../contracts/user/register_user';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,17 @@ export class AuthService {
     
     return this.loginService.login(user.email, user.password)
     .pipe(tap((data: any) => this.doLoginUser(user.email, JSON.stringify(data))));
+  }
+  async register(user: RegisterUser) {
+    console.log('Registering user', user);
+    
+    this.loginService.create(user).then( () => {
+      console.log('User created', user);
+      
+      //this.login( {email: user.Email, password: user.Password});
+    });
+
+    //Should I immediatly login the user after registration?
   }
 
   doLoginUser(email: string, tokens: any) {

@@ -4,6 +4,7 @@ import { CustomerSearchComponent } from './ui/customersearch/customersearch.comp
 import { LoginComponent } from './ui/login/login.component';
 import { authGuard } from './ui/login/auth/auth.guard';
 import { RegisterComponent } from './ui/login/register/register/register.component';
+import { ForgotpasswordComponent } from './ui/login/forgotpassword/forgotpassword.component';
 
 export const routes: Routes = [
 
@@ -11,4 +12,5 @@ export const routes: Routes = [
     {path: 'customersearch', component: CustomerSearchComponent, canActivate: [authGuard]},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
+    {path: 'forgotpassword', component: ForgotpasswordComponent},
 ];

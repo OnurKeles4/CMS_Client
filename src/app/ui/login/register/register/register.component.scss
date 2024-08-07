@@ -1,4 +1,63 @@
-#button {
-    width: 50%;
-    margin-top: 5px;
+.register-container  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+.button-container {
+    width: 100%;
+    display: block;
+  
+    
+}
+
+input {
+    margin: 10px; 
+}
+
+#login {
+    margin: 10px;
+}
+
+
+
+.button {
+    padding-left: 10px;
+    width: 100%;
+}
+
+.return {
+    position: fixed;
+    top: 95%;
+    left: 2%;
+    width: 10%;
+}
+
+#forgot {
+    width: inherit;
+    margin-top: 10px;
+}
+
+#title {
+    font-weight: 500;
+    font-style: normal;
+    text-align: center;
+    align-content: center;
+    align-self: center;
+    margin-bottom: 10px;
+    height: 15%;
+    position: relative;
+    top:30%;
+    width: 100%;
+}
+
+#subtext {
+    font-weight: 400;
+    font-style: normal;
+    margin-bottom: 10px;
+    height: 15%;
+    position: relative;
+    top:30%;
+    width: 100%;
 }

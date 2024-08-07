@@ -6,8 +6,9 @@
 }
 
 .button-container {
-    width: 50%;
+    width: 100%;
     display: block;
+  
     
 }
 
@@ -21,11 +22,14 @@ input {
 
 
 
-#button {
-    left: 2%;
-    position: relative;
+.button {
+    padding-left: 10px;
     width: 50%;
-    margin-right: 10px;
+}
+
+#forgot {
+    width: inherit;
+    margin-top: 10px;
 }
 
 #title {
@@ -34,6 +38,16 @@ input {
     text-align: center;
     align-content: center;
     align-self: center;
+    margin-bottom: 10px;
+    height: 15%;
+    position: relative;
+    top:30%;
+    width: 100%;
+}
+
+#subtext {
+    font-weight: 400;
+    font-style: normal;
     margin-bottom: 10px;
     height: 15%;
     position: relative;

@@ -1,11 +1,13 @@
-<h1 id="title"> Login </h1>
+<h1 id="title">Login</h1>
 <div class="login-container">
-    <form (submit)="login($event)" [formGroup]="form">
-        <input type="text" placeholder="email" formControlName="email" >
-        <input type="password" placeholder="password" formControlName="password">
-        <div class="button-container">
-<ix-button id="button" (click)="login($event)">Login</ix-button>
-<ix-button id="button" (click)="register($event)"> Register </ix-button>
-</div>
+  <form (submit)="login($event)" [formGroup]="form">
+    <input type="text" placeholder="email" formControlName="email" />
+    <input type="password" placeholder="password" formControlName="password" />
+
+    <div class="button-container">
+      <ix-button class="button" (click)="login($event)">Login</ix-button>
+      <ix-button class="button" (click)="register()"> Register </ix-button>
+    </div>
+    <ix-button class="button" id="forgot" (click)="forgetPassword()"> Cannot login ?</ix-button>
 </form>
 </div>

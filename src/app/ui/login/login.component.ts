@@ -53,7 +53,13 @@ export class LoginComponent {
      }
   }
 
-  register(event: Event) {
+  register() {
     this.router.navigate(['/register']);
+  }
+
+  forgetPassword() {
+  console.log('Forget Password');
+    
+  this.router.navigate(['/forgotpassword']);
   }
 }
