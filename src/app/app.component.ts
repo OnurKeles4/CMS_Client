@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 import { MessageComponent } from "./ui/common/message/message.component";
+import { AuthService } from './ui/login/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,13 @@ import { MessageComponent } from "./ui/common/message/message.component";
 export class AppComponent {
   // isDisabled: boolean = false;
   title = 'CMS_Client';
+ constructor(private authService: AuthService) {}  
+ 
 
 //  Disable() {
 //   this.isDisabled = !this.isDisabled;
 //  }
+logOut() {
+  this.authService.logout();
+}
 }

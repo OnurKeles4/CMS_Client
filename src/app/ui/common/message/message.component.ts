@@ -57,7 +57,7 @@ export class MessageComponent {
 }
 
 export class MessageOptions {
-    message: string;
-    type: string;
-    duration: number;
+    message: string = "";
+    type: string = "none";
+    duration: number = 0;
 }
