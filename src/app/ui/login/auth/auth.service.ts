@@ -3,6 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { HttpClientService } from '../../../services/common/http-client.service';
+import { LoginService } from '../../../services/common/models/login.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +16,12 @@ export class AuthService {
 
   private http = inject(HttpClient);
   private router = inject(Router) 
-  constructor() {}
+  constructor(private loginService: LoginService) {}
 
   login(user: { email: string; password: string }): Observable<any> {
-    return this.http
-      .post('https://api.escuelajs.co/api/v1/auth/login', user)
-      .pipe(tap((data: any) => this.doLoginUser(user.email, JSON.stringify(data))));
+    
+    return this.loginService.login(user.email, user.password)
+    .pipe(tap((data: any) => this.doLoginUser(user.email, JSON.stringify(data))));
   }
 
   doLoginUser(email: string, tokens: any) {

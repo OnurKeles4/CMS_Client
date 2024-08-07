@@ -18,7 +18,11 @@ export class HttpClientService {
       url = requestParameter.fullEndPoint;
     else
       url = `${this.url(requestParameter)}${id ? `/${id}` : ""}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
-    return this.httpClient.get<T>(url, { headers: requestParameter.headers });
+    
+      //console.log("🚀 ~ HttpClientService ~ url:", url);
+      return this.httpClient.get<T>(url, { headers: requestParameter.headers });
+    
+    
   }
 
   getDays<T>(requestParameter: Partial<RequestParameters>, FilterDays?: number, id?: string): Observable<T> {
