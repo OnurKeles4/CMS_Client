@@ -74,6 +74,7 @@ export class CustomerlistComponent {
     this.selectedCustomer = event.data;     //can it be just data or should we pass the id?
     console.log(this.selectedCustomer);
     this.sendCustomerId(event.data.id);
+    this.dataService.setorderRefresh(true);
     this.sendCustomer();
     this.sendisDisabled(false);
     this.sendData(true);

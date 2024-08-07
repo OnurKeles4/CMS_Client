@@ -43,13 +43,14 @@ export class CustomerordersComponent {
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.subscription = this.dataService.dataObs.subscribe((data) => {
-      //console.log('Refresh has been set', refresh);
+      console.log('Refresh has been set', data);
       this.updateList();
-      this.isRefreshed = data;
+      //this.isRefreshed = data;
       
     });
     this.subscription = this.dataService.orderRefreshObs.subscribe((refresh) => {
-      //console.log('Refresh has been set', refresh);
+      console.log('Refresh has been set', refresh);
+      this.isRefreshed = refresh;
       this.updateList();
     });
     this.updateList();

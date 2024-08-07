@@ -106,6 +106,8 @@ export class UpdateorderComponent {
           await this.orderService.update(edit_order).then(() => {
             this.dataService.setMessageBar({message: 'Order updated successfully!', type: 'info', duration: 3000});
             console.log('Updated a order');
+            
+            this.dataService.setorderRefresh(true);
           });
           //console.log("Edit Selected in Update, dataService.setData and refresh", this.dataService.setData);
 
@@ -123,6 +125,7 @@ export class UpdateorderComponent {
       this.dataService.setMessageBar({message: 'Button is disabled!', type: 'warning', duration: 3000});
       console.log('the button is disabledAA');
     }
+  
   }
 
 }

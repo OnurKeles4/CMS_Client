@@ -10,6 +10,7 @@ import { OrderStatus } from '../../components/crud_order/addorder/addorder.compo
 import {MatSelectModule} from '@angular/material/select';
 import { MessageComponent } from '../../../common/message/message.component';
 import { DataService } from '../../../../services/common/dataservice';
+import { CustomValidators } from '../base/customValidators';
 
 @Component({
   selector: 'app-orderinput',
@@ -27,15 +28,16 @@ export class OrderinputComponent{
     public dialogRef: MatDialogRef<OrderinputComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private customValidators: CustomValidators) {
 
     
 
     this.form = this.fb.group({
-      input1: ['', [Validators.minLength(2), Validators.maxLength(100)]],
-      input2: ['', [Validators.maxLength(1000)]],                        //rename these fields accurately later
-      input3: ['', [Validators.minLength(2), Validators.maxLength(100)]],
-      input4: [''],
+      input1: ['', [customValidators.optionalLengthValidator(2,100)]],
+      input2: ['', [customValidators.optionalLengthValidator(2,1000)]],                        //rename these fields accurately later
+      input3: ['', [customValidators.optionalLengthValidator(2,100)]],
+      input4: ['', [customValidators.statusValidator()]],
     });
 
     console.log('data', this.orderStatus);
@@ -47,23 +49,25 @@ export class OrderinputComponent{
   }
 
   onSubmit(): void {
-    if (this.form.valid) {
-
-      this.dialogRef.close(this.form.value);
-
-    }
+    var str = "";
     if (this.form.valid) {
       this.dialogRef.close(this.form.value);
     }
     else {
-      var str = "";
-
-
-
-      this.dataService.setMessageBar({message: `Customer invalid because of ...!`, type: 'warning', duration: 2000});
-      console.log('invalid input', this.form.controls['input1'].errors);
-      console.log('invalid input', this.form.controls['input2'].errors);
-      console.log('invalid input', this.form.controls['input3'].errors);
+        for(let control in this.form.controls) {
+          if(this.form.controls[control].errors != undefined) {
+          console.log('invalid input', this.form.controls[control].errors);
+          str += this.form.controls[control].errors['errorText'] + ' ';
+          }
+          console.log(str);
+          
+        }
+        
+        
+      this.dataService.setMessageBar({message: `Customer invalid because of ${str}!`, type: 'warning', duration: 10000});
+      // console.log('invalid input', this.form.controls['input1'].errors);
+      // console.log('invalid input', this.form.controls['input2'].errors);
+      // console.log('invalid input', this.form.controls['input3'].errors);
     }
   }
 

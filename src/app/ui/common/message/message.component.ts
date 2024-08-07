@@ -17,12 +17,14 @@ export class MessageComponent {
   isDisabled: boolean = true;
   messageOptions: MessageOptions; 
 
+  
+  private timeoutId: any;
 
   constructor(
             private dataService: DataService
   ) {
     this.subscription = this.dataService.messageBarObs.subscribe((body) => {
-      if(this.messageOptions != null)  {
+      if(this.timeoutId)  {
         this.closeMessage();
       }
         console.log('Body set', body);
@@ -40,7 +42,7 @@ export class MessageComponent {
     
     this.isDisabled = false;
 
-    setTimeout(() => {
+    this.timeoutId = setTimeout(() => {
       
             this.isDisabled = true;
             this.messageOptions = null;
@@ -48,7 +50,7 @@ export class MessageComponent {
   }
 
   closeMessage() {
-    
+    clearTimeout(this.timeoutId);
     this.isDisabled = true;
     this.messageOptions == null;
   }

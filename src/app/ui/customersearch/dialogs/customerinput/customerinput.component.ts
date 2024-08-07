@@ -30,10 +30,10 @@ export class PopupInputComponent {
     private customValidators: CustomValidators
   ) {
     this.form = this.fb.group({
-      input1: ['', [customValidators.optionalLengthValidator(5,100)]],
-      input2: ['', [customValidators.optionalLengthValidator(5,100)]],                                   //rename these fields accurately later
-    //   input3: ['', [Validators.pattern("[0-9]{3} [0-9]{3} [0-9]{4}")]],
-    // });
+      input1: ['', [customValidators.optionalLengthValidator(2,100)]],
+      input2: ['', [customValidators.optionalLengthValidator(5,100), customValidators.EmailValidator()]],                                   //rename these fields accurately later
+       input3: ['', [customValidators.PhoneValidator(/^[0-9]{3} [0-9]{3} [0-9]{4}$/)]],
+     });
           // WORK IN PROGRESS PART,REMINDER FOR CONTINUING NEXT DAY!!!!!!!1
 
 
@@ -56,14 +56,25 @@ export class PopupInputComponent {
   }
 
   onSubmit(): void {
+    var str = "";
     if (this.form.valid) {
       this.dialogRef.close(this.form.value);
     }
     else {
-      this.dataService.setMessageBar({message: `Customer invalid because of ...!`, type: 'warning', duration: 2000});
-      console.log('invalid input', this.form.controls['input1'].errors);
-      console.log('invalid input', this.form.controls['input2'].errors);
-      console.log('invalid input', this.form.controls['input3'].errors);
+        for(let control in this.form.controls) {
+          if(this.form.controls[control].errors != undefined) {
+          console.log('invalid input', this.form.controls[control].errors);
+          str += this.form.controls[control].errors['errorText'] + ' ';
+          }
+          //console.log(str);
+          
+        }
+        
+        
+      this.dataService.setMessageBar({message: `Customer invalid because of ${str}!`, type: 'warning', duration: 10000});
+      // console.log('invalid input', this.form.controls['input1'].errors);
+      // console.log('invalid input', this.form.controls['input2'].errors);
+      // console.log('invalid input', this.form.controls['input3'].errors);
     }
   }
 

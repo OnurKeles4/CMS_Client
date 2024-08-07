@@ -80,7 +80,7 @@ export class AddorderComponent {
 
       this.dataService.setRefresh(true);
       dialogRef.afterClosed().subscribe(async (result) => {
-        if (result) {
+        if (result && result.input4) {
           //console.log('Dialog result:', result);
           //console.log("result", result);
           //console.log("selected Order", this.selectedOrder);
@@ -107,7 +107,7 @@ export class AddorderComponent {
           //this.dataService.setRefresh(false);
         } else {
           
-          this.dataService.setMessageBar({message: 'Order add cancelled!', type: 'danger', duration: 3000});
+          this.dataService.setMessageBar({message: 'Order not valid!', type: 'danger', duration: 3000});
             }
         
         this.dataService.setRefresh(false);
@@ -117,6 +117,9 @@ export class AddorderComponent {
       this.dataService.setMessageBar({message: 'Button is disabled!', type: 'warning', duration: 3000});
       console.log('the button is disabledAA');
     }
+    console.log("setting order refresh to true");
+    
+    this.dataService.setorderRefresh(true);
   }
 }
 
