@@ -9,7 +9,9 @@
   [gridOptions]="gridOptions"
   (gridReady)="onGridReady($event)">
 ></ag-grid-angular>
-<div class="date">
-<ix-button (click)="adaptFilter()">Filter Date</ix-button>
-<ix-typography class="info">{{FilterDays/30}} Months</ix-typography>
+<div class="date">  
+  <ix-select class="select" [value]="FilterDays">
+  <ix-select-item *ngFor="let day of FilterDaysArray" label="{{day/30}} Month" [value]= day (click)="adaptFilter(day)">  
+  </ix-select-item>
+</ix-select>
 </div>

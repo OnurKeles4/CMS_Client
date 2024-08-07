@@ -11,6 +11,12 @@
     <div id="title">
     <h2 id="header"> Amount of Orders </h2>
 </div>
+<ng-container *ngIf="isDisabled">
+  <div class="spinner-container"> 
+    <ix-spinner class="spinner"></ix-spinner>
+    <h3 class="text">Waiting for data...</h3>
+  </div>
+</ng-container>
     <app-orderamount></app-orderamount>
   </div>
 </div>

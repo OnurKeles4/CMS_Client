@@ -159,6 +159,7 @@ export class OrderamountComponent implements AfterContentInit{
   async updateChart() {
     console.log('update chart worked!', this.filterData);
     this.isReady = false;
+    this.dataService.setRefresh(true);
     let tempArr: any;
     //console.log(this.chartContainer);
     
@@ -200,6 +201,8 @@ export class OrderamountComponent implements AfterContentInit{
           data: this.myArray,
         };
         this.isReady = true;
+        
+    this.dataService.setRefresh(false);
       }
       
     );

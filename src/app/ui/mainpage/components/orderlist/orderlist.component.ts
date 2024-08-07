@@ -27,6 +27,8 @@ export class OrderlistComponent {
   isConcat: boolean;
   gridApi: any;
 
+  FilterDaysArray: number[] = [30, 90, 180, 36000];
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private customerService: CustomerService,
@@ -55,12 +57,12 @@ export class OrderlistComponent {
     filter: true,
   };
 
-  adaptFilter() {
-    //console.log('filter', this.ifLastMonth);
-    
-      this.rowData = [];
+  adaptFilter(val: number) {
+    console.log('filter value', val);
+    this.FilterDays = val;
+    this.rowData = [];
     this.ifLastMonth = false;
-    this.filterSwitch();
+    //this.filterSwitch();
     this.updateList();//
     this.dataService.setFilterData(this.FilterDays);
     

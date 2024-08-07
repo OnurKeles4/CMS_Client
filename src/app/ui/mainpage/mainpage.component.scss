@@ -1,31 +1,57 @@
 #container {
-padding: 100px;
-display: flex;
-justify-content: space-between;
+  padding: 100px;
+  display: flex;
+  justify-content: space-between;
 }
 
-#table1, #table2 {
-    background-color: #9d9d9633;
-    width: 49%;
-    
-    
+#table1,
+#table2 {
+  background-color: #9d9d9633;
+  width: 49%;
 }
 
 #title {
-    font-weight: 500;
-    font-style: normal;
-    text-align: center;
-    align-content: center;
-    border-bottom: 5px solid #9d9d9633;
-    margin-bottom: 10px;
-    height: 15%;
+  font-weight: 500;
+  font-style: normal;
+  text-align: center;
+  align-content: center;
+  border-bottom: 5px solid #9d9d9633;
+  margin-bottom: 10px;
+  height: 15%;
 }
 
 #header {
-    
-    font-family: "Ubuntu", sans-serif;
-    margin-bottom: 0px;
-} 
+  font-family: "Ubuntu", sans-serif;
+  margin-bottom: 0px;
+}
 #subheader {
-    text-align: left;
+  text-align: left;
+}
+
+.spinner-container {
+  display: block;
+  width: 100%;
+  height: 75%;
+  overflow: hidden;
+  background-color: rgba(225, 225, 225, 0.225);
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.spinner {
+  position: relative;
+  display: block;
+  justify-content: center;
+  top: 40%;
+  left: 50%;
+}
+.spinner-container .text {
+  position: relative;
+
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  left: 2%;
+  top: 15%;
 }
