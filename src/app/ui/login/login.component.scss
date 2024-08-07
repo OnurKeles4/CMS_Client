@@ -5,12 +5,27 @@
     height: 100vh;
 }
 
+.button-container {
+    width: 50%;
+    display: block;
+    
+}
+
 input {
     margin: 10px; 
 }
 
 #login {
     margin: 10px;
+}
+
+
+
+#button {
+    left: 2%;
+    position: relative;
+    width: 50%;
+    margin-right: 10px;
 }
 
 #title {

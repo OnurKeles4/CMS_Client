@@ -15,6 +15,9 @@ export class DataService {
   refreshObs = this.refresh.asObservable();
   private isDisabled = new BehaviorSubject(true);
   isDisabledObs = this.isDisabled.asObservable();
+  private didLogin = new BehaviorSubject(true);
+  didLoginObs = this.didLogin.asObservable();
+  
 
   
   private orderRefresh = new BehaviorSubject(false);
@@ -34,7 +37,13 @@ export class DataService {
   private order = new BehaviorSubject<ListOrder>(null);
   orderObs = this.order.asObservable();
 
-
+  setDidLogin(data?: boolean) {
+    //console.log("data has been set");
+    //console.log(data);
+    //console.log(this.dataObs);
+   
+   this.didLogin.next(data);
+ }
   setData(data?: boolean) {
      //console.log("data has been set");
      //console.log(data);

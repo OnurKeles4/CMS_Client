@@ -3,6 +3,9 @@
     <form (submit)="login($event)" [formGroup]="form">
         <input type="text" placeholder="email" formControlName="email" >
         <input type="password" placeholder="password" formControlName="password">
-<button (click)="login($event)">Login</button>
+        <div class="button-container">
+<ix-button id="button" (click)="login($event)">Login</ix-button>
+<ix-button id="button" (click)="register($event)"> Register </ix-button>
+</div>
 </form>
 </div>

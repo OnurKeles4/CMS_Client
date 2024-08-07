@@ -29,9 +29,10 @@ export class CustomerlistComponent {
     private dataService: DataService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    this.subscription = this.dataService.dataObs.subscribe((data) => {
+    this.subscription = this.dataService.dataObs.subscribe(async (data) => {
      // console.log('Data has been set', data);
-
+     await this.updateList().then( ()  => {this.gridApi.setGridOption("rowData", this.rowData);}
+    );
     });
     this.subscription = this.dataService.refreshObs.subscribe(async (refresh) => {
 

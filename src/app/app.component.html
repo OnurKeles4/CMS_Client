@@ -2,17 +2,17 @@
   <div class="row">
     <div>
       <ix-application theme="">
-        <ix-application-header name="Customer Managment System" themeSystemApperance="true">
+        <ix-application-header *ngIf="isDisabled" name="Customer Managment System" themeSystemApperance="true">
           <div slot="logo" id="logo">
             <a href="https://www.siemens.com"><img src="assets/siemensW.png" class="siemens"></a>
           </div>
         </ix-application-header>
         <!-- <div class="side">  
         </div> -->
-        <ix-menu class="sidebar">
+        <ix-menu class="sidebar" *ngIf="isDisabled">
           <ix-menu-item tab-icon="home" routerLink="">Main Page</ix-menu-item>
           <ix-menu-item tab-icon="search" routerLink="customersearch">Customer</ix-menu-item>
-          <ix-menu-item tab-icon="log-out" routerLink="login" (click)="logOut()">Logout</ix-menu-item>
+          <ix-menu-item  tab-icon="log-out" routerLink="login" (click)="logOut()">Logout</ix-menu-item>
         </ix-menu>
       
         <ix-content>
