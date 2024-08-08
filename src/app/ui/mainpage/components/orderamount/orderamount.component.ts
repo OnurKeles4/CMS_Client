@@ -35,12 +35,12 @@ import { OrderStatus } from '../../../customersearch/components/crud_order/addor
   styleUrls: ['./orderamount.component.scss'],
   //encapsulation: ViewEncapsulation.None  // Add this line
 })
-export class OrderamountComponent implements AfterContentInit{
+export class OrderamountComponent implements AfterContentInit {
   @ViewChild('myChart', { static: true }) chartContainer: ElementRef;
   //chartOptions: AgChartOptions
   isBrowser: boolean;
   isReady: boolean = false;
-  
+
   orderStatus = OrderStatus;
   selectedStatus: string = 'All';
   Months = [
@@ -63,7 +63,7 @@ export class OrderamountComponent implements AfterContentInit{
   myArray: ListOrderDate[] = [];
   myCompletedArray: ListOrderDate[] = [];
   //chartOptions: AgChartOptions;
-  chartOptions: AgChartOptions
+  chartOptions: AgChartOptions;
 
   ngAfterContentInit(): void {
     this.initializeChart();
@@ -71,10 +71,10 @@ export class OrderamountComponent implements AfterContentInit{
 
   initializeChart() {
     this.chartOptions = {
-       //height: 1000, // Height of the chart                    //EVEN THIS DOESN'T WORK IN THE FIRST LOAD.
+      //height: 1000, // Height of the chart                    //EVEN THIS DOESN'T WORK IN THE FIRST LOAD.
       // Data: Data to be displayed in the chart
       data: [],
-      
+
       axes: [
         {
           type: 'category',
@@ -101,16 +101,16 @@ export class OrderamountComponent implements AfterContentInit{
         color: '#d1d1d1',
         textAlign: 'left',
       },
-  
+
       series: [
         {
           type: 'bar',
           xKey: 'month',
           yKey: 'statusCount',
           yName: 'Completed Orders',
-          
+
           fill: '#00ffb9',
-          stackGroup: "NOL",
+          stackGroup: 'NOL',
           cornerRadius: 10,
         },
         {
@@ -119,14 +119,13 @@ export class OrderamountComponent implements AfterContentInit{
           yKey: 'orderCount',
           yName: 'Orders',
           fill: '#0cc',
-          stackGroup: "NOL",
+          stackGroup: 'NOL',
           cornerRadius: 10,
         },
-        
       ],
     };
   }
-  
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     //private customerService: CustomerService,
@@ -136,19 +135,17 @@ export class OrderamountComponent implements AfterContentInit{
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     //this.updateChart();
-    
-    
+
     this.dataService.filterDataObs.subscribe((data) => {
-      
       this.filterData = data;
       if (this.filterData < 30) {
         this.filterData = 30; //this prohibits the code from going down 30 (1 month) days to be safe
       }
 
       this.myArray = [];
-      console.log('filterData in service', this.filterData);
-      
-    this.updateChart();
+      //console.log('filterData in service', this.filterData);
+
+      this.updateChart();
     });
 
     //console.log('filterData before update in constr', this.filterData);
@@ -157,61 +154,58 @@ export class OrderamountComponent implements AfterContentInit{
   }
 
   async updateChart() {
-    console.log('update chart worked!', this.filterData);
+    //console.log('update chart worked!', this.filterData);
     this.isReady = false;
     this.dataService.setRefresh(true);
     let tempArr: any;
     //console.log(this.chartContainer);
-    
+
     this.myArray = [];
 
-    (await this.orderService.readStatusDaysCount(this.filterData, this.selectedStatus)).subscribe(
-      async (result) => {
-        
-        tempArr = result;
-        //console.log('temparr', tempArr);
-        result.sort((a, b) => a.month - b.month);
+    (
+      await this.orderService.readStatusDaysCount(
+        this.filterData,
+        this.selectedStatus
+      )
+    ).subscribe(async (result) => {
+      tempArr = result;
+      //console.log('temparr', tempArr);
+      result.sort((a, b) => a.month - b.month);
 
-        (await this.orderService.readDaysCount(this.filterData)).subscribe(
-          (resultComplete) => {
-            var idx = 0;
-            tempArr = resultComplete;
-            //console.log('temparr', tempArr);
-            resultComplete.sort((a, b) => a.month - b.month);
-            resultComplete.forEach((element) => {
-              this.myArray.push({
-                month: this.Months[element.month - 1],
-                orderCount: element.countDays - result[idx].countDays,
-                statusCount: result[idx].countDays,
-              });
-              idx++;
+      (await this.orderService.readDaysCount(this.filterData)).subscribe(
+        (resultComplete) => {
+          var idx = 0;
+          tempArr = resultComplete;
+          //console.log('temparr', tempArr);
+          resultComplete.sort((a, b) => a.month - b.month);
+          resultComplete.forEach((element) => {
+            this.myArray.push({
+              month: this.Months[element.month - 1],
+              orderCount: element.countDays - result[idx].countDays,
+              statusCount: result[idx].countDays,
             });
-    
-        //  this.chartOptions = {
-        //    ...this.chartOptions,
-        //    data: this.myArray,
-        //  };
+            idx++;
+          });
 
-        //console.log(this.myArray);
-        
+          //  this.chartOptions = {
+          //    ...this.chartOptions,
+          //    data: this.myArray,
+          //  };
 
+          //console.log(this.myArray);
 
-        this.chartOptions = {
-          ...this.chartOptions,
-          data: this.myArray,
-        };
-        this.isReady = true;
-        
-    this.dataService.setRefresh(false);
-      }
-      
-    );
+          this.chartOptions = {
+            ...this.chartOptions,
+            data: this.myArray,
+          };
+          this.isReady = true;
 
-       
+          this.dataService.setRefresh(false);
+        }
+      );
 
-        //console.log("my array", this.myArray);
-      }
-    );
+      //console.log('my array', this.myArray);
+    });
   }
 
   onStatusChange(status: string) {

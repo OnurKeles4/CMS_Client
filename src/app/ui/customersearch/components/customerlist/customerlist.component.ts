@@ -15,12 +15,11 @@ import { ListCustomer } from '../../../../contracts/customer/list_customer';
   styleUrl: './customerlist.component.scss',
 })
 export class CustomerlistComponent {
-
   isBrowser: boolean;
   subscription: any;
   isDataReady: boolean;
   selectedCustomer: ListCustomer;
-  
+
   gridApi: any;
 
   constructor(
@@ -30,20 +29,21 @@ export class CustomerlistComponent {
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.subscription = this.dataService.dataObs.subscribe(async (data) => {
-     // console.log('Data has been set', data);
-     await this.updateList().then( ()  => {this.gridApi.setGridOption("rowData", this.rowData);}
-    );
-    });
-    this.subscription = this.dataService.refreshObs.subscribe(async (refresh) => {
-
-      await this.updateList().then( ()  => {this.gridApi.setGridOption("rowData", this.rowData);}
-        );
+      // //console.log('Data has been set', data);
+      await this.updateList().then(() => {
+        this.gridApi.setGridOption('rowData', this.rowData);
       });
+    });
+    this.subscription = this.dataService.refreshObs.subscribe(
+      async (refresh) => {
+        await this.updateList().then(() => {
+          this.gridApi.setGridOption('rowData', this.rowData);
+        });
+      }
+    );
 
-      
     this.updateList();
   }
-  
 
   rowData: any[] = [];
   defaultColDef: ColDef = {
@@ -51,7 +51,7 @@ export class CustomerlistComponent {
     filter: true,
   };
   colDefs: ColDef[] = [
-    { field: 'name', minWidth:378, width:378}, //customer name
+    { field: 'name', minWidth: 378, width: 378 }, //customer name
   ];
 
   async updateList() {
@@ -61,31 +61,26 @@ export class CustomerlistComponent {
 
       this.rowData = rowdatatemp;
       this.isDataReady = true;
-      
-        //this.selectedCustomer = this.rowData[0];
-        this.sendCustomer();
-        //console.log(this.selectedCustomer);
-        
-      
+
+      //this.selectedCustomer = this.rowData[0];
+      this.sendCustomer();
+      //console.log(this.selectedCustomer);
     });
   }
 
-  //Send this data to Customerimfo or it's child components. 
+  //Send this data to Customerimfo or it's child components.
   selectCustomer(event: any) {
-    this.selectedCustomer = event.data;     //can it be just data or should we pass the id?
-    console.log(this.selectedCustomer);
+    this.selectedCustomer = event.data; //can it be just data or should we pass the id?
+    //console.log(this.selectedCustomer);
     this.sendCustomerId(event.data.id);
     this.dataService.setorderRefresh(true);
     this.sendCustomer();
     this.sendisDisabled(false);
     this.sendData(true);
     //console.log(this.selectedCustomer);
-    
-    
   }
   onGridReady(params: any) {
     this.gridApi = params.api;
-    
   }
   sendData(flag: boolean) {
     this.dataService.setData(flag);
@@ -97,12 +92,10 @@ export class CustomerlistComponent {
   }
 
   sendCustomer() {
-  this.dataService.setCustomer(this.selectedCustomer);
+    this.dataService.setCustomer(this.selectedCustomer);
   }
 
   sendCustomerId(id: string) {
-  this.dataService.setCustomerId(id);
+    this.dataService.setCustomerId(id);
   }
-
-
 }

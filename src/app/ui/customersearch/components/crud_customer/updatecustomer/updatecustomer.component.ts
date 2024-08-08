@@ -45,7 +45,7 @@ export class UpdatecustomerComponent {
 
   async openDialog() {
     if (this.isDisabled == false) {
-      console.log('dialog is opening');
+      //console.log('dialog is opening');
 
       const dialogRef = this.dialog.open(PopupInputComponent, {
         width: '300px',
@@ -59,8 +59,8 @@ export class UpdatecustomerComponent {
       dialogRef.afterClosed().subscribe(async (result) => {
         if (result) {
           //console.log('Dialog result:', result);
-          //console.log("result", result);
-          //console.log("selected Customer", this.selectedCustomer);
+          //console.log('result', result);
+          //console.log('selected Customer', this.selectedCustomer);
 
           const edit_customer: any = await this.customerService.readWithId(
             this.selectedCustomer.id
@@ -77,29 +77,39 @@ export class UpdatecustomerComponent {
             ? result.input3
             : this.selectedCustomer.phone_number;
 
-          console.log('Edit Product:', edit_customer);
+          //console.log('Edit Product:', edit_customer);
 
           await this.customerService.update(edit_customer).then(() => {
-            
-            this.dataService.setMessageBar({message: 'Customer updated successfully!', type: 'info', duration: 3000});
-            console.log('Updated a customer');
+            this.dataService.setMessageBar({
+              message: 'Customer updated successfully!',
+              type: 'info',
+              duration: 3000,
+            });
+            //console.log('Updated a customer');
           });
-          //console.log("Edit Selected in Update, dataService.setData and refresh", this.dataService.setData);
+          //console.log(
+            //'Edit Selected in Update, dataService.setData and refresh',
+            //this.dataService.setData
+          //);
 
           this.dataService.setData();
           //this.dataService.setRefresh(false);
-        }
-        else {
-          
-      this.dataService.setMessageBar({message: 'Customer update cancelled!', type: 'danger', duration: 3000});
+        } else {
+          this.dataService.setMessageBar({
+            message: 'Customer update cancelled!',
+            type: 'danger',
+            duration: 3000,
+          });
         }
         this.dataService.setRefresh(false);
       });
     } else {
-      
-      this.dataService.setMessageBar({message: 'Button is disabled!', type: 'warning', duration: 3000});
-      console.log('the button is disabledAA');
+      this.dataService.setMessageBar({
+        message: 'Button is disabled!',
+        type: 'warning',
+        duration: 3000,
+      });
+      //console.log('the button is disabledAA');
     }
   }
-
 }

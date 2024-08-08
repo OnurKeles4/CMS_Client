@@ -29,33 +29,32 @@ export class AddorderComponent {
   selectedCustomerId: string;
   subscription: any;
 
-
   constructor(
     public dialog: MatDialog,
     private dataService: DataService,
-    private orderService: OrderService,
-    // private alertify: AlertifyService
-  ) {
+    private orderService: OrderService
+  ) // private alertify: AlertifyService
+  {
     this.subscription = this.dataService.dataObs.subscribe((data) => {
-      //console.log('Data has been set', data);
+      console.log('Data has been set', data);
 
       this.isDisabled = data;
     });
     this.subscription = this.dataService.customerIdObs.subscribe((data) => {
-      //console.log('SelectedCustomerId has been set', data);
+      console.log('SelectedCustomerId has been set', data);
 
       this.selectedCustomerId = data;
     });
   }
 
   recieveMessage($event: boolean) {
-    //console.log("Recieved Message");
+    console.log('Recieved Message');
     this.isDisabled = $event;
     //this.selectedOrder = null;
   }
 
   public editSelected() {
-    //console.log("Edit Selected");
+    console.log('Edit Selected');
     this.isDisabled = true;
   }
 
@@ -81,13 +80,13 @@ export class AddorderComponent {
       this.dataService.setRefresh(true);
       dialogRef.afterClosed().subscribe(async (result) => {
         if (result && result.input4) {
-          //console.log('Dialog result:', result);
-          //console.log("result", result);
-          //console.log("selected Order", this.selectedOrder);
+          console.log('Dialog result:', result);
+          console.log('result', result);
+          //console.log('selected Order', this.selectedOrder);
 
           const new_order: CreateOrder = new CreateOrder();
 
-          //console.log('Edit Product:', new_order);
+          console.log('Edit Product:', new_order);
           new_order.Name = result.input1;
           new_order.Description = result.input2;
           new_order.Address = result.input3;
@@ -99,34 +98,47 @@ export class AddorderComponent {
             console.log('Created a order');
             this.dataService.setRefresh(false);
 
-            this.dataService.setMessageBar({message: 'Order added successfully!', type: 'info', duration: 3000});
+            this.dataService.setMessageBar({
+              message: 'Order added successfully!',
+              type: 'info',
+              duration: 3000,
+            });
           });
-          //console.log("Edit Selected in Update, dataService.setData and refresh", this.dataService.setData);
+          console.log(
+            'Edit Selected in Update, dataService.setData and refresh',
+            this.dataService.setData
+          );
 
           this.dataService.setData();
           //this.dataService.setRefresh(false);
         } else {
-          
-          this.dataService.setMessageBar({message: 'Order not valid!', type: 'danger', duration: 3000});
-            }
-        
+          this.dataService.setMessageBar({
+            message: 'Order not valid!',
+            type: 'danger',
+            duration: 3000,
+          });
+        }
+
         this.dataService.setRefresh(false);
         this.isDisabled = true;
       });
     } else {
-      this.dataService.setMessageBar({message: 'Button is disabled!', type: 'warning', duration: 3000});
+      this.dataService.setMessageBar({
+        message: 'Button is disabled!',
+        type: 'warning',
+        duration: 3000,
+      });
       console.log('the button is disabledAA');
     }
-    console.log("setting order refresh to true");
-    
+    // console.log("setting order refresh to true");
+
     this.dataService.setorderRefresh(true);
   }
 }
 
 export enum OrderStatus {
-  Pending = "Pending",
-  Processing = "Processing",
-  Completed = "Completed",
-  Cancelled = "Cancelled",
-  
+  Pending = 'Pending',
+  Processing = 'Processing',
+  Completed = 'Completed',
+  Cancelled = 'Cancelled',
 }

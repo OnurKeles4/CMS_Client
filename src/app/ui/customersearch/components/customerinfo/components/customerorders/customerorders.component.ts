@@ -16,12 +16,19 @@ import { DataService } from '../../../../../../services/common/dataservice';
 import { ListOrder } from '../../../../../../contracts/order/list_order';
 import { UpdateorderComponent } from '../../../crud_order/updateorder/updateorder.component';
 import { AddorderComponent } from '../../../crud_order/addorder/addorder.component';
-import { DeleteorderComponent } from "../../../crud_order/deleteorder/deleteorder.component";
+import { DeleteorderComponent } from '../../../crud_order/deleteorder/deleteorder.component';
 
 @Component({
   selector: 'app-customerorders',
   standalone: true,
-  imports: [AgGridAngular, IxModule, CommonModule, AddorderComponent, UpdateorderComponent, DeleteorderComponent],
+  imports: [
+    AgGridAngular,
+    IxModule,
+    CommonModule,
+    AddorderComponent,
+    UpdateorderComponent,
+    DeleteorderComponent,
+  ],
   templateUrl: './customerorders.component.html',
   styleUrl: './customerorders.component.scss',
 })
@@ -43,16 +50,17 @@ export class CustomerordersComponent {
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.subscription = this.dataService.dataObs.subscribe((data) => {
-      console.log('Refresh has been set', data);
+      //console.log('Refresh has been set', data);
       this.updateList();
       //this.isRefreshed = data;
-      
     });
-    this.subscription = this.dataService.orderRefreshObs.subscribe((refresh) => {
-      console.log('Refresh has been set', refresh);
-      this.isRefreshed = refresh;
-      this.updateList();
-    });
+    this.subscription = this.dataService.orderRefreshObs.subscribe(
+      (refresh) => {
+        //console.log('Refresh has been set', refresh);
+        this.isRefreshed = refresh;
+        this.updateList();
+      }
+    );
     this.updateList();
   }
 
@@ -89,11 +97,11 @@ export class CustomerordersComponent {
 
   selectOrder(event: any) {
     this.selectedOrder = event;
-    //console.log( this.selectedOrder);
+    //console.log(this.selectedOrder);
     this.dataService.setOrder(this.selectedOrder);
     this.dataService.setorderIsDisabled(false);
     //console.log(this.rowClicked.name);
-    console.log('Order has been selected');
+    //console.log('Order has been selected');
   }
 
   sendRefresh() {

@@ -66,9 +66,8 @@ export class CustomValidators {
   }
 
   statusValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-
-  return null;
-};
-}
+    return (control: AbstractControl): ValidationErrors | null => {
+      return null;
+    };
+  }
 }

@@ -18,24 +18,26 @@ export class AuthService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
 
   private http = inject(HttpClient);
-  private router = inject(Router) 
+  private router = inject(Router);
   constructor(private loginService: LoginService) {}
 
   login(user: { email: string; password: string }): Observable<any> {
-    
-    return this.loginService.login(user.email, user.password)
-    .pipe(tap((data: any) => this.doLoginUser(user.email, JSON.stringify(data))));
+    return this.loginService
+      .login(user.email, user.password)
+      .pipe(
+        tap((data: any) => this.doLoginUser(user.email, JSON.stringify(data)))
+      );
   }
-  register(user: RegisterUser) : Observable<any> {
-    console.log('Registering user', user);
-    
+  register(user: RegisterUser): Observable<any> {
+    //console.log('Registering user', user);
+
     return this.loginService.register(user);
   }
 
   doLoginUser(email: string, tokens: any) {
     //console.log('Logged in', email);
     //console.log('Tokens', tokens);
-        
+
     this.loggedUser = email;
     this.storeJwtToken(tokens);
     this.isAuthenticatedSubject.next(true);
@@ -56,13 +58,12 @@ export class AuthService {
     return !!localStorage.getItem(this.JWT_TOKEN);
   }
 
-
   isTokenExpired() {
-  const tokens = localStorage.getItem(this.JWT_TOKEN);
-      if(!tokens) return true;
-     const token = JSON.parse(tokens).access_token; 
+    const tokens = localStorage.getItem(this.JWT_TOKEN);
+    if (!tokens) return true;
+    const token = JSON.parse(tokens).access_token;
     const decoded = jwtDecode(token);
-    if(!decoded.exp) return true;
+    if (!decoded.exp) return true;
     const expirationTime = decoded.exp * 1000;
     const now = new Date().getTime();
 
@@ -71,11 +72,12 @@ export class AuthService {
 
   //Does my API has a refresh token?
   refreshToken() {
-    let tokens : any = localStorage.getItem(this.JWT_TOKEN); 
-    if(!tokens) return "sad";
+    let tokens: any = localStorage.getItem(this.JWT_TOKEN);
+    if (!tokens) return 'sad';
     tokens = JSON.parse(tokens);
     let refreshToken = tokens.refresh_token;
-    return this.loginService.refresh(refreshToken)
-    .pipe(tap((data: any) => this.storeJwtToken(JSON.stringify(data))));
+    return this.loginService
+      .refresh(refreshToken)
+      .pipe(tap((data: any) => this.storeJwtToken(JSON.stringify(data))));
   }
 }

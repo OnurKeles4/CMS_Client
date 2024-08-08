@@ -32,27 +32,28 @@ export class UpdateorderComponent {
     private dataService: DataService,
     private orderService: OrderService
   ) {
-    this.subscription = this.dataService.orderIsDisabledObs.subscribe((data) => {
-      //console.log('Data has been set', data);
+    this.subscription = this.dataService.orderIsDisabledObs.subscribe(
+      (data) => {
+        console.log('Data has been set', data);
 
-      this.isDisabled = data;
-    });
+        this.isDisabled = data;
+      }
+    );
     this.subscription = this.dataService.orderObs.subscribe((data) => {
-      //console.log('Data has been set', data);
+      console.log('Data has been set', data);
 
       this.selectedOrder = data;
     });
-
   }
 
   recieveMessage($event: boolean) {
-    //console.log("Recieved Message");
+    console.log('Recieved Message');
     this.isDisabled = $event;
     //this.selectedOrder = null;
   }
 
   public editSelected() {
-    //console.log("Edit Selected");
+    console.log('Edit Selected');
     this.isDisabled = true;
   }
 
@@ -79,15 +80,15 @@ export class UpdateorderComponent {
       this.dataService.setRefresh(true);
       dialogRef.afterClosed().subscribe(async (result) => {
         if (result) {
-          //console.log('Dialog result:', result);
-          //console.log("result", result);
+          console.log('Dialog result:', result);
+          console.log('result', result);
           console.log('selected Order', this.selectedOrder);
 
           const edit_order: any = await this.orderService.readWithId(
             this.selectedOrder.id
           );
 
-          //console.log('Edit Product:', edit_order);
+          console.log('Edit Product:', edit_order);
           edit_order.name = result.input1
             ? result.input1
             : this.selectedOrder.name;
@@ -104,28 +105,39 @@ export class UpdateorderComponent {
           console.log('Edit order:', edit_order);
 
           await this.orderService.update(edit_order).then(() => {
-            this.dataService.setMessageBar({message: 'Order updated successfully!', type: 'info', duration: 3000});
+            this.dataService.setMessageBar({
+              message: 'Order updated successfully!',
+              type: 'info',
+              duration: 3000,
+            });
             console.log('Updated a order');
-            
+
             this.dataService.setorderRefresh(true);
           });
-          //console.log("Edit Selected in Update, dataService.setData and refresh", this.dataService.setData);
+          console.log(
+            'Edit Selected in Update, dataService.setData and refresh',
+            this.dataService.setData
+          );
 
           this.dataService.setData();
           //this.dataService.setRefresh(false);
+        } else {
+          this.dataService.setMessageBar({
+            message: 'Order update cancelled!',
+            type: 'danger',
+            duration: 3000,
+          });
         }
-        else {
-          
-          this.dataService.setMessageBar({message: 'Order update cancelled!', type: 'danger', duration: 3000});
-            }
 
         this.dataService.setRefresh(false);
       });
     } else {
-      this.dataService.setMessageBar({message: 'Button is disabled!', type: 'warning', duration: 3000});
+      this.dataService.setMessageBar({
+        message: 'Button is disabled!',
+        type: 'warning',
+        duration: 3000,
+      });
       console.log('the button is disabledAA');
     }
-  
   }
-
 }

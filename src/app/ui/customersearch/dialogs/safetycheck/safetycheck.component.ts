@@ -39,7 +39,7 @@ export class SafetyCheckComponent {
   onSubmit(): void {
   this.dataService.setMessageBar({message: `Logged out`, type: 'info', duration: 3000});
       
-  this.dataService.setDidLogin(false);
+  this.dataService.setInitial();
   this.authService.logout();
   this.dialogRef.close();
   }

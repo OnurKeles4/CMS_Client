@@ -3,4 +3,5 @@ export class ListCustomer {
     name?: string;
     email?: string;
     phone_number?: string;
+    avatar?: string;
 }

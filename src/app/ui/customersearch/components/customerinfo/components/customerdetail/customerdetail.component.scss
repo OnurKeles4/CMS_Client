@@ -1,12 +1,31 @@
-#name {
-    
+.info-container {
+    gap: 10px;
+    width: 80%;
+}
+
+.avatar-container {
+    position: relative;
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    //background-color: red;
 }
 
 #container {
-    display: block;
+    display: flex;
 }
 #label {
     display: flex;
     gap: 5px;
     align-items: center;
 }
+
+.avatar {
+    width: inherit;
+    height: inherit;
+    background-color: red;
+    
+    
+}
+

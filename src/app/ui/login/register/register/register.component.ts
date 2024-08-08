@@ -26,7 +26,7 @@ export class RegisterComponent {
   ) {
     this.dataService.didSignObs.subscribe((data) => {
       if (data == SignStatus.success) {
-        console.log('Register Succeedd');
+        //console.log('Register Succeedd');
 
         this.didSign = data;
         this.RegisterUser();
@@ -57,12 +57,12 @@ export class RegisterComponent {
   }
 
   goBack() {
-    console.log('Going back');
+    //console.log('Going back');
     this.router.navigate(['/login']);
   }
 
   async registerUser(event: Event) {
-    console.log('Register Attempt');
+    //console.log('Register Attempt');
     var a: SignStatus = SignStatus.failed;
 
     event.preventDefault();
@@ -78,7 +78,7 @@ export class RegisterComponent {
         this.dataService.setDidSign(SignStatus.success);
       })
       .add(() => {
-        console.log('Register Status at add', a);
+        //console.log('Register Status at add', a);
 
         if (a == SignStatus.failed) {
           this.dataService.setDidSign(SignStatus.failed);
@@ -87,7 +87,7 @@ export class RegisterComponent {
   }
 
   RegisterFailed(): SignStatus {
-    console.log('Register Failed');
+    //console.log('Register Failed');
     this.dataService.setDidSign(SignStatus.initial);
     this.dataService.setMessageBar({
       message: 'Register Credentials are wrong',
@@ -98,7 +98,7 @@ export class RegisterComponent {
   }
 
   RegisterUser(): SignStatus {
-    console.log('Register Succeedd');
+    //console.log('Register Succeedd');
     this.dataService.setMessageBar({
       message: 'Registered!',
       type: 'info',

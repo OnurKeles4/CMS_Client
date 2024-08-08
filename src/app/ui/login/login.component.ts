@@ -44,10 +44,10 @@ export class LoginComponent {
   }
 
   login(event: Event) {
-    console.log('Loggin Attempt');
+    //console.log('Loggin Attempt');
 
-    console.log('email', this.form.controls['email'].value);
-    console.log('password', this.form.controls['password'].value);
+    //console.log('email', this.form.controls['email'].value);
+    //console.log('password', this.form.controls['password'].value);
     event.preventDefault();
     this.authService
       .login({
@@ -77,7 +77,7 @@ export class LoginComponent {
   }
 
   LoginFailed() {
-    console.log('Login Failed');
+    //console.log('Login Failed');
     this.dataService.setDidSign(SignStatus.initial);
     this.dataService.setMessageBar({
       message: 'Login Credentials are wrong',
@@ -91,7 +91,7 @@ export class LoginComponent {
   }
 
   forgetPassword() {
-    console.log('Forget Password');
+    //console.log('Forget Password');
 
     this.router.navigate(['/forgotpassword']);
   }

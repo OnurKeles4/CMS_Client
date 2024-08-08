@@ -9,9 +9,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   standalone: true,
   imports: [IxModule, CommonModule, FontAwesomeModule],
   templateUrl: './basicbutton.component.html',
-  styleUrl: './basicbutton.component.scss'
+  styleUrl: './basicbutton.component.scss',
 })
-export class BasicbuttonComponent implements OnDestroy {  
+export class BasicbuttonComponent implements OnDestroy {
   showSpinner: boolean = false;
   @Input() isDisabled: boolean = true;
   @Input() label: string;
@@ -23,32 +23,29 @@ export class BasicbuttonComponent implements OnDestroy {
     //   this.isDisabled = data;
     //   //this.showSpinner = data;
     //   //console.log("Isdisabled has been set", this.isDisabled);
-      
+
     // });
-    this.subscription = this.dataService.refreshObs.subscribe(data => {
+    this.subscription = this.dataService.refreshObs.subscribe((data) => {
       this.showSpinner = data;
       //this.showSpinner = data;
-      //console.log("showSpinner has been set", this.showSpinner);
-      
+      //console.log('showSpinner has been set', this.showSpinner);
     });
-    
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-    // active() {
-    //   this.attempt = false;
-    // //console.log("SPIN STARTED");
-    // this.showSpinner = true;
-    // //this.isDisabled = true;
-    // setTimeout(() => {
-    
-    //   //console.log("SPIN STOPPED");    
-    //     this.showSpinner = false;
-    //     this.dataService.setRefresh(false);
-    //     //this.isDisabled = true;
-    // }, 0);
-    // }
-  }
+  // active() {
+  //   this.attempt = false;
+  // //console.log("SPIN STARTED");
+  // this.showSpinner = true;
+  // //this.isDisabled = true;
+  // setTimeout(() => {
 
+  //   //console.log("SPIN STOPPED");
+  //     this.showSpinner = false;
+  //     this.dataService.setRefresh(false);
+  //     //this.isDisabled = true;
+  // }, 0);
+  // }
+}

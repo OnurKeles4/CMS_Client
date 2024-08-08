@@ -40,6 +40,17 @@ export class DataService {
   private order = new BehaviorSubject<ListOrder>(null);
   orderObs = this.order.asObservable();
 
+  constructor() {
+    //this.setInitial();
+  }
+
+  setInitial() {
+    this.setisDisabled(true);
+    this.setDidLogin(false);
+    this.setMessageBar(null);
+    this.setCustomer(null);
+  }
+
   setDidLogin(data?: boolean) {
     this.didLogin.next(data);
   }
@@ -47,19 +58,19 @@ export class DataService {
     this.didSign.next(data);
   }
   setData(data?: boolean) {
-    //console.log("data has been set");
+    //console.log('data has been set');
     //console.log(data);
     //console.log(this.dataObs);
 
     this.data.next(data);
   }
   setFilterData(data: number) {
-    //console.log("AAAAAAAAAAAAAAAAAAAA");
+    //console.log('AAAAAAAAAAAAAAAAAAAA');
 
     this.filterData.next(data);
   }
   setCustomerId(data: string) {
-    //console.log("AAAAAAAAAAAAAAAAAAAA");
+    //console.log('AAAAAAAAAAAAAAAAAAAA');
 
     this.customerId.next(data);
   }
@@ -67,38 +78,38 @@ export class DataService {
     this.messageBar.next(data);
   }
   setisDisabled(data: boolean) {
-    //console.log("AAAAAAAAAAAAAAAAAAAA");
+    //console.log('AAAAAAAAAAAAAAAAAAAA');
 
     this.isDisabled.next(data);
   }
 
   setRefresh(data: boolean) {
-    //console.log("refresh has been set");
+    //console.log('refresh has been set');
 
     this.refresh.next(data);
   }
 
   setorderIsDisabled(data: boolean) {
-    //console.log("AAAAAAAAAAAAAAAAAAAA");
+    //console.log('AAAAAAAAAAAAAAAAAAAA');
 
     this.orderIsDisabled.next(data);
   }
 
   setorderRefresh(data: boolean) {
-    //console.log("refresh has been set");
+    //console.log('refresh has been set');
 
     this.orderRefresh.next(data);
   }
 
   setCustomer(data: ListCustomer) {
-    console.log('data has been set');
+    //console.log('data has been set');
     //console.log(data);
     //console.log(this.dataObs);
 
     this.customer.next(data);
   }
   setOrder(data: ListOrder) {
-    //console.log("data has been set");
+    //console.log('data has been set');
     //console.log(data);
     //console.log(this.dataObs);
 

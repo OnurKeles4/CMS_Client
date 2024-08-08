@@ -9,17 +9,16 @@ import { DataService } from '../../../../../../services/common/dataservice';
   standalone: true,
   imports: [IxModule, CommonModule],
   templateUrl: './customerdetail.component.html',
-  styleUrl: './customerdetail.component.scss'
+  styleUrl: './customerdetail.component.scss',
 })
 export class CustomerdetailComponent {
- @Input() customer: ListCustomer;
- isData: boolean = false;
- constructor(private dataService: DataService) {
-  this.dataService.isDisabledObs.subscribe((data) => {
-     this.isData = !data;
-    //console.log(this.customer);
-  });
-
- }
-
+  @Input() customer: ListCustomer;
+  isData: boolean = false;
+  constructor(private dataService: DataService) {
+    //this.isData = false;
+    this.dataService.isDisabledObs.subscribe((data) => {
+      this.isData = !data;
+      //console.log(this.customer);
+    });
+  }
 }

@@ -31,13 +31,11 @@ export class AddcustomerComponent {
   constructor(
     public dialog: MatDialog,
     private dataService: DataService,
-    private customerService: CustomerService,
+    private customerService: CustomerService
   ) {
-     this.subscription = this.dataService.refreshObs.subscribe((data) => {
-       //console.log('Data has been set', data);
-
-    
-     });
+    this.subscription = this.dataService.refreshObs.subscribe((data) => {
+      //console.log('Data has been set', data);
+    });
     this.subscription = this.dataService.customerObs.subscribe((data) => {
       //console.log('Data has been set', data);
 
@@ -54,7 +52,7 @@ export class AddcustomerComponent {
    */
   async openDialog() {
     if (this.isDisabled == false) {
-      console.log('dialog is opening');
+      //console.log('dialog is opening');
 
       const dialogRef = this.dialog.open(PopupInputComponent, {
         width: '300px',
@@ -68,8 +66,8 @@ export class AddcustomerComponent {
       dialogRef.afterClosed().subscribe(async (result) => {
         if (result && result.input1 && result.input2 && result.input3) {
           //console.log('Dialog result:', result);
-          //console.log("result", result);
-          //console.log("selected Customer", this.selectedCustomer);
+          //console.log('result', result);
+          //console.log('selected Customer', this.selectedCustomer);
 
           const new_customer: any = new CreateCustomer();
 
@@ -78,32 +76,44 @@ export class AddcustomerComponent {
           new_customer.Email = result.input2;
           new_customer.phone_number = result.input3;
 
-          console.log('Create Customer:', new_customer);
-            
+          //console.log('Create Customer:', new_customer);
+
           await this.customerService.create(new_customer).then(() => {
-            console.log('Created a customer');
+            //console.log('Created a customer');
             this.dataService.setRefresh(false);
-            this.dataService.setMessageBar({message: 'Customer added successfully!', type: 'info', duration: 3000});
-          })
+            this.dataService.setMessageBar({
+              message: 'Customer added successfully!',
+              type: 'info',
+              duration: 3000,
+            });
+          });
 
           // .catch(() => {
           //   this.dataService.setMessageBar({message: 'Customer ERROR!', type: 'danger', duration: 3000});
           // });
-          //console.log("Edit Selected in Update, senddata and refresh", this.sendData);
+          //console.log(
+          //'Edit Selected in Update, senddata and refresh',
+          //this.sendData
+          //);
 
           this.dataService.setData();
           //this.dataService.setRefresh(false);
-        }
-        else {
-          this.dataService.setMessageBar({message: 'Customer add not valid!', type: 'danger', duration: 3000});
+        } else {
+          this.dataService.setMessageBar({
+            message: 'Customer add not valid!',
+            type: 'danger',
+            duration: 3000,
+          });
         }
         this.dataService.setRefresh(false);
       });
-    } else { 
-      this.dataService.setMessageBar({message: 'Button is disabled!', type: 'warning', duration: 3000});
-      console.log('the button is disabledAA');
+    } else {
+      this.dataService.setMessageBar({
+        message: 'Button is disabled!',
+        type: 'warning',
+        duration: 3000,
+      });
+      //console.log('the button is disabledAA');
     }
   }
-
-
 }
