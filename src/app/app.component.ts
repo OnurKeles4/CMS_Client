@@ -5,6 +5,8 @@ import { IxModule } from '@siemens/ix-angular';
 import { MessageComponent } from "./ui/common/message/message.component";
 import { AuthService } from './ui/login/auth/auth.service';
 import { DataService } from './services/common/dataservice';
+import { SafetyCheckComponent } from './ui/customersearch/dialogs/safetycheck/safetycheck.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +18,10 @@ import { DataService } from './services/common/dataservice';
 export class AppComponent {
   isDisabled: boolean = false;
   title = 'CMS_Client';
- constructor(private authService: AuthService, private dataService: DataService) {
+ constructor(private authService: AuthService, private dataService: DataService,
+  
+  public dialog: MatDialog,
+ ) {
   this.dataService.didLoginObs.subscribe((data) => {
     //console.log("data", data);
     
@@ -29,7 +34,12 @@ export class AppComponent {
 //   this.isDisabled = !this.isDisabled;
 //  }
 logOut() {
-  this.dataService.setDidLogin(false);
-  this.authService.logout();
+  const dialogRef = this.dialog.open(SafetyCheckComponent, {
+    width: '300px',
+    data: {
+      title: 'Log Out',
+      description: 'You sure you want to log out?',
+    },
+  });
 }
 }
