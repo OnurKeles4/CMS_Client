@@ -1,63 +1,61 @@
-.register-container  {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
+.register-container {
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  width: 100%;
+  justify-self: center;
 }
 
 .button-container {
-    width: 100%;
-    display: block;
-  
-    
+  width: 100%;
+  display: block;
 }
 
 input {
-    margin: 10px; 
+  display: block;
+  margin: 10px;
+  width: 120%;
 }
 
 #login {
-    margin: 10px;
+  margin: 10px;
 }
 
-
-
 .button {
-    padding-left: 10px;
-    width: 100%;
+  margin-left: 10px;
+  width: 120%;
 }
 
 .return {
-    position: fixed;
-    top: 95%;
-    left: 2%;
-    width: 10%;
+  position: fixed;
+  top: 95%;
+  left: 2%;
+  width: 10%;
 }
 
 #forgot {
-    width: inherit;
-    margin-top: 10px;
+  width: inherit;
+  margin-top: 10px;
 }
 
 #title {
-    font-weight: 500;
-    font-style: normal;
-    text-align: center;
-    align-content: center;
-    align-self: center;
-    margin-bottom: 10px;
-    height: 15%;
-    position: relative;
-    top:30%;
-    width: 100%;
+  font-weight: 500;
+  font-style: normal;
+  text-align: center;
+  margin-bottom: 10px;
+  height: 15%;
+  display: block;
+  width: 10%;
 }
 
 #subtext {
-    font-weight: 400;
-    font-style: normal;
-    margin-bottom: 10px;
-    height: 15%;
-    position: relative;
-    top:30%;
-    width: 100%;
+  font-weight: 400;
+  font-style: normal;
+  margin-bottom: 10px;
+  height: 15%;
+  position: relative;
+  top: 30%;
+  width: 100%;
 }

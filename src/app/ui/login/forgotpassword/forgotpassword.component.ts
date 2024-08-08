@@ -7,7 +7,7 @@ import { DataService } from '../../../services/common/dataservice';
 import { CustomValidators } from '../../customersearch/dialogs/base/customValidators';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-forgotpassword',
   standalone: true,
   imports: [IxModule, RouterModule, RouterOutlet],
   templateUrl: './forgotpassword.component.html',

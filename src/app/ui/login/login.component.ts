@@ -70,7 +70,7 @@ export class LoginComponent {
     this.dataService.setMessageBar({
       message: 'Logged in!',
       type: 'info',
-      duration: 1000,
+      duration: 2000,
     });
     this.dataService.setDidSign(SignStatus.initial);
     this.router.navigate(['/']);
