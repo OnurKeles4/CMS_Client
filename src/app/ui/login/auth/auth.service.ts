@@ -26,16 +26,15 @@ export class AuthService {
     return this.loginService.login(user.email, user.password)
     .pipe(tap((data: any) => this.doLoginUser(user.email, JSON.stringify(data))));
   }
-  async register(user: RegisterUser) {
+  register(user: RegisterUser) : Observable<any> {
     console.log('Registering user', user);
     
-    await this.loginService.create(user).then( () => {
-    })
+    return this.loginService.register(user);
   }
 
   doLoginUser(email: string, tokens: any) {
-    console.log('Logged in', email);
-    console.log('Tokens', tokens);
+    //console.log('Logged in', email);
+    //console.log('Tokens', tokens);
         
     this.loggedUser = email;
     this.storeJwtToken(tokens);
@@ -57,9 +56,6 @@ export class AuthService {
     return !!localStorage.getItem(this.JWT_TOKEN);
   }
 
-  getCurrentAuthUser() {
-    return this.http.get('https://api.escuelajs.co/api/v1/auth/profile');
-  }
 
   isTokenExpired() {
   const tokens = localStorage.getItem(this.JWT_TOKEN);
@@ -73,15 +69,13 @@ export class AuthService {
     return expirationTime < now;
   }
 
-
+  //Does my API has a refresh token?
   refreshToken() {
     let tokens : any = localStorage.getItem(this.JWT_TOKEN); 
     if(!tokens) return "sad";
     tokens = JSON.parse(tokens);
     let refreshToken = tokens.refresh_token;
-    return this.http.post<any>("https://api.escuelajs.co/api/v1/auth/refresh-token",{
-       refreshToken,
-    })
+    return this.loginService.refresh(refreshToken)
     .pipe(tap((data: any) => this.storeJwtToken(JSON.stringify(data))));
   }
 }

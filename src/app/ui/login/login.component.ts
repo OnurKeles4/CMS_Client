@@ -5,12 +5,21 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from './auth/auth.service';
 import { IxModule } from '@siemens/ix-angular';
 import { DataService } from '../../services/common/dataservice';
-import { RegisterComponent } from "./register/register/register.component";
+import {
+  RegisterComponent,
+  SignStatus,
+} from './register/register/register.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterOutlet, RouterModule, IxModule, RegisterComponent],
+  imports: [
+    ReactiveFormsModule,
+    RouterOutlet,
+    RouterModule,
+    IxModule,
+    RegisterComponent,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -29,8 +38,8 @@ export class LoginComponent {
 
     this.dataService.didLoginObs.subscribe((data) => {
       //console.log('data', data);
-      
-    this.didLogin = data;
+
+      this.didLogin = data;
     });
   }
 
@@ -40,18 +49,41 @@ export class LoginComponent {
     console.log('email', this.form.controls['email'].value);
     console.log('password', this.form.controls['password'].value);
     event.preventDefault();
-     this.authService.login({ email: this.form.controls['email'].value,
-        password: this.form.controls['password'].value }).subscribe((r) => {
-          this.dataService.setDidLogin(true);
-          
-       console.log('Logged in', r);
-       this.dataService.setMessageBar({ message: 'Logged in!', type: 'info', duration: 1000 });
-       this.router.navigate(['/']);
-     });
-     if(!this.didLogin) {
-      console.log('Login Failed');
-      this.dataService.setMessageBar({ message: 'Login Credentials are wrong', type: 'danger', duration: 2000 });
-     }
+    this.authService
+      .login({
+        email: this.form.controls['email'].value,
+        password: this.form.controls['password'].value,
+      })
+      .subscribe((r) => {
+        this.dataService.setDidLogin(true);
+
+        this.LoginUser();
+      })
+      .add(() => {
+        if (!this.didLogin) {
+          this.LoginFailed();
+        }
+      });
+  }
+
+  LoginUser() {
+    this.dataService.setMessageBar({
+      message: 'Logged in!',
+      type: 'info',
+      duration: 1000,
+    });
+    this.dataService.setDidSign(SignStatus.initial);
+    this.router.navigate(['/']);
+  }
+
+  LoginFailed() {
+    console.log('Login Failed');
+    this.dataService.setDidSign(SignStatus.initial);
+    this.dataService.setMessageBar({
+      message: 'Login Credentials are wrong',
+      type: 'danger',
+      duration: 2000,
+    });
   }
 
   register() {
@@ -59,8 +91,8 @@ export class LoginComponent {
   }
 
   forgetPassword() {
-  console.log('Forget Password');
-    
-  this.router.navigate(['/forgotpassword']);
+    console.log('Forget Password');
+
+    this.router.navigate(['/forgotpassword']);
   }
 }

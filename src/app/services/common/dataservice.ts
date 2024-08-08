@@ -4,10 +4,10 @@ import { ListCustomer } from '../../contracts/customer/list_customer';
 import { ListOrder } from '../../contracts/order/list_order';
 import { ModalConfig, ModalInstance } from '@siemens/ix';
 import { MessageOptions } from '../../ui/common/message/message.component';
-import { RegisterStatus } from '../../ui/login/register/register/register.component';
+import { SignStatus } from '../../ui/login/register/register/register.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
   private data = new BehaviorSubject(false);
@@ -19,11 +19,10 @@ export class DataService {
 
   private didLogin = new BehaviorSubject(true);
   didLoginObs = this.didLogin.asObservable();
-  
-  private didRegister = new BehaviorSubject<RegisterStatus>(null);
-  didRegisterObs = this.didRegister.asObservable();
 
-  
+  private didSign = new BehaviorSubject<SignStatus>(null);
+  didSignObs = this.didSign.asObservable();
+
   private orderRefresh = new BehaviorSubject(false);
   orderRefreshObs = this.orderRefresh.asObservable();
   private orderIsDisabled = new BehaviorSubject(true);
@@ -31,7 +30,7 @@ export class DataService {
 
   private filterData = new BehaviorSubject<number>(0);
   filterDataObs = this.filterData.asObservable();
-  private customerId = new BehaviorSubject<string>("");
+  private customerId = new BehaviorSubject<string>('');
   customerIdObs = this.customerId.asObservable();
   private messageBar = new BehaviorSubject<MessageOptions>(null);
   messageBarObs = this.messageBar.asObservable();
@@ -42,70 +41,67 @@ export class DataService {
   orderObs = this.order.asObservable();
 
   setDidLogin(data?: boolean) {
-   this.didLogin.next(data);
- }
- setDidRegister(data?: RegisterStatus) {
-  this.didRegister.next(data);
-}
+    this.didLogin.next(data);
+  }
+  setDidSign(data?: SignStatus) {
+    this.didSign.next(data);
+  }
   setData(data?: boolean) {
-     //console.log("data has been set");
-     //console.log(data);
-     //console.log(this.dataObs);
-    
+    //console.log("data has been set");
+    //console.log(data);
+    //console.log(this.dataObs);
+
     this.data.next(data);
   }
   setFilterData(data: number) {
     //console.log("AAAAAAAAAAAAAAAAAAAA");
-    
+
     this.filterData.next(data);
   }
   setCustomerId(data: string) {
     //console.log("AAAAAAAAAAAAAAAAAAAA");
-    
+
     this.customerId.next(data);
   }
   setMessageBar(data: MessageOptions) {
-    
     this.messageBar.next(data);
   }
   setisDisabled(data: boolean) {
     //console.log("AAAAAAAAAAAAAAAAAAAA");
-    
+
     this.isDisabled.next(data);
   }
-  
+
   setRefresh(data: boolean) {
     //console.log("refresh has been set");
-    
-   this.refresh.next(data);
- }
 
- setorderIsDisabled(data: boolean) {
-  //console.log("AAAAAAAAAAAAAAAAAAAA");
-  
-  this.orderIsDisabled.next(data);
-}
+    this.refresh.next(data);
+  }
 
-setorderRefresh(data: boolean) {
-  //console.log("refresh has been set");
-  
- this.orderRefresh.next(data);
-}
+  setorderIsDisabled(data: boolean) {
+    //console.log("AAAAAAAAAAAAAAAAAAAA");
 
- setCustomer(data: ListCustomer) {
-  console.log("data has been set");
-  //console.log(data);
-  //console.log(this.dataObs);
- 
- this.customer.next(data);
-}
-setOrder(data: ListOrder) {
-  //console.log("data has been set");
-  //console.log(data);
-  //console.log(this.dataObs);
- 
- this.order.next(data);
-}
+    this.orderIsDisabled.next(data);
+  }
 
+  setorderRefresh(data: boolean) {
+    //console.log("refresh has been set");
 
+    this.orderRefresh.next(data);
+  }
+
+  setCustomer(data: ListCustomer) {
+    console.log('data has been set');
+    //console.log(data);
+    //console.log(this.dataObs);
+
+    this.customer.next(data);
+  }
+  setOrder(data: ListOrder) {
+    //console.log("data has been set");
+    //console.log(data);
+    //console.log(this.dataObs);
+
+    this.order.next(data);
+  }
 }
