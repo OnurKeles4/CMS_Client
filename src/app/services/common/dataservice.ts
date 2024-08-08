@@ -4,6 +4,7 @@ import { ListCustomer } from '../../contracts/customer/list_customer';
 import { ListOrder } from '../../contracts/order/list_order';
 import { ModalConfig, ModalInstance } from '@siemens/ix';
 import { MessageOptions } from '../../ui/common/message/message.component';
+import { RegisterStatus } from '../../ui/login/register/register/register.component';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,12 @@ export class DataService {
   refreshObs = this.refresh.asObservable();
   private isDisabled = new BehaviorSubject(true);
   isDisabledObs = this.isDisabled.asObservable();
+
   private didLogin = new BehaviorSubject(true);
   didLoginObs = this.didLogin.asObservable();
   
+  private didRegister = new BehaviorSubject<RegisterStatus>(null);
+  didRegisterObs = this.didRegister.asObservable();
 
   
   private orderRefresh = new BehaviorSubject(false);
@@ -38,12 +42,11 @@ export class DataService {
   orderObs = this.order.asObservable();
 
   setDidLogin(data?: boolean) {
-    //console.log("data has been set");
-    //console.log(data);
-    //console.log(this.dataObs);
-   
    this.didLogin.next(data);
  }
+ setDidRegister(data?: RegisterStatus) {
+  this.didRegister.next(data);
+}
   setData(data?: boolean) {
      //console.log("data has been set");
      //console.log(data);

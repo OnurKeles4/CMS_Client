@@ -23,12 +23,12 @@ export class LoginComponent {
   constructor(private fb: FormBuilder, private dataService: DataService) {
     this.dataService.setDidLogin(false);
     this.form = this.fb.group({
-      email: [''],
-      password: [''],
+      email: ['myfav@mail.com'],
+      password: ['1234512345'],
     });
 
     this.dataService.didLoginObs.subscribe((data) => {
-      console.log('data', data);
+      //console.log('data', data);
       
     this.didLogin = data;
     });
@@ -49,6 +49,7 @@ export class LoginComponent {
        this.router.navigate(['/']);
      });
      if(!this.didLogin) {
+      console.log('Login Failed');
       this.dataService.setMessageBar({ message: 'Login Credentials are wrong', type: 'danger', duration: 2000 });
      }
   }

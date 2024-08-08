@@ -63,8 +63,10 @@ export class HttpClientService {
     else
       url = `${this.url(requestParameter)}${id ? `/${id}` : ""}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`
       //console.log("url", url);
-      console.log("🚀 ~ HttpClientService ~ url:", url)
+      //console.log("🚀 ~ HttpClientService ~ url:", url);
       
+      //console.log("MERHABA");
+      //console.log("🚀 ~ HttpClientService ~ body:", body);
     return this.httpClient.post<T>(url, body, { headers: requestParameter.headers });
   }
 

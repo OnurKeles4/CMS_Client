@@ -8,30 +8,44 @@ import { LastValueFromConfig } from 'rxjs/internal/lastValueFrom';
 import { DatetableOrder } from '../../../contracts/order/datetable_order';
 import { RegisterUser } from '../../../contracts/user/register_user';
 import { LoginUser } from '../../../contracts/user/login_user';
+import { DataService } from '../dataservice';
+import { RegisterStatus } from '../../../ui/login/register/register/register.component';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   dataloaded: boolean = false;
-  constructor(private httpClientService: HttpClientService) { }
+  constructor(private httpClientService: HttpClientService, private dataService: DataService) { }
 
   
-  async create(user: RegisterUser, errorCallBack?: (errorMessage: string) => void) {
-
-  this.httpClientService.post({controller: "users/auth-register"}, user)
+  async create(user: RegisterUser) {
+  let message = "";
+    this.httpClientService.post({controller: "users/auth-register"}, user)
   .subscribe(result => {},(errorResponse: HttpErrorResponse) => {
   const _error: Array<{ key: string, value: Array<string>}> = errorResponse.error;
-
-  let message = "";
+    console.log("error", _error);
+    console.log("qwewdzcvwqgwfew");
+    
+  message = _error.toString();
   
   _error.forEach((v, index) => {
     v.value.forEach((_v, _index) => {
       message += `${_v}<br>`;
     });
   });
-  if(errorCallBack)
-    errorCallBack(message);   
-});  
+
+  
+}).add(() => {
+  console.log("response should be completed", message);
+  if(message.length == 0) {
+    this.dataService.setDidRegister(RegisterStatus.success);
+  }
+  else {
+    this.dataService.setDidRegister(RegisterStatus.failed);
+  }
+
+  
+});
 }
 
 

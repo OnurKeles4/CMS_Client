@@ -17,18 +17,29 @@ import { AuthService } from '../../auth/auth.service';
 export class RegisterComponent {
   form: any;
   router = inject(Router);
-  didLogin: boolean = false;
+  didRegister: string = "";
   constructor(private fb: FormBuilder, private dataService: DataService,
      customValidators: CustomValidators, private authService : AuthService) {
-     this.dataService.didLoginObs.subscribe((data) => {
-    this.didLogin = data; 
-    }); 
-    this.dataService.setDidLogin(false);
+      
+      this.dataService.didRegisterObs.subscribe((data) => {
+      if(data == RegisterStatus.success)
+      {
+        console.log("Register Succeedd");
+        
+        this.didRegister = data;
+        this.RegisterUser();
+      }
+      else if(data == RegisterStatus.failed) {
+        this.RegisterFailed();
+      }
+      });
+
+   this.dataService.setDidLogin(false);
     this.form = this.fb.group({
-      name: ['', [customValidators.optionalLengthValidator(2,100)]],
-      email: ['', [customValidators.optionalLengthValidator(5,100), customValidators.EmailValidator()]],                                   //rename these fields accurately later
-      password: ['', [customValidators.optionalLengthValidator(8,100)]],
-      phone_number: ['', [customValidators.PhoneValidator(/^[0-9]{3} [0-9]{3} [0-9]{4}$/)]],
+      name: ['Onur Keleş', [customValidators.optionalLengthValidator(2,100)]],
+      email: ['qqqq@qqq.com', [customValidators.optionalLengthValidator(5,100), customValidators.EmailValidator()]],                                   //rename these fields accurately later
+      password: ['1234512345', [customValidators.optionalLengthValidator(8,100)]],
+      phone_number: ['123 123 1234', [customValidators.PhoneValidator(/^[0-9]{3} [0-9]{3} [0-9]{4}$/)]],
       });
   }
 
@@ -37,27 +48,35 @@ export class RegisterComponent {
   this.router.navigate(['/login']);
   }
 
-  registerUser(event: Event) {
+  async registerUser(event: Event) {
     console.log('Register Attempt');
 
-    console.log('email', this.form.controls['email'].value);
-    console.log('password', this.form.controls['password'].value);
+    //console.log('email', this.form.controls['email'].value);
+    //console.log('password', this.form.controls['password'].value);
     event.preventDefault();
-     this.authService.register({ 
+     await this.authService.register({ 
       Name: this.form.controls['name'].value,
       Email: this.form.controls['email'].value,
       Password: this.form.controls['password'].value,
-      PhoneNumber: this.form.controls['phone_number'].value,
-     })
-//      .subscribe((r) => {
-//       this.dataService.setDidLogin(true);
-      
-//    console.log('Registered in', r);
-//    this.dataService.setMessageBar({ message: 'Logged in!', type: 'info', duration: 1000 });
-//    this.router.navigate(['/']);
-//  });
-     if(!this.didLogin) {
-      this.dataService.setMessageBar({ message: 'Login Credentials are wrong', type: 'danger', duration: 2000 });
-     }
+      phone_number: this.form.controls['phone_number'].value,
+     });
   }
+
+  RegisterFailed() {
+    console.log('Register Failed');
+    this.dataService.setDidRegister(RegisterStatus.initial);
+    this.dataService.setMessageBar({ message: 'Login Credentials are wrong', type: 'danger', duration: 2000 });
+  }
+
+  RegisterUser() {
+    this.dataService.setMessageBar({ message: 'Logged in!', type: 'info', duration: 1000 });
+    this.dataService.setDidRegister(RegisterStatus.initial);
+    this.router.navigate(['/login']);
+  }
+}
+
+export enum RegisterStatus {
+  success = 'Completed',
+  failed = 'Failed',
+  initial = 'Initial'
 }

@@ -6,6 +6,8 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClientService } from '../../../services/common/http-client.service';
 import { LoginService } from '../../../services/common/models/login.service';
 import { RegisterUser } from '../../../contracts/user/register_user';
+import { log } from 'node:console';
+import { DataService } from '../../../services/common/dataservice';
 
 @Injectable({
   providedIn: 'root',
@@ -27,13 +29,8 @@ export class AuthService {
   async register(user: RegisterUser) {
     console.log('Registering user', user);
     
-    this.loginService.create(user).then( () => {
-      console.log('User created', user);
-      
-      //this.login( {email: user.Email, password: user.Password});
-    });
-
-    //Should I immediatly login the user after registration?
+    await this.loginService.create(user).then( () => {
+    })
   }
 
   doLoginUser(email: string, tokens: any) {

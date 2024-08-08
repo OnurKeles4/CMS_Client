@@ -18,7 +18,7 @@ export class AppComponent {
   title = 'CMS_Client';
  constructor(private authService: AuthService, private dataService: DataService) {
   this.dataService.didLoginObs.subscribe((data) => {
-    console.log("data", data);
+    //console.log("data", data);
     
      this.isDisabled = data;
   });
