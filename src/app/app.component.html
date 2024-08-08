@@ -2,7 +2,7 @@
   <div class="row">
     <div>
       <ix-application theme="">
-        <ix-application-header *ngIf="isDisabled" name="Customer Managment System" themeSystemApperance="true">
+        <ix-application-header name="Customer Managment System" themeSystemApperance="true">
           <div slot="logo" id="logo">
             <a href="https://www.siemens.com"><img src="assets/siemensW.png" class="siemens"></a>
           </div>
@@ -10,9 +10,9 @@
         <!-- <div class="side">  
         </div> -->
         <ix-menu class="sidebar" *ngIf="isDisabled">
-          <ix-menu-item tab-icon="home" routerLink="">Main Page</ix-menu-item>
-          <ix-menu-item tab-icon="search" routerLink="customersearch">Customer</ix-menu-item>
-          <ix-menu-item  tab-icon="log-out" (click)="logOut()">Logout</ix-menu-item>
+          <ix-menu-item tab-icon="home"     (click)="routeTo('home')">Main Page</ix-menu-item>
+          <ix-menu-item tab-icon="search"  (click)="routeTo('customersearch')">Customer</ix-menu-item>
+          <ix-menu-item tab-icon="log-out" (click)="routeTo('logout')">Logout</ix-menu-item>
         </ix-menu>
       
         <ix-content>

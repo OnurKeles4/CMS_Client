@@ -1,13 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
-import { IxModule } from '@siemens/ix-angular';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../../../../../services/common/dataservice';
-import { PopupInputComponent } from '../../../dialogs/customerinput/customerinput.component';
 import { OrderService } from '../../../../../services/common/models/order.service';
 import { BasicbuttonComponent } from '../../../../common/basicbutton/basicbutton.component';
-import { ListOrder } from '../../../../../contracts/order/list_order';
 import { CreateOrder } from '../../../../../contracts/order/create_order';
 import { OrderinputComponent } from '../../../dialogs/orderinput/orderinput.component';
 // import { AlertifyService, MessageType, Position } from '../../../../common/message/alerfity.service';
@@ -35,10 +31,10 @@ export class AddorderComponent {
     private orderService: OrderService
   ) // private alertify: AlertifyService
   {
-    this.subscription = this.dataService.dataObs.subscribe((data) => {
-      console.log('Data has been set', data);
+    this.subscription = this.dataService.isDisabledObs.subscribe((data) => {
+      //console.log('Data has been set', data);
 
-      this.isDisabled = data;
+      this.isDisabled = !data;
     });
     this.subscription = this.dataService.customerIdObs.subscribe((data) => {
       console.log('SelectedCustomerId has been set', data);
@@ -58,26 +54,26 @@ export class AddorderComponent {
     this.isDisabled = true;
   }
 
-  /**
-   *
-   *
-   *
-   * Currently opening the dialog twice opens a old (?) page, fix the isdisabled/refresh issue and test again.
-   *
-   */
   async openDialog() {
     if (this.isDisabled == true) {
-      console.log('dialog is opening');
+      //console.log('dialog is opening');
 
+      this.dataService.setDidLogin(false);
       const dialogRef = this.dialog.open(OrderinputComponent, {
         width: '300px',
         data: {
           title: 'Add Order',
           description: 'Add a new order',
         },
+        disableClose: true,
+        enterAnimationDuration: 200,
+        exitAnimationDuration: 200,
+        backdropClass: 'backdrop',
+        hasBackdrop: true,
+        
       });
 
-      this.dataService.setRefresh(true);
+      //this.dataService.setRefresh(true);
       dialogRef.afterClosed().subscribe(async (result) => {
         if (result && result.input4) {
           console.log('Dialog result:', result);
@@ -103,6 +99,7 @@ export class AddorderComponent {
               type: 'info',
               duration: 3000,
             });
+            this.dataService.setDidLogin(true);
           });
           console.log(
             'Edit Selected in Update, dataService.setData and refresh',
@@ -110,7 +107,6 @@ export class AddorderComponent {
           );
 
           this.dataService.setData();
-          //this.dataService.setRefresh(false);
         } else {
           this.dataService.setMessageBar({
             message: 'Order not valid!',
@@ -119,7 +115,7 @@ export class AddorderComponent {
           });
         }
 
-        this.dataService.setRefresh(false);
+        //this.dataService.setRefresh(false);
         this.isDisabled = true;
       });
     } else {
@@ -128,7 +124,7 @@ export class AddorderComponent {
         type: 'warning',
         duration: 3000,
       });
-      console.log('the button is disabledAA');
+      //console.log('the button is disabledAA');
     }
     // console.log("setting order refresh to true");
 

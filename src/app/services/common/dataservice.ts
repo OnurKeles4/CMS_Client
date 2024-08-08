@@ -46,9 +46,10 @@ export class DataService {
 
   setInitial() {
     this.setisDisabled(true);
-    this.setDidLogin(false);
+    this.setDidLogin(true);
     this.setMessageBar(null);
     this.setCustomer(null);
+    this.setorderIsDisabled(true);
   }
 
   setDidLogin(data?: boolean) {

@@ -38,12 +38,12 @@ import { CustomValidators } from '../base/customValidators';
   templateUrl: './customerinput.component.html',
   styleUrl: './customerinput.component.scss',
 })
-export class PopupInputComponent {
+export class CustomerInputComponent {
   form: FormGroup;
   isValid: boolean = false;
   @Input() selectedProduct: any;
   constructor(
-    public dialogRef: MatDialogRef<PopupInputComponent>,
+    public dialogRef: MatDialogRef<CustomerInputComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private dataService: DataService,
@@ -67,6 +67,8 @@ export class PopupInputComponent {
   }
 
   onCancel(): void {
+    
+    this.dataService.setDidLogin(true);
     this.dialogRef.close();
   }
 

@@ -107,11 +107,17 @@ export class OrderamountComponent implements AfterContentInit {
           type: 'bar',
           xKey: 'month',
           yKey: 'statusCount',
-          yName: 'Completed Orders',
+          yName: 'Status Orders',
 
           fill: '#00ffb9',
+          shadow: {
+            color: '#009d73',
+            xOffset: 5,
+            yOffset: 0,
+            blur: 3,
+          },
           stackGroup: 'NOL',
-          cornerRadius: 10,
+          cornerRadius: 20,
         },
         {
           type: 'bar',
@@ -119,8 +125,14 @@ export class OrderamountComponent implements AfterContentInit {
           yKey: 'orderCount',
           yName: 'Orders',
           fill: '#0cc',
+          shadow: {
+            color: '#007b7b',
+            xOffset: 5,
+            yOffset: 0,
+            blur: 3,
+          },
           stackGroup: 'NOL',
-          cornerRadius: 10,
+          cornerRadius: 20,
         },
       ],
     };

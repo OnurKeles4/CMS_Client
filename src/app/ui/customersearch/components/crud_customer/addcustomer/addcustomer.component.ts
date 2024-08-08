@@ -4,7 +4,7 @@ import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { IxModule } from '@siemens/ix-angular';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../../../../../services/common/dataservice';
-import { PopupInputComponent } from '../../../dialogs/customerinput/customerinput.component';
+import { CustomerInputComponent} from '../../../dialogs/customerinput/customerinput.component';
 import { CustomerService } from '../../../../../services/common/models/customer.service';
 import { BasicbuttonComponent } from '../../../../common/basicbutton/basicbutton.component';
 import { ListCustomer } from '../../../../../contracts/customer/list_customer';
@@ -33,42 +33,34 @@ export class AddcustomerComponent {
     private dataService: DataService,
     private customerService: CustomerService
   ) {
-    this.subscription = this.dataService.refreshObs.subscribe((data) => {
-      //console.log('Data has been set', data);
-    });
+
     this.subscription = this.dataService.customerObs.subscribe((data) => {
       //console.log('Data has been set', data);
-
       this.selectedCustomer = data;
     });
   }
 
-  /**
-   *
-   *
-   *
-   * Currently opening the dialog twice opens a old (?) page, fix the isdisabled/refresh issue and test again.
-   *
-   */
   async openDialog() {
     if (this.isDisabled == false) {
-      //console.log('dialog is opening');
 
-      const dialogRef = this.dialog.open(PopupInputComponent, {
+      this.dataService.setDidLogin(false);
+      const dialogRef = this.dialog.open(CustomerInputComponent, {
         width: '300px',
         data: {
           title: 'Add Customer',
           description: 'Please enter the customer details',
         },
+        disableClose: true,
+        enterAnimationDuration: 200,
+        exitAnimationDuration: 200,
+        backdropClass: 'backdrop',
+        hasBackdrop: true,
       });
 
-      this.dataService.setRefresh(true);
+      //this.dataService.setRefresh(true);
       dialogRef.afterClosed().subscribe(async (result) => {
         if (result && result.input1 && result.input2 && result.input3) {
-          //console.log('Dialog result:', result);
-          //console.log('result', result);
-          //console.log('selected Customer', this.selectedCustomer);
-
+         
           const new_customer: any = new CreateCustomer();
 
           //console.log('Edit Product:', new_customer);
@@ -86,15 +78,8 @@ export class AddcustomerComponent {
               type: 'info',
               duration: 3000,
             });
+            this.dataService.setDidLogin(true);
           });
-
-          // .catch(() => {
-          //   this.dataService.setMessageBar({message: 'Customer ERROR!', type: 'danger', duration: 3000});
-          // });
-          //console.log(
-          //'Edit Selected in Update, senddata and refresh',
-          //this.sendData
-          //);
 
           this.dataService.setData();
           //this.dataService.setRefresh(false);
@@ -105,7 +90,7 @@ export class AddcustomerComponent {
             duration: 3000,
           });
         }
-        this.dataService.setRefresh(false);
+        //this.dataService.setRefresh(false);
       });
     } else {
       this.dataService.setMessageBar({

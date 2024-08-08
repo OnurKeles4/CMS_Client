@@ -60,6 +60,7 @@ export class OrderinputComponent {
   }
 
   onCancel(): void {
+    this.dataService.setDidLogin(true);
     this.dialogRef.close();
   }
 

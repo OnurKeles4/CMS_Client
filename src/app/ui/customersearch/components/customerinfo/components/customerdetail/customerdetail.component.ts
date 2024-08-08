@@ -20,5 +20,10 @@ export class CustomerdetailComponent {
       this.isData = !data;
       //console.log(this.customer);
     });
+    this.dataService.isDisabledObs.subscribe((data) => {
+      console.log('Data has been set', data);
+      
+      this.isData = !data;
+    });
   }
 }

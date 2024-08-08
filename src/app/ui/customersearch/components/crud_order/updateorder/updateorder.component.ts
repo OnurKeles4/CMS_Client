@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { IxModule } from '@siemens/ix-angular';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../../../../../services/common/dataservice';
 import { OrderinputComponent } from '../../../dialogs/orderinput/orderinput.component';
@@ -34,13 +32,13 @@ export class UpdateorderComponent {
   ) {
     this.subscription = this.dataService.orderIsDisabledObs.subscribe(
       (data) => {
-        console.log('Data has been set', data);
+        //console.log('Data has been set', data);
 
         this.isDisabled = data;
       }
     );
     this.subscription = this.dataService.orderObs.subscribe((data) => {
-      console.log('Data has been set', data);
+      //console.log('Data has been set', data);
 
       this.selectedOrder = data;
     });
@@ -61,23 +59,22 @@ export class UpdateorderComponent {
     if (this.isDisabled == false) {
       console.log('dialog is opening');
 
+      this.dataService.setDidLogin(false);
       const dialogRef = this.dialog.open(OrderinputComponent, {
         width: '300px',
         data: {
           title: 'Update Order',
           description: 'Update an order',
         },
+        disableClose: true,
+        enterAnimationDuration: 200,
+        exitAnimationDuration: 200,
+        backdropClass: 'backdrop',
+        hasBackdrop: true,
+
       });
 
-      /**
-       *
-       *
-       *
-       *
-       *
-       * PROBLEM IS PROBABLY RELATED TO LISTORDER, (the attributes of the data we send to database)
-       */
-      this.dataService.setRefresh(true);
+      //this.dataService.setRefresh(true);
       dialogRef.afterClosed().subscribe(async (result) => {
         if (result) {
           console.log('Dialog result:', result);
@@ -120,7 +117,6 @@ export class UpdateorderComponent {
           );
 
           this.dataService.setData();
-          //this.dataService.setRefresh(false);
         } else {
           this.dataService.setMessageBar({
             message: 'Order update cancelled!',
@@ -129,7 +125,7 @@ export class UpdateorderComponent {
           });
         }
 
-        this.dataService.setRefresh(false);
+        //this.dataService.setRefresh(false);
       });
     } else {
       this.dataService.setMessageBar({

@@ -44,6 +44,7 @@ export class MessageComponent {
   closeMessage() {
     clearTimeout(this.timeoutId);
     this.isDisabled = true;
+    
     this.messageOptions == null;
   }
 }

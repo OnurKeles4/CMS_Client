@@ -4,7 +4,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { IxModule } from '@siemens/ix-angular';
 import { MatDialog } from '@angular/material/dialog';
 import { DataService } from '../../../../../services/common/dataservice';
-import { PopupInputComponent } from '../../../dialogs/customerinput/customerinput.component';
+import {CustomerInputComponent } from '../../../dialogs/customerinput/customerinput.component';
 import { CustomerService } from '../../../../../services/common/models/customer.service';
 import { BasicbuttonComponent } from '../../../../common/basicbutton/basicbutton.component';
 import { ListCustomer } from '../../../../../contracts/customer/list_customer';
@@ -47,20 +47,24 @@ export class UpdatecustomerComponent {
     if (this.isDisabled == false) {
       //console.log('dialog is opening');
 
-      const dialogRef = this.dialog.open(PopupInputComponent, {
+      this.dataService.setDidLogin(false);
+      const dialogRef = this.dialog.open(CustomerInputComponent, {
         width: '300px',
         data: {
           title: 'Update Customer',
           description: 'Update the customer details',
         },
+        disableClose: true,
+        enterAnimationDuration: 200,
+        exitAnimationDuration: 200,
+        backdropClass: 'backdrop',
+        hasBackdrop: true,
       });
 
-      this.dataService.setRefresh(true);
+      //this.dataService.setRefresh(true);
       dialogRef.afterClosed().subscribe(async (result) => {
         if (result) {
           //console.log('Dialog result:', result);
-          //console.log('result', result);
-          //console.log('selected Customer', this.selectedCustomer);
 
           const edit_customer: any = await this.customerService.readWithId(
             this.selectedCustomer.id
@@ -87,13 +91,8 @@ export class UpdatecustomerComponent {
             });
             //console.log('Updated a customer');
           });
-          //console.log(
-            //'Edit Selected in Update, dataService.setData and refresh',
-            //this.dataService.setData
-          //);
-
+  
           this.dataService.setData();
-          //this.dataService.setRefresh(false);
         } else {
           this.dataService.setMessageBar({
             message: 'Customer update cancelled!',
@@ -101,7 +100,7 @@ export class UpdatecustomerComponent {
             duration: 3000,
           });
         }
-        this.dataService.setRefresh(false);
+        //this.dataService.setRefresh(false);
       });
     } else {
       this.dataService.setMessageBar({

@@ -33,6 +33,7 @@ export class SafetyCheckComponent {
   }
 
   onCancel(): void {
+    this.dataService.setDidLogin(true);
     this.dialogRef.close();
   }
 

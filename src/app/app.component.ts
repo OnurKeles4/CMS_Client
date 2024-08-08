@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 import { MessageComponent } from './ui/common/message/message.component';
@@ -7,7 +7,7 @@ import { AuthService } from './ui/login/auth/auth.service';
 import { DataService } from './services/common/dataservice';
 import { SafetyCheckComponent } from './ui/customersearch/dialogs/safetycheck/safetycheck.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import  { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -24,8 +24,10 @@ import { MatDialog } from '@angular/material/dialog';
 export class AppComponent {
   isDisabled: boolean = false;
   title = 'CMS_Client';
+  isLogginOut: boolean = false;
+
+  router = inject(Router);
   constructor(
-    private authService: AuthService,
     private dataService: DataService,
 
     public dialog: MatDialog
@@ -37,16 +39,45 @@ export class AppComponent {
     });
   }
 
-  //  Disable() {
-  //   this.isDisabled = !this.isDisabled;
-  //  }
+  routeTo(route: string) {
+  switch (route) {
+    case 'home':
+      this.home();
+      break;
+    case 'customersearch':
+      this.customerSearch();
+      break;
+    case 'logout':
+      this.logOut();
+      break;
+  }
+
+}
+home() {
+  
+  this.router.navigate(['/']);
+}
+
+customerSearch() {      
+                //make this function in dataservice
+  this.dataService.setInitial();                      
+  this.router.navigate(['/customersearch']);
+}
+
+  
   logOut() {
+    this.dataService.setDidLogin(false);
     const dialogRef = this.dialog.open(SafetyCheckComponent, {
       width: '300px',
       data: {
         title: 'Log Out',
         description: 'You sure you want to log out?',
       },
+      disableClose: true,
+      enterAnimationDuration: 200,
+      exitAnimationDuration: 200,
+      backdropClass: 'backdrop',
+      hasBackdrop: true,
     });
   }
 }

@@ -3,17 +3,18 @@ import { CustomerdetailComponent } from './components/customerdetail/customerdet
 import { CustomerordersComponent } from './components/customerorders/customerorders.component';
 import { DataService } from '../../../../services/common/dataservice';
 import { ListCustomer } from '../../../../contracts/customer/list_customer';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-customerinfo',
   standalone: true,
-  imports: [CustomerdetailComponent, CustomerordersComponent],
+  imports: [CustomerdetailComponent, CustomerordersComponent, CommonModule],
   templateUrl: './customerinfo.component.html',
   styleUrl: './customerinfo.component.scss',
 })
 export class CustomerinfoComponent {
   customer: ListCustomer;
-
+  isDisabled: boolean = true;
   constructor(private dataService: DataService) {
     this.dataService.customerObs.subscribe((data) => {
       this.customer = data;
