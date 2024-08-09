@@ -5,6 +5,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  HostListener,
   Inject,
   OnInit,
   PLATFORM_ID,
@@ -67,11 +68,18 @@ export class OrderamountComponent implements AfterContentInit {
 
   ngAfterContentInit(): void {
     this.initializeChart();
+    this.adjustChartScale();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.adjustChartScale();
   }
 
   initializeChart() {
     this.chartOptions = {
-      //height: 1000, // Height of the chart                    //EVEN THIS DOESN'T WORK IN THE FIRST LOAD.
+      height: 400,
+   
       // Data: Data to be displayed in the chart
       data: [],
 
@@ -224,8 +232,15 @@ export class OrderamountComponent implements AfterContentInit {
     this.selectedStatus = status;
     this.updateChart();
   }
-}
 
+  adjustChartScale() {
+    const scaleFactor = window.devicePixelRatio*1.05 || 1; // or any logic to determine scale factor
+    this.chartOptions = {
+      ...this.chartOptions,
+      width: 800 / (scaleFactor), // Example: scale the width
+    };
+}
+}
 export class ListOrderDate {
   month: string;
   orderCount: number;

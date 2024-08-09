@@ -46,10 +46,12 @@ export class CustomerlistComponent {
       }
     );
 
+
+
     this.updateList();
   }
 
-  rowData: any[] = [];
+  rowData: ListCustomer[] = [];
   defaultColDef: ColDef = {
     sortable: true,
     filter: true,
@@ -72,12 +74,23 @@ export class CustomerlistComponent {
     });
   }
 
-  getRowStyle = (params: any) => {
-    if (params.node.rowIndex === this.selectedRowIndex) {
-      return { background: '#00bde3' };
-    }
-    return null;
-  }
+  //  getRowStyle = (params: any) => {
+    
+  //   //console.log('getRowStyle', params.node);
+  //    if (params.node.rowIndex === this.selectedRowIndex) {
+  //      return { background: '#00bde3' };
+  //    }
+  //    return null;
+  //  }
+  
+  //  getRowStyleA(params: any) {
+  //    console.log('getRowStyle', params.data);
+
+  //    if (params.data.node.rowIndex === this.selectedRowIndex) {
+  //      return { background: '#00bde3' };
+  //    }
+  //    return null;
+  //  }
   //Send this data to Customerimfo or it's child components.
   selectCustomer(event: any) {
     console.log("row Index",event.rowIndex);
@@ -89,8 +102,15 @@ export class CustomerlistComponent {
     this.sendCustomer();
     this.sendisDisabled(false);
     this.sendData(true);
+
+    //this.getRowStyle(event);
     //console.log(this.selectedCustomer);
   }
+  // changeSelected(event: any) {
+  //   //this.selectedRowIndex = this.rowData.find(x => x.id === this.selectedCustomer.id).id;
+  //   console.log('changeSelected', this.rowData);
+     
+  // }
   onGridReady(params: any) {
     this.gridApi = params.api;
   }

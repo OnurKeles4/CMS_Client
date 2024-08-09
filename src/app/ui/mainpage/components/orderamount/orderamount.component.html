@@ -1,17 +1,18 @@
 
 <ng-container *ngIf="isReady">
+  <div class="info-container">
+    <ix-select class="select"  [value]="selectedStatus">
+      <ix-select-item *ngFor="let enum of orderStatus | keyvalue" label="{{enum.value}}" (click)="onStatusChange(enum.value)">  
+      </ix-select-item>
+      <ix-select-item label="All" (click)="onStatusChange('All')" > </ix-select-item>
+    </ix-select>
+    <p class="info">{{selectedStatus}}</p>
+  </div>
 <div id="chartContainer" class="chart-container">
     <ag-charts id="myChart" #myChart [options]="chartOptions"></ag-charts>
   </div>
 
-  <div class="info-container">
-  <ix-select class="select"  [value]="selectedStatus">
-    <ix-select-item *ngFor="let enum of orderStatus | keyvalue" label="{{enum.value}}" (click)="onStatusChange(enum.value)">  
-    </ix-select-item>
-    <ix-select-item label="All" (click)="onStatusChange('All')" > </ix-select-item>
-  </ix-select>
-  <p class="info">{{selectedStatus}}</p>
-</div>
+
 </ng-container>
 <!-- <button (click)="clickOn()"> weqweqwqe</button> -->
 <!-- <button (click)="clicktoInc()"> weqweqwqe</button> -->

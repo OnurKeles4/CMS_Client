@@ -54,12 +54,16 @@ export class AppComponent {
 
 }
 home() {
-  
+  if(this.router.url == '/')
+    return null;
   this.router.navigate(['/']);
 }
 
 customerSearch() {      
                 //make this function in dataservice
+      if(this.router.url == '/customersearch')
+        return null;
+      
   this.dataService.setInitial();                      
   this.router.navigate(['/customersearch']);
 }
