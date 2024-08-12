@@ -1,23 +1,26 @@
-<ng-container *ngIf="isInit">
 <div class="row" id="container">
   <div class="col-md-5" id="table1">
     <div id="title">
-    <h2 id="header"> List of Orders </h2>
-</div>
+      <h2 id="header">List of Orders</h2>
+    </div>
+    <ng-container *ngIf="isDisabled">
+      <div class="spinner-container">
+        <ix-spinner class="spinner"></ix-spinner>
+        <h3 class="text">Waiting for data...</h3>
+      </div>
+    </ng-container>
     <app-orderlist></app-orderlist>
-    
-</div>
+  </div>
   <div class="col-md-5" id="table2">
     <div id="title">
-    <h2 id="header"> Amount of Orders </h2>
-</div>
-<ng-container *ngIf="isDisabled">
-  <div class="spinner-container"> 
-    <ix-spinner class="spinner"></ix-spinner>
-    <h3 class="text">Waiting for data...</h3>
-  </div>
-</ng-container>
+      <h2 id="header">Amount of Orders</h2>
+    </div>
+    <ng-container *ngIf="isDisabled">
+      <div class="spinner-container">
+        <ix-spinner class="spinner"></ix-spinner>
+        <h3 class="text">Waiting for data...</h3>
+      </div>
+    </ng-container>
     <app-orderamount></app-orderamount>
   </div>
 </div>
-</ng-container>

@@ -20,6 +20,8 @@ export class MessageComponent {
   constructor(private dataService: DataService) {
     this.subscription = this.dataService.messageBarObs.subscribe((body) => {
       if (this.timeoutId) {
+        console.log('timeout', this.timeoutId);
+        
         this.closeMessage();
       }
       //console.log('Body set', body);

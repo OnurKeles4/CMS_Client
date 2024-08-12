@@ -2,28 +2,35 @@
   <div class="row">
     <div>
       <ix-application theme="">
-        <ix-application-header name="Customer Managment System" themeSystemApperance="true">
+        <ix-application-header
+          name="Customer Managment System"
+          themeSystemApperance="true"
+        >
           <div slot="logo" id="logo">
-            <a href="https://www.siemens.com"><img src="assets/siemensW.png" class="siemens"></a>
+            <a href="https://www.siemens.com"
+              ><img src="assets/siemensW.png" class="siemens"
+            /></a>
           </div>
         </ix-application-header>
-        <!-- <div class="side">  
-        </div> -->
-        <ix-menu class="sidebar"  *ngIf="isDisabled">
-          <ix-menu-item tab-icon="home"     (click)="routeTo('home')">Main Page</ix-menu-item>
-          <ix-menu-item tab-icon="search"  (click)="routeTo('customersearch')">Customer</ix-menu-item>
-          <ix-menu-item tab-icon="log-out" (click)="routeTo('logout')">Logout</ix-menu-item>
+
+        <ix-menu class="sidebar" *ngIf="isDisabled">
+          <ix-menu-item tab-icon="home" (click)="routeTo('home')"
+            >Main Page</ix-menu-item
+          >
+          <ix-menu-item tab-icon="search" (click)="routeTo('customersearch')"
+            >Customers & Orders</ix-menu-item
+          >
+          <ix-menu-item tab-icon="log-out" (click)="routeTo('logout')"
+            >Logout</ix-menu-item
+          >
         </ix-menu>
-      
+
         <ix-content>
-         <router-outlet></router-outlet>
-         
-<!--          
-        <div class="attempt" *ngIf="isDisabled"> MERHABA </div>
-        <button (click)="Disable()">DISABLE DIV</button> -->
+          <router-outlet></router-outlet>
         </ix-content>
       </ix-application>
-      
+
       <app-messagebar class="message"></app-messagebar>
+    </div>
   </div>
 </div>

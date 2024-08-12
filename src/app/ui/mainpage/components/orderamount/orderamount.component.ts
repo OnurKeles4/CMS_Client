@@ -79,7 +79,7 @@ export class OrderamountComponent implements AfterContentInit {
   initializeChart() {
     this.chartOptions = {
       height: 400,
-   
+
       // Data: Data to be displayed in the chart
       data: [],
 
@@ -94,6 +94,8 @@ export class OrderamountComponent implements AfterContentInit {
         {
           type: 'number',
           position: 'left',
+          nice: true,
+
           label: {
             color: '#fff0',
           },
@@ -148,10 +150,8 @@ export class OrderamountComponent implements AfterContentInit {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    //private customerService: CustomerService,
     private orderService: OrderService,
-    private dataService: DataService,
-    private cdr: ChangeDetectorRef
+    private dataService: DataService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     //this.updateChart();
@@ -170,7 +170,6 @@ export class OrderamountComponent implements AfterContentInit {
 
     //console.log('filterData before update in constr', this.filterData);
     this.updateChart();
-    //this.updateList();
   }
 
   async updateChart() {
@@ -207,13 +206,6 @@ export class OrderamountComponent implements AfterContentInit {
             idx++;
           });
 
-          //  this.chartOptions = {
-          //    ...this.chartOptions,
-          //    data: this.myArray,
-          //  };
-
-          //console.log(this.myArray);
-
           this.chartOptions = {
             ...this.chartOptions,
             data: this.myArray,
@@ -234,12 +226,12 @@ export class OrderamountComponent implements AfterContentInit {
   }
 
   adjustChartScale() {
-    const scaleFactor = window.devicePixelRatio*1.05 || 1; // or any logic to determine scale factor
+    const scaleFactor = window.devicePixelRatio * 1.05 || 1; // or any logic to determine scale factor
     this.chartOptions = {
       ...this.chartOptions,
-      width: 800 / (scaleFactor), // Example: scale the width
+      width: 800 / scaleFactor, // Example: scale the width
     };
-}
+  }
 }
 export class ListOrderDate {
   month: string;

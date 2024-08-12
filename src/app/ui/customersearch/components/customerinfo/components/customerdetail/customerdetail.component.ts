@@ -15,13 +15,13 @@ export class CustomerdetailComponent {
   @Input() customer: ListCustomer;
   isData: boolean = false;
   constructor(private dataService: DataService) {
-    //this.isData = false;
+    
     this.dataService.isDisabledObs.subscribe((data) => {
       this.isData = !data;
       //console.log(this.customer);
     });
     this.dataService.isDisabledObs.subscribe((data) => {
-      console.log('Data has been set', data);
+      //console.log('Data has been set', data);
       
       this.isData = !data;
     });

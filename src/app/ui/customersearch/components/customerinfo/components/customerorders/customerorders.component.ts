@@ -49,19 +49,22 @@ export class CustomerordersComponent {
     private dataService: DataService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    this.subscription = this.dataService.dataObs.subscribe((data) => {
-      //console.log('Refresh has been set', data);
-      this.updateList();
-      //this.isRefreshed = data;
-    });
+
     this.subscription = this.dataService.orderRefreshObs.subscribe(
       (refresh) => {
         //console.log('Refresh has been set', refresh);
+        if(this.customer) {
         this.isRefreshed = refresh;
         this.updateList();
+        }
       }
     );
-    this.updateList();
+    this.subscription = this.dataService.customerObs.subscribe((customer) => {
+      if(customer) {
+      this.customer = customer;
+      this.updateList();
+      }
+    });
   }
 
   rowData: ListOrder[] = [];
@@ -89,11 +92,6 @@ export class CustomerordersComponent {
     });
   }
 
-  //Send this data to Customerimfo or it's child components.
-  selectCustomer(event: any) {
-    this.selectedCustomer = event.data; //can it be just data or should we pass the id?
-    //console.log(this.selectedCustomer);
-  }
 
   selectOrder(event: any) {
     this.selectedOrder = event;

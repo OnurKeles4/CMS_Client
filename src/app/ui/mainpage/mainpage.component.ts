@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { OrderlistComponent } from "./components/orderlist/orderlist.component";
-import { OrderamountComponent } from "./components/orderamount/orderamount.component";
+import { OrderlistComponent } from './components/orderlist/orderlist.component';
+import { OrderamountComponent } from './components/orderamount/orderamount.component';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../../services/common/dataservice';
 import { IxModule } from '@siemens/ix-angular';
@@ -10,20 +10,13 @@ import { IxModule } from '@siemens/ix-angular';
   standalone: true,
   imports: [OrderlistComponent, OrderamountComponent, CommonModule, IxModule],
   templateUrl: './mainpage.component.html',
-  styleUrl: './mainpage.component.scss'
+  styleUrl: './mainpage.component.scss',
 })
-export class MainpageComponent implements AfterViewInit {
-  isInit: boolean = false;
+export class MainpageComponent {
   isDisabled: boolean = false;
   constructor(private dataService: DataService) {
-
     this.dataService.refreshObs.subscribe((data) => {
-        this.isDisabled = data;
-      });
-   }
-
-  ngAfterViewInit() {
-    this.isInit = true;
+      this.isDisabled = data;
+    });
   }
-
 }

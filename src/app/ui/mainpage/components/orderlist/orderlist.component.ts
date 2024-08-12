@@ -60,7 +60,6 @@ export class OrderlistComponent {
     this.FilterDays = val;
     this.rowData = [];
     this.ifLastMonth = false;
-    //this.filterSwitch();
     this.updateList(); //
     this.dataService.setFilterData(this.FilterDays);
   }
@@ -136,7 +135,7 @@ export class OrderlistComponent {
           this.tempArr = orders;
         orders.forEach(async (order) => {
           this.temp = rowdatatemp.filter( (customer) => customer.id === order.customerId); //Instead of reading all customers 100 times, read it once, save it in an array, check id values from there.
-          console.log('a', this.temp[0].name);
+          //console.log('a', this.temp[0].name);
 
           this.rowData.push({
             customer_name: this.temp[0].name,

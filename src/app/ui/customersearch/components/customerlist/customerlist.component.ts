@@ -32,7 +32,9 @@ export class CustomerlistComponent {
     this.subscription = this.dataService.dataObs.subscribe(async (data) => {
       // //console.log('Data has been set', data);
       await this.updateList().then(() => {
+        if(this.gridApi) {
         this.gridApi.setGridOption('rowData', this.rowData);
+        }
       });
     });
     this.subscription = this.dataService.refreshObs.subscribe(
@@ -41,6 +43,9 @@ export class CustomerlistComponent {
       async (refresh) => {
         console.log('Data has been set, list refreshing', refresh);
         await this.updateList().then(() => {
+          
+          
+          if(this.gridApi)
           this.gridApi.setGridOption('rowData', this.rowData);
         });
       }
@@ -74,26 +79,9 @@ export class CustomerlistComponent {
     });
   }
 
-  //  getRowStyle = (params: any) => {
-    
-  //   //console.log('getRowStyle', params.node);
-  //    if (params.node.rowIndex === this.selectedRowIndex) {
-  //      return { background: '#00bde3' };
-  //    }
-  //    return null;
-  //  }
   
-  //  getRowStyleA(params: any) {
-  //    console.log('getRowStyle', params.data);
-
-  //    if (params.data.node.rowIndex === this.selectedRowIndex) {
-  //      return { background: '#00bde3' };
-  //    }
-  //    return null;
-  //  }
-  //Send this data to Customerimfo or it's child components.
   selectCustomer(event: any) {
-    console.log("row Index",event.rowIndex);
+    //console.log("row Index",event.rowIndex);
     this.selectedRowIndex = event.rowIndex;
     this.selectedCustomer = event.data; //can it be just data or should we pass the id?
     //console.log(this.selectedCustomer);

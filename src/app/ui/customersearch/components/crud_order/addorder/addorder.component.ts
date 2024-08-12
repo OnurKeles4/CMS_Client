@@ -37,7 +37,7 @@ export class AddorderComponent {
       this.isDisabled = !data;
     });
     this.subscription = this.dataService.customerIdObs.subscribe((data) => {
-      console.log('SelectedCustomerId has been set', data);
+      //console.log('SelectedCustomerId has been set', data);
 
       this.selectedCustomerId = data;
     });
@@ -82,7 +82,7 @@ export class AddorderComponent {
 
           const new_order: CreateOrder = new CreateOrder();
 
-          console.log('Edit Product:', new_order);
+          //console.log('Edit Product:', new_order);
           new_order.Name = result.input1;
           new_order.Description = result.input2;
           new_order.Address = result.input3;
@@ -91,7 +91,7 @@ export class AddorderComponent {
           console.log('Create Order:', new_order);
 
           await this.orderService.create(new_order).then(() => {
-            console.log('Created a order');
+            //console.log('Created a order');
             this.dataService.setRefresh(false);
 
             this.dataService.setMessageBar({
