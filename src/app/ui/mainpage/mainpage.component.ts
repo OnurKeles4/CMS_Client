@@ -14,6 +14,8 @@ import { IxModule } from '@siemens/ix-angular';
 })
 export class MainpageComponent {
   isDisabled: boolean = false;
+
+  //To wait for the data being get from the database so datatables won't be empty, isDisabled is set to false/true accordingly.
   constructor(private dataService: DataService) {
     this.dataService.refreshObs.subscribe((data) => {
       this.isDisabled = data;

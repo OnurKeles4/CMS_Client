@@ -59,7 +59,7 @@ export class OrderlistComponent {
     sortable: true,
     filter: true,
   };
-
+  //The filter days will be assigned by the dropdown on the screen and the data will be updated accordingly.
   adaptFilter(val: number) {
     //console.log('filter value', val);
     if (this.FilterDays == val) return null;

@@ -6,7 +6,7 @@ import { MessageComponent } from './ui/common/message/message.component';
 import { DataService } from './services/common/dataservice';
 import { SafetyCheckComponent } from './ui/customersearch/dialogs/safetycheck/safetycheck.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import  { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -28,9 +28,9 @@ export class AppComponent {
   router = inject(Router);
   constructor(
     private dataService: DataService,
-
     public dialog: MatDialog
   ) {
+
     this.dataService.didLoginObs.subscribe((data) => {
       //console.log('data', data);
 
@@ -38,35 +38,41 @@ export class AppComponent {
     });
   }
 
+  //a switch case class for deciding where to route.
   routeTo(route: string) {
-    switch (route) {
-      case 'home':
-        this.home();
-        break;
-      case 'customersearch':
-        this.customerSearch();
-        break;
-      case 'logout':
-        this.logOut();
-        break;
-    }
-  }
-  home() {
-    if (this.router.url == '/') return null;
-    this.router.navigate(['/']);
+  switch (route) {
+    case 'home':
+      this.home();
+      break;
+    case 'customersearch':
+      this.customerSearch();
+      break;
+    case 'logout':
+      this.logOut();
+      break;
   }
 
-  customerSearch() {
-    //make this function in dataservice
-    if (this.router.url == '/customersearch') return null;
+}
+//if already not at home, route home
+home() {
+  if(this.router.url == '/')
+    return null;
+  this.router.navigate(['/']);
+}
+//if already not at customersearch, route customersearch
+customerSearch() {      
+      if(this.router.url == '/customersearch')
+        return null;
+      
+  this.dataService.setInitial();                      
+  this.router.navigate(['/customersearch']);
+}
 
-    this.dataService.setInitial();
-    this.router.navigate(['/customersearch']);
-  }
-
+//Logout from the current user after asking the user one more time that do they want to logout.
+  
   logOut() {
     this.dataService.setDidLogin(false);
-    const dialogRef = this.dialog.open(SafetyCheckComponent, {
+    this.dialog.open(SafetyCheckComponent, {
       width: '300px',
       data: {
         title: 'Log Out',
