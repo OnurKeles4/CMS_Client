@@ -29,6 +29,11 @@ export class OrderlistComponent {
 
   FilterDaysArray: number[] = [30, 90, 180, 36000];
 
+  loadingTemplate: string = `<div class="spinner-container">
+        <h3 class="text">Waiting for data...</h3>
+      <ix-spinner class="spinner"></ix-spinner>
+        </div>`;
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private customerService: CustomerService,
@@ -57,6 +62,7 @@ export class OrderlistComponent {
 
   adaptFilter(val: number) {
     //console.log('filter value', val);
+    if (this.FilterDays == val) return null;
     this.FilterDays = val;
     this.rowData = [];
     this.ifLastMonth = false;
@@ -64,27 +70,6 @@ export class OrderlistComponent {
     this.dataService.setFilterData(this.FilterDays);
   }
 
-  filterSwitch() {
-    //console.log('filterdays in switch', this.FilterDays);
-
-    switch (this.FilterDays) {
-      case 30: //if initial value
-        this.FilterDays = 90; //set to 90 (3 months)
-        break;
-      case 90:
-        this.FilterDays = 180; //set to 180 (6 months)
-        break;
-      case 180:
-        this.FilterDays = 36000; //set to 36000 (10 years)
-        break;
-      case 36000:
-        this.ifLastMonth = false;
-        this.FilterDays = 30;
-        break;
-    }
-
-    //console.log('filterdays', this.FilterDays);
-  }
   /**
    *
    * Both versions of updateList() are working. This version uses readwithId function.
@@ -153,7 +138,6 @@ export class OrderlistComponent {
           });
 
         this.isDataReady = true;
-
       }
     );
   }

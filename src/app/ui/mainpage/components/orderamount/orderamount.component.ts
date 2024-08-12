@@ -66,7 +66,7 @@ export class OrderamountComponent implements AfterContentInit {
 
   initializeChart() {
     this.chartOptions = {
-      height: 400,
+      height: 450,
 
       // Data: Data to be displayed in the chart
       data: [],
