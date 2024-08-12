@@ -86,9 +86,9 @@ export class OrderlistComponent {
     //console.log('filterdays', this.FilterDays);
   }
   /**
-   * 
-   * Both versions of updateList() are working. This version uses readwithId function. 
-   * 
+   *
+   * Both versions of updateList() are working. This version uses readwithId function.
+   *
    */
   // async updateList() {
   //   let rowdatatemp: CustomerOrderList[] = [];
@@ -117,10 +117,9 @@ export class OrderlistComponent {
   //     }
   //   );
   // }
-  
 
   /**
-   * 
+   *
    * Both versions of updateList() are working. This version doesn't use readwithId function so it won't go back
    * and for to the database for order amount of times, but instead it is using find.
    */
@@ -128,29 +127,33 @@ export class OrderlistComponent {
     let rowdatatemp: ListCustomer[] = [];
     (await this.orderService.readLastMonth(this.FilterDays)).subscribe(
       async (orders) => {
-        (this.customerService.read()).subscribe((customers) => {
-          rowdatatemp = customers;
-          //console.log('Data has been set', rowdatatemp);
-        }).add(() => {
-          this.tempArr = orders;
-        orders.forEach(async (order) => {
-          this.temp = rowdatatemp.filter( (customer) => customer.id === order.customerId); //Instead of reading all customers 100 times, read it once, save it in an array, check id values from there.
-          //console.log('a', this.temp[0].name);
+        this.customerService
+          .read()
+          .subscribe((customers) => {
+            rowdatatemp = customers;
+            //console.log('Data has been set', rowdatatemp);
+          })
+          .add(() => {
+            this.tempArr = orders;
+            orders.forEach(async (order) => {
+              this.temp = rowdatatemp.filter(
+                (customer) => customer.id === order.customerId
+              ); //Instead of reading all customers 100 times, read it once, save it in an array, check id values from there.
+              //console.log('a', this.temp[0].name);
 
-          this.rowData.push({
-            customer_name: this.temp[0].name,
-            order_name: order.name,
-            order_id: order.id,
-            status: order.status,
+              this.rowData.push({
+                customer_name: this.temp[0].name,
+                order_name: order.name,
+                order_id: order.id,
+                status: order.status,
+              });
+              this.gridApi.setGridOption('rowData', this.rowData);
+            });
+            // //console.log("orders", orders);
           });
-          this.gridApi.setGridOption('rowData', this.rowData);
-        });
-        // //console.log("orders", orders);        
-        });
-        //this.concatData(rowdatatemp);
-        // if(this.ifLastMonth) {
+
         this.isDataReady = true;
-        // }
+
       }
     );
   }

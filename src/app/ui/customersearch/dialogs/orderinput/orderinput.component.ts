@@ -1,25 +1,12 @@
-import {
-  Component,
-  Inject,
-  Input,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { IxActiveModal, IxModule } from '@siemens/ix-angular';
+import { IxModule } from '@siemens/ix-angular';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BaseDialog } from '../base/base-dialog';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { OrderStatus } from '../../components/crud_order/addorder/addorder.component';
 import { MatSelectModule } from '@angular/material/select';
-import { MessageComponent } from '../../../common/message/message.component';
 import { DataService } from '../../../../services/common/dataservice';
 import { CustomValidators } from '../base/customValidators';
 
@@ -47,13 +34,13 @@ export class OrderinputComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private dataService: DataService,
-    private customValidators: CustomValidators
+    customValidators: CustomValidators
   ) {
     this.form = this.fb.group({
-      input1: ['', [customValidators.optionalLengthValidator(2, 100)]],
-      input2: ['', [customValidators.optionalLengthValidator(2, 1000)]], //rename these fields accurately later
-      input3: ['', [customValidators.optionalLengthValidator(2, 100)]],
-      input4: ['', [customValidators.statusValidator()]],
+      name: ['', [customValidators.optionalLengthValidator(2, 100)]],
+      description: ['', [customValidators.optionalLengthValidator(2, 1000)]], //rename these fields accurately later
+      address: ['', [customValidators.optionalLengthValidator(2, 100)]],
+      status: ['', [customValidators.statusValidator()]],
     });
 
     //console.log('data', this.orderStatus);

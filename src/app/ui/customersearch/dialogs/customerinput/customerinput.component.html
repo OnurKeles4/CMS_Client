@@ -5,17 +5,17 @@
     <form [formGroup]="form">
       <mat-form-field>
         
-        <input placeholder="Edit Name" matInput formControlName="input1" />
+        <input placeholder="Edit Name" matInput formControlName="name" />
       </mat-form-field>
       <mat-form-field>
-        <input placeholder="Edit Email" matInput formControlName="input2" />
+        <input placeholder="Edit Email" matInput formControlName="email" />
       </mat-form-field>
       <mat-form-field>
         <input type="tel"
         maxlength="12"
         placeholder="Phone 123 456 7890"
           matInput
-          formControlName="input3"
+          formControlName="phone_number"
           oninvalid="log('Hiii')"
         />
       </mat-form-field>

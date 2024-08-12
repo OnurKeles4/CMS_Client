@@ -5,7 +5,6 @@ import { ListOrder } from '../../../../../contracts/order/list_order';
 import { faRemove } from '@fortawesome/free-solid-svg-icons';
 import { BasicbuttonComponent } from '../../../../common/basicbutton/basicbutton.component';
 import { CustomerService } from '../../../../../services/common/models/customer.service';
-// import { AlertifyService, MessageType, Position } from '../../../../common/message/alerfity.service';
 
 @Component({
   selector: 'app-deleteorder',
@@ -28,7 +27,6 @@ export class DeleteorderComponent {
   constructor(
     protected orderService: OrderService,
     protected customerService: CustomerService,
-    // private alertify: AlertifyService,
     private dataService: DataService
   ) {
     this.subscription = this.dataService.orderIsDisabledObs.subscribe(

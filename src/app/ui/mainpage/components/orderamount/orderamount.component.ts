@@ -1,20 +1,14 @@
 import { CommonModule, DatePipe, isPlatformBrowser } from '@angular/common';
 import {
   AfterContentInit,
-  AfterViewInit,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
   Inject,
-  OnInit,
   PLATFORM_ID,
   ViewChild,
-  ViewEncapsulation,
 } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
-import { ColDef } from 'ag-grid-community';
-
 import { AgCharts } from 'ag-charts-angular';
 import { AgChartOptions } from 'ag-charts-community';
 /* Core Data Grid CSS */
@@ -23,8 +17,6 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { OrderService } from '../../../../services/common/models/order.service';
 import { DataService } from '../../../../services/common/dataservice';
-import e from 'express';
-import { initialize } from '@siemens/ix/dist/types/components/utils/menu-tabs/menu-tabs-utils';
 import { IxModule } from '@siemens/ix-angular';
 import { OrderStatus } from '../../../customersearch/components/crud_order/addorder/addorder.component';
 
@@ -34,11 +26,9 @@ import { OrderStatus } from '../../../customersearch/components/crud_order/addor
   imports: [CommonModule, AgGridModule, AgCharts, IxModule],
   templateUrl: './orderamount.component.html',
   styleUrls: ['./orderamount.component.scss'],
-  //encapsulation: ViewEncapsulation.None  // Add this line
 })
 export class OrderamountComponent implements AfterContentInit {
   @ViewChild('myChart', { static: true }) chartContainer: ElementRef;
-  //chartOptions: AgChartOptions
   isBrowser: boolean;
   isReady: boolean = false;
 
@@ -60,10 +50,8 @@ export class OrderamountComponent implements AfterContentInit {
   ];
   value: number = 30;
   filterData: number = 30;
-  //fullMonthDay: number = 30;
   myArray: ListOrderDate[] = [];
   myCompletedArray: ListOrderDate[] = [];
-  //chartOptions: AgChartOptions;
   chartOptions: AgChartOptions;
 
   ngAfterContentInit(): void {
@@ -154,7 +142,6 @@ export class OrderamountComponent implements AfterContentInit {
     private dataService: DataService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    //this.updateChart();
 
     this.dataService.filterDataObs.subscribe((data) => {
       this.filterData = data;

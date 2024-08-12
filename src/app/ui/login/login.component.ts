@@ -1,4 +1,4 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 //import { AuthService } from '../auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
@@ -24,7 +24,6 @@ import {
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  //authService = inject(AuthService);
   form: FormGroup;
   router = inject(Router);
   authService = inject(AuthService);
@@ -54,7 +53,7 @@ export class LoginComponent {
         email: this.form.controls['email'].value,
         password: this.form.controls['password'].value,
       })
-      .subscribe((r) => {
+      .subscribe(() => {
         this.dataService.setDidLogin(true);
 
         this.LoginUser();

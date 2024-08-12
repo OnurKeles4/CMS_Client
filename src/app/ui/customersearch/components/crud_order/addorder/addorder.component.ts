@@ -75,7 +75,7 @@ export class AddorderComponent {
 
       //this.dataService.setRefresh(true);
       dialogRef.afterClosed().subscribe(async (result) => {
-        if (result && result.input4) {
+        if (result && result.status) {
           console.log('Dialog result:', result);
           console.log('result', result);
           //console.log('selected Order', this.selectedOrder);
@@ -83,10 +83,10 @@ export class AddorderComponent {
           const new_order: CreateOrder = new CreateOrder();
 
           //console.log('Edit Product:', new_order);
-          new_order.Name = result.input1;
-          new_order.Description = result.input2;
-          new_order.Address = result.input3;
-          new_order.Status = result.input4;
+          new_order.Name = result.name;
+          new_order.Description = result.description;
+          new_order.Address = result.address;
+          new_order.Status = result.status;
           new_order.CustomerId = this.selectedCustomerId;
           console.log('Create Order:', new_order);
 

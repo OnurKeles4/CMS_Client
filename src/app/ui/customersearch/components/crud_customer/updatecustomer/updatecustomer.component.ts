@@ -71,14 +71,14 @@ export class UpdatecustomerComponent {
           );
 
           //console.log('Edit Product:', edit_customer);
-          edit_customer.Name = result.input1
-            ? result.input1
+          edit_customer.Name = result.name
+            ? result.name
             : this.selectedCustomer.name;
-          edit_customer.Email = result.input2
-            ? result.input2
+          edit_customer.Email = result.email
+            ? result.email
             : this.selectedCustomer.email;
-          edit_customer.phone_number = result.input3
-            ? result.input3
+          edit_customer.phone_number = result.phone_number
+            ? result.phone_number
             : this.selectedCustomer.phone_number;
 
           //console.log('Edit Product:', edit_customer);

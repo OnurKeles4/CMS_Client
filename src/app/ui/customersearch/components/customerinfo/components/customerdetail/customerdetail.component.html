@@ -1,24 +1,29 @@
 <ng-container *ngIf="isData">
-<div class="row" id="container">
-    <div class="avatar-container"> 
-        <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar" id="avatar">
+  <div class="row" id="container">
+    <div class="avatar-container">
+      <img
+        src="https://www.w3schools.com/howto/img_avatar.png"
+        alt="Avatar"
+        class="avatar"
+        id="avatar"
+      />
     </div>
-    <div class="info-container ">
-    <div class="col-md-6" id="name">
-<h3 id="name"><b>{{customer.name}}</b></h3>
-    <div id="label">
-        <ix-typography format="h3"> Email: </ix-typography >
-    <p id="email"> {{customer.email}}</p>
+    <div class="info-container">
+      <div class="col-md-6" id="name">
+        <h3 id="name">
+          <b>{{ customer.name }}</b>
+        </h3>
+        <div id="label">
+          <ix-typography format="h3"> Email: </ix-typography>
+          <p id="email">{{ customer.email }}</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div id="label">
+          <ix-typography format="h3"> Phone Number: </ix-typography>
+          <p id="phonenumber">{{ customer.phone_number }}</p>
+        </div>
+      </div>
     </div>
-</div>
-<div class="col-md-6">
-        
-    <div id="label">
-        <ix-typography format="h3"> Phone Number: </ix-typography >
-        <p id="phonenumber"> {{customer.phone_number}}</p>
-    </div>
-</div>
-</div>
-</div>
-
+  </div>
 </ng-container>

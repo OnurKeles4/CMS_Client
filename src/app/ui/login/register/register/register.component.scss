@@ -8,19 +8,23 @@
   justify-self: center;
 }
 
-.button-container {
-  width: 100%;
+
+
+#title {
+  font-weight: 500;
+  font-style: normal;
+  text-align: center;
+  margin-bottom: 10px;
+  height: 15%;
   display: block;
+  width: 10%;
 }
+
 
 input {
   display: block;
   margin: 10px;
   width: 120%;
-}
-
-#login {
-  margin: 10px;
 }
 
 .button {
@@ -33,29 +37,4 @@ input {
   top: 95%;
   left: 2%;
   width: 10%;
-}
-
-#forgot {
-  width: inherit;
-  margin-top: 10px;
-}
-
-#title {
-  font-weight: 500;
-  font-style: normal;
-  text-align: center;
-  margin-bottom: 10px;
-  height: 15%;
-  display: block;
-  width: 10%;
-}
-
-#subtext {
-  font-weight: 400;
-  font-style: normal;
-  margin-bottom: 10px;
-  height: 15%;
-  position: relative;
-  top: 30%;
-  width: 100%;
 }

@@ -59,14 +59,14 @@ export class AddcustomerComponent {
 
       //this.dataService.setRefresh(true);
       dialogRef.afterClosed().subscribe(async (result) => {
-        if (result && result.input1 && result.input2 && result.input3) {
+        if (result && result.name && result.email && result.phone_number) {
          
           const new_customer: any = new CreateCustomer();
 
           //console.log('Edit Product:', new_customer);
-          new_customer.Name = result.input1;
-          new_customer.Email = result.input2;
-          new_customer.phone_number = result.input3;
+          new_customer.Name = result.name;
+          new_customer.Email = result.email;
+          new_customer.phone_number = result.phone_number;
 
           //console.log('Create Customer:', new_customer);
 

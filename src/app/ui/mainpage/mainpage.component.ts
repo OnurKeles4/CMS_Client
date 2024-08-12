@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { OrderlistComponent } from './components/orderlist/orderlist.component';
 import { OrderamountComponent } from './components/orderamount/orderamount.component';
 import { CommonModule } from '@angular/common';

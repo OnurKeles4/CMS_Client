@@ -3,11 +3,10 @@ import { Component, inject, Inject } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 import { MessageComponent } from './ui/common/message/message.component';
-import { AuthService } from './ui/login/auth/auth.service';
 import { DataService } from './services/common/dataservice';
 import { SafetyCheckComponent } from './ui/customersearch/dialogs/safetycheck/safetycheck.component';
 import { MatDialog } from '@angular/material/dialog';
-import  { Router } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -40,35 +39,31 @@ export class AppComponent {
   }
 
   routeTo(route: string) {
-  switch (route) {
-    case 'home':
-      this.home();
-      break;
-    case 'customersearch':
-      this.customerSearch();
-      break;
-    case 'logout':
-      this.logOut();
-      break;
+    switch (route) {
+      case 'home':
+        this.home();
+        break;
+      case 'customersearch':
+        this.customerSearch();
+        break;
+      case 'logout':
+        this.logOut();
+        break;
+    }
+  }
+  home() {
+    if (this.router.url == '/') return null;
+    this.router.navigate(['/']);
   }
 
-}
-home() {
-  if(this.router.url == '/')
-    return null;
-  this.router.navigate(['/']);
-}
+  customerSearch() {
+    //make this function in dataservice
+    if (this.router.url == '/customersearch') return null;
 
-customerSearch() {      
-                //make this function in dataservice
-      if(this.router.url == '/customersearch')
-        return null;
-      
-  this.dataService.setInitial();                      
-  this.router.navigate(['/customersearch']);
-}
+    this.dataService.setInitial();
+    this.router.navigate(['/customersearch']);
+  }
 
-  
   logOut() {
     this.dataService.setDidLogin(false);
     const dialogRef = this.dialog.open(SafetyCheckComponent, {

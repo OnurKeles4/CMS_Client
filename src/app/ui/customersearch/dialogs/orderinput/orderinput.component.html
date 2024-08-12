@@ -4,17 +4,17 @@
     <p>{{ data.description }}</p>
     <form [formGroup]="form">
       <mat-form-field>
-        <input placeholder="Edit Name" matInput formControlName="input1" type="text"/>
+        <input placeholder="Edit Name" matInput formControlName="name" type="text"/>
       </mat-form-field>
       <mat-form-field>
-        <input placeholder="Edit Description" matInput formControlName="input2" type="text"/>
+        <input placeholder="Edit Description" matInput formControlName="description" type="text"/>
       </mat-form-field>
       <mat-form-field>
-        <input placeholder="Edit Address" matInput formControlName="input3" type="text"/>
+        <input placeholder="Edit Address" matInput formControlName="address" type="text"/>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Select a status</mat-label>
-        <select matNativeControl formControlName="input4" >
+        <select matNativeControl formControlName="status" >
           <option *ngFor="let enum of orderStatus | keyvalue" [value]="enum.value"> {{enum.value}} </option>
         </select>
         <!-- <input placeholder="Edit Status" matInput formControlName="input4"  /> -->

@@ -53,16 +53,18 @@ export class CustomerordersComponent {
     this.subscription = this.dataService.orderRefreshObs.subscribe(
       (refresh) => {
         //console.log('Refresh has been set', refresh);
-        if(this.customer) {
-        this.isRefreshed = refresh;
-        this.updateList();
+        if (this.customer) {
+          this.isRefreshed = refresh;
+          this.updateList();
         }
       }
     );
     this.subscription = this.dataService.customerObs.subscribe((customer) => {
-      if(customer) {
-      this.customer = customer;
-      this.updateList();
+      //console.log("customer", customer);
+
+      if (customer) {
+        this.customer = customer;
+        this.updateList();
       }
     });
   }
@@ -86,12 +88,12 @@ export class CustomerordersComponent {
         }
       });
 
-      this.rowData = rowdatatemp;
-
       //console.log(this.selectedCustomer);
     });
+    this.rowData = rowdatatemp;
+    //console.log(this.rowData);
+    this.isRefreshed = true;
   }
-
 
   selectOrder(event: any) {
     this.selectedOrder = event;

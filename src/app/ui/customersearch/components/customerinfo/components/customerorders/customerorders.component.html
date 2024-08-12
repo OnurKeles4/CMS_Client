@@ -1,11 +1,3 @@
-<!-- <ag-grid-angular *ngIf="isBrowser && isDataReady"
-  style="height: 120%; width: inherit;"
-  class="ag-theme-quartz-dark"
-  [rowData]="rowData"
-  [columnDefs]="colDefs"
-  [defaultColDef]="defaultColDef"
-  (rowClicked)="selectCustomer($event)"
-></ag-grid-angular> -->
 <ng-container *ngIf="isRefreshed">
 <ix-event-list class="infobox6" *ngFor="let order of rowData" id="orders">
   <div (click)="selectOrder(order)">

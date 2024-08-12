@@ -86,17 +86,17 @@ export class UpdateorderComponent {
           );
 
           console.log('Edit Product:', edit_order);
-          edit_order.name = result.input1
-            ? result.input1
+          edit_order.name = result.name
+            ? result.name
             : this.selectedOrder.name;
-          edit_order.description = result.input2
-            ? result.input2
+          edit_order.description = result.description
+            ? result.description
             : this.selectedOrder.description;
-          edit_order.address = result.input3
-            ? result.input3
+          edit_order.address = result.address
+            ? result.address
             : this.selectedOrder.address;
-          edit_order.status = result.input4
-            ? result.input4
+          edit_order.status = result.status
+            ? result.status
             : this.selectedOrder.status;
           edit_order.customerId = this.selectedOrder.customerId;
           console.log('Edit order:', edit_order);
