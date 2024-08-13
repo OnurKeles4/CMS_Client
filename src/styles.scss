@@ -1,15 +1,66 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; background-color: #000028;
-    // color: #00bde3;
+html,
+body {
+  height: 100%;
+  background-color: #000028;
+  // color: #00bde3;
 }
-@import '@siemens/ix/dist/siemens-ix/siemens-ix.css';
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import "@siemens/ix/dist/siemens-ix/siemens-ix.css";
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 
 .backdrop {
-    background-color: #000028c0;
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
+  background-color: #000028c0;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
 }
+
+@keyframes showIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes slideFromLeft {
+  from {
+    transform: translateX(-20px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+@keyframes slideFromRight {
+    from {
+      transform: translateX(20px);
+    }
+    to {
+      transform: translateX(0px);
+    }
+  }

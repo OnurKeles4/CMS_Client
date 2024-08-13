@@ -32,6 +32,8 @@ export class DataService {
   filterDataObs = this.filterData.asObservable();
   private customerId = new BehaviorSubject<string>('');
   customerIdObs = this.customerId.asObservable();
+  private orderId = new BehaviorSubject<string>('');
+  orderIdObs = this.orderId.asObservable();
   private messageBar = new BehaviorSubject<MessageOptions>(null);
   messageBarObs = this.messageBar.asObservable();
 
@@ -39,6 +41,7 @@ export class DataService {
   customerObs = this.customer.asObservable();
   private order = new BehaviorSubject<ListOrder>(null);
   orderObs = this.order.asObservable();
+  
 
   constructor() {
     //this.setInitial();
@@ -115,5 +118,12 @@ export class DataService {
     //console.log(this.dataObs);
 
     this.order.next(data);
+  }
+  setOrderId(data: string) {
+    //console.log('data has been set');
+    //console.log(data);
+    //console.log(this.dataObs);
+
+    this.orderId.next(data);
   }
 }

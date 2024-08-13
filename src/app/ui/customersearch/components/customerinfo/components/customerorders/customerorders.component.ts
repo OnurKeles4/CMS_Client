@@ -17,6 +17,7 @@ import { ListOrder } from '../../../../../../contracts/order/list_order';
 import { UpdateorderComponent } from '../../../crud_order/updateorder/updateorder.component';
 import { AddorderComponent } from '../../../crud_order/addorder/addorder.component';
 import { DeleteorderComponent } from '../../../crud_order/deleteorder/deleteorder.component';
+import e from 'express';
 
 @Component({
   selector: 'app-customerorders',
@@ -41,6 +42,7 @@ export class CustomerordersComponent {
   isDataReady: boolean;
   selectedCustomer: ListCustomer;
   selectedOrder: ListOrder;
+  selectedOrderId: string;
 
   @Output() rowClicked = new EventEmitter<any>();
   constructor(
@@ -49,6 +51,12 @@ export class CustomerordersComponent {
     private dataService: DataService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+
+    this.subscription = this.dataService.orderIdObs.subscribe(async (data) => {
+      //console.log('Data has been set', data);
+        this.selectedOrderId = data;
+    }
+    );
 
     this.subscription = this.dataService.orderRefreshObs.subscribe(
       (refresh) => {
@@ -80,18 +88,25 @@ export class CustomerordersComponent {
   ];
 
   async updateList() {
-    let rowdatatemp = [];
+    let rowdatatemp : ListOrder[] = [];
     this.orderService.read().subscribe((data) => {
       data.find((element) => {
         if (element.customerId === this.customer.id) {
           rowdatatemp.push(element);
+          // console.log(element.isCollapsed);
+          
         }
       });
 
       //console.log(this.selectedCustomer);
     });
+    console.log("temp",rowdatatemp);
+    
+   
     this.rowData = rowdatatemp;
-    //console.log(this.rowData);
+    console.log("row data", this.rowData);
+    console.log("selected order id", this.selectedOrderId);
+  
     this.isRefreshed = true;
   }
 

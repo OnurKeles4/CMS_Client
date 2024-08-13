@@ -19,8 +19,7 @@ export class CustomerlistComponent {
   subscription: any;
   isDataReady: boolean;
   selectedCustomer: ListCustomer;
-  selectedRowIndex: number;
-
+ 
   gridApi: any;
 
   constructor(
@@ -41,7 +40,7 @@ export class CustomerlistComponent {
       
       
       async (refresh) => {
-        console.log('Data has been set, list refreshing', refresh);
+        //console.log('Data has been set, list refreshing', refresh);
         await this.updateList().then(() => {
           
           
@@ -71,10 +70,8 @@ export class CustomerlistComponent {
       rowdatatemp = data;
 
       this.rowData = rowdatatemp;
-      this.isDataReady = true;
-
-      //this.selectedCustomer = this.rowData[0];
-      this.sendCustomer();
+      this.isDataReady = true;                                                           //Commented for test, Might cause a problem. 
+      
       //console.log(this.selectedCustomer);
     });
   }
@@ -82,40 +79,25 @@ export class CustomerlistComponent {
   
   selectCustomer(event: any) {
     //console.log("row Index",event.rowIndex);
-    this.selectedRowIndex = event.rowIndex;
     this.selectedCustomer = event.data; //can it be just data or should we pass the id?
-    //console.log(this.selectedCustomer);
-    this.sendCustomerId(event.data.id);
+    console.log(this.selectedCustomer);
+    this.dataService.setCustomerId(event.data.id);
+    
+    this.dataService.setCustomer(this.selectedCustomer);
     this.dataService.setorderRefresh(true);
-    this.sendCustomer();
-    this.sendisDisabled(false);
-    this.sendData(true);
+    this.dataService.setisDisabled(false);
+    this.dataService.setorderIsDisabled(!true);
+    this.dataService.setOrderId(null);
+    this.dataService.setData(true);
 
-    //this.getRowStyle(event);
     //console.log(this.selectedCustomer);
   }
-  // changeSelected(event: any) {
-  //   //this.selectedRowIndex = this.rowData.find(x => x.id === this.selectedCustomer.id).id;
-  //   console.log('changeSelected', this.rowData);
-     
-  // }
   onGridReady(params: any) {
     this.gridApi = params.api;
   }
-  sendData(flag: boolean) {
-    this.dataService.setData(flag);
-  }
-  sendisDisabled(flag: boolean) {
-    this.dataService.setisDisabled(flag);
 
-    this.dataService.setorderIsDisabled(!flag);
-  }
 
-  sendCustomer() {
-    this.dataService.setCustomer(this.selectedCustomer);
-  }
 
-  sendCustomerId(id: string) {
-    this.dataService.setCustomerId(id);
-  }
+
+
 }

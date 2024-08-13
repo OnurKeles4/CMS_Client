@@ -14,6 +14,11 @@
     border-radius: 2px;
 }
 
+.options {
+  animation: slideIn 1s, showIn 1s;
+}
+
+
 .ag-theme-quartz-dark {
     --ag-background-color: #00028;
     --ag--header-background-color: #00028;

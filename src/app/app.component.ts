@@ -22,6 +22,7 @@ import  { Router } from '@angular/router';
 })
 export class AppComponent {
   isDisabled: boolean = false;
+  isRefreshing: boolean = false;
   title = 'CMS_Client';
   isLogginOut: boolean = false;
 
@@ -30,7 +31,9 @@ export class AppComponent {
     private dataService: DataService,
     public dialog: MatDialog
   ) {
-
+    this.dataService.refreshObs.subscribe((data) => {
+      this.isRefreshing = data;
+    });
     this.dataService.didLoginObs.subscribe((data) => {
       //console.log('data', data);
 

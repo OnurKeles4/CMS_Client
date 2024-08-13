@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, inject, Inject, PLATFORM_ID } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { CustomerService } from '../../../../services/common/models/customer.service';
@@ -8,6 +8,8 @@ import { ListCustomer } from '../../../../contracts/customer/list_customer';
 import { ListOrder } from '../../../../contracts/order/list_order';
 import { IxModule } from '@siemens/ix-angular';
 import { DataService } from '../../../../services/common/dataservice';
+import { Router } from '@angular/router';
+import { CustomerlistComponent } from '../../../customersearch/components/customerlist/customerlist.component';
 
 @Component({
   selector: 'app-orderlist',
@@ -17,10 +19,12 @@ import { DataService } from '../../../../services/common/dataservice';
   styleUrls: ['./orderlist.component.scss'],
 })
 export class OrderlistComponent {
+  router = inject(Router);
   isBrowser: boolean;
   isDataReady: boolean = false;
   ifLastMonth: boolean = false;
   subscription: any;
+  // selectedCustomer: ListCustomer [];
 
   whichFilter: number = 0;
   FilterDays: number = 30;
@@ -31,7 +35,6 @@ export class OrderlistComponent {
 
   loadingTemplate: string = `<div class="spinner-container">
         <h3 class="text">Waiting for data...</h3>
-      <ix-spinner class="spinner"></ix-spinner>
         </div>`;
 
   constructor(
@@ -127,14 +130,17 @@ export class OrderlistComponent {
               //console.log('a', this.temp[0].name);
 
               this.rowData.push({
+                customer_id: this.temp[0].id,
                 customer_name: this.temp[0].name,
                 order_name: order.name,
                 order_id: order.id,
                 status: order.status,
               });
               this.gridApi.setGridOption('rowData', this.rowData);
+
+              //console.log("orderslist", this.rowData);
             });
-            // //console.log("orders", orders);
+            //console.log("orders", this.rowData);
           });
 
         this.isDataReady = true;
@@ -146,10 +152,34 @@ export class OrderlistComponent {
     this.gridApi = params.api;
   }
 
+  async selectCustomer(event: any) {
+    console.log('event', event.data);
+    
+    
+    const a: any = await this.customerService
+      .readWithId(event.data.customer_id);
+      
+    const b: any = await this.orderService
+    .readWithId(event.data.order_id);
+    console.log("order", b);
+    
+
+    this.dataService.setCustomerId(a.id);
+    this.dataService.setCustomer(a);
+    //this.dataService.setorderRefresh(true);
+    this.dataService.setisDisabled(false);
+    this.dataService.setorderIsDisabled(false);
+    this.dataService.setOrderId(b.id);
+    this.dataService.setData(true);
+    //console.log('customer', a.id);
+    this.router.navigate(['/customersearch']);
+  }
+
   gridOptions = {};
 }
 
 class CustomerOrderList {
+  customer_id: string;
   customer_name: string;
   order_name: string;
   order_id: string;

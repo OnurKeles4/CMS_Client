@@ -1,7 +1,13 @@
 <div>
   <div class="row">
     <div>
-      <ix-application theme="">
+      <ng-container *ngIf="isRefreshing">
+        <div class="spinner-container">
+          <ix-spinner size="large" class="spinner"></ix-spinner>
+          <h3 class="text">Waiting for data...</h3>
+        </div>
+      </ng-container>
+      <ix-application class="app-bar" theme="">
         <ix-application-header
           name="Customer Managment System"
           themeSystemApperance="true"
@@ -15,7 +21,7 @@
 
         <ix-menu class="sidebar" *ngIf="isDisabled">
           <ix-menu-item tab-icon="home" (click)="routeTo('home')"
-            >Main Page</ix-menu-item
+            ><a> Main Page</a> </ix-menu-item
           >
           <ix-menu-item tab-icon="search" (click)="routeTo('customersearch')"
             >Customers & Orders</ix-menu-item
@@ -26,6 +32,7 @@
         </ix-menu>
 
         <ix-content>
+
           <router-outlet></router-outlet>
         </ix-content>
       </ix-application>

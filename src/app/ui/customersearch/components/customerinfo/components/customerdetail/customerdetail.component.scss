@@ -13,6 +13,7 @@
 
 #container {
     display: flex;
+    animation: showIn 0.5s;
 }
 #label {
     display: flex;

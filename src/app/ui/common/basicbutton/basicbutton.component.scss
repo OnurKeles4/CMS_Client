@@ -3,3 +3,25 @@
     top: 0;
     left: 0;
 }
+
+.button {
+    
+  transition: transform 0.25s ease;
+  
+
+  
+  &:hover {
+    transform: translateY(-3px); /* Scale up on hover */
+   }
+  &:active {
+    transform: scale(0.9); /* Scale back to original size on click */
+  }
+}
+
+.label {
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    font-family: "Ubuntu", sans-serif;
+    color: #000;
+}

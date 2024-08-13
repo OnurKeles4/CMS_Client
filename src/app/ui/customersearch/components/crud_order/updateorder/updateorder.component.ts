@@ -85,7 +85,7 @@ export class UpdateorderComponent {
             this.selectedOrder.id
           );
 
-          console.log('Edit Product:', edit_order);
+          console.log('Edit Order:', edit_order);
           edit_order.name = result.name
             ? result.name
             : this.selectedOrder.name;
@@ -99,7 +99,7 @@ export class UpdateorderComponent {
             ? result.status
             : this.selectedOrder.status;
           edit_order.customerId = this.selectedOrder.customerId;
-          console.log('Edit order:', edit_order);
+          //console.log('Edit order:', edit_order);
 
           await this.orderService.update(edit_order).then(() => {
             this.dataService.setMessageBar({

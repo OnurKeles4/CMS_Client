@@ -1,7 +1,7 @@
 <ng-container *ngIf="isRefreshed">
 <ix-event-list class="infobox6" *ngFor="let order of rowData" id="orders">
-  <div (click)="selectOrder(order)">
-    <ix-blind label={{order.name}} class="child" collapsed="true" >
+  <div id="orderbox" (click)="selectOrder(order)">
+    <ix-blind label={{order.name}} class="child" [collapsed]="order.id != selectedOrderId" >
       <div class="row">
         <div class="col-md-10">
       <p id="desc"> <b>Description:</b> {{order.description}}</p>

@@ -1,5 +1,6 @@
 <div class="date">
   <ix-select class="select" [value]="FilterDays">
+    <div class="options">
     <ix-select-item
       *ngFor="let day of FilterDaysArray"
       label="{{ day / 30 }} Month"
@@ -8,7 +9,9 @@
       (click)="adaptFilter(day)"
     >
     </ix-select-item>
+  </div>
   </ix-select>
+
 </div>
 <ag-grid-angular
   *ngIf="isBrowser && isDataReady"
@@ -20,6 +23,7 @@
   [gridOptions]="gridOptions"
   (gridReady)="onGridReady($event)"
   [overlayNoRowsTemplate]="loadingTemplate"
+  (rowClicked)="selectCustomer($event)"
 >
   ></ag-grid-angular
 >

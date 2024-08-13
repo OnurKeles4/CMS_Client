@@ -1,6 +1,7 @@
 <ng-container *ngIf="isReady">
   <div class="info-container">
     <ix-select class="select" [value]="selectedStatus">
+      <div class="options">
       <ix-select-item
         *ngFor="let enum of orderStatus | keyvalue"
         label="{{ enum.value }}"
@@ -10,10 +11,11 @@
       </ix-select-item>
       <ix-select-item label="All" value="All" (click)="onStatusChange('All')">
       </ix-select-item>
+    </div>
     </ix-select>
   </div>
   <div id="chartContainer" class="chart-container">
-    <ag-charts id="myChart" #myChart [options]="chartOptions"></ag-charts>
+    <ag-charts class="myChart" [options]="chartOptions"></ag-charts>
   </div>
 </ng-container>
 
